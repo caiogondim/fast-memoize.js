@@ -18,6 +18,7 @@
   "homepage": "https://github.com/caiogondim/cheap-memoize#readme",
   "devDependencies": {
     "benchmark": "^2.0.0",
-    "lodash": "^4.0.0"
+    "lodash": "^4.0.0",
+    "underscore": "^1.8.3"
   }
 }

@@ -1,26 +1,31 @@
 'use strict'
 
 let Benchmark = require('benchmark')
-let algorithm1 = require('./1')
+let memoize1 = require('./1')
+let underscore = require('underscore').memoize
 
 //
-let factorial = (num) => {
-  if (num > 1) {
-    return num * factorial(num - 1)
-  } else {
-    return 1
-  }
+// Fibonacci suite
+//
+
+let fibonacci = (n) => {
+  return n < 2 ? n: fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-let suite = new Benchmark.Suite()
+let memoized1 = memoize1(fibonacci)
+let memoizedUnderscore = underscore(fibonacci)
 
-suite
+let suiteFibonnaci = new Benchmark.Suite()
+
+suiteFibonnaci
   .add('vanilla', () => {
-    factorial(50)
+    fibonacci(15)
   })
   .add('algorithm1', () => {
-    let memoized = algorithm1(factorial)
-    memoized(50)
+    memoized1(15)
+  })
+  .add('underscore', () => {
+    memoizedUnderscore(15)
   })
   .on('cycle', (event) => {
     console.log(String(event.target))
