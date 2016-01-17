@@ -1,0 +1,19 @@
+{
+  "name": "fast-memoize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caiogondim/cheap-memoize.git"
+  },
+  "author": "Caio Gondim <me@caiogondim.com> (http://caiogondim.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caiogondim/cheap-memoize/issues"
+  },
+  "homepage": "https://github.com/caiogondim/cheap-memoize#readme"
+}
