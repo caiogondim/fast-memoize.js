@@ -4,6 +4,7 @@ let Benchmark = require('benchmark')
 let memoize1 = require('./1')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
+let memoizee = require('memoizee')
 
 //
 // Fibonacci suite
@@ -16,6 +17,7 @@ let fibonacci = (n) => {
 let memoized1 = memoize1(fibonacci)
 let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
+let memoizedMemoizee = memoizee(fibonacci)
 
 let suiteFibonnaci = new Benchmark.Suite()
 
@@ -31,6 +33,9 @@ suiteFibonnaci
   })
   .add('lodash', () => {
     memoizedLodash(15)
+  })
+  .add('memoizee', () => {
+    memoizedMemoizee(15)
   })
   .on('cycle', (event) => {
     console.log(String(event.target))
