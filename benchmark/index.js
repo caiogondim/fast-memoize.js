@@ -6,6 +6,7 @@ let memoize2 = require('./2')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
+let addyOsmani = require('./addy-osmani')
 
 //
 // Fibonacci suite
@@ -20,6 +21,7 @@ let memoized2 = memoize2(fibonacci)
 let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
+let memoizedAddyOsmani = addyOsmani(fibonacci)
 
 let suiteFibonnaci = new Benchmark.Suite()
 
@@ -41,6 +43,9 @@ suiteFibonnaci
   })
   .add('memoizee', () => {
     memoizedMemoizee(15)
+  })
+  .add('addy-osmani', () => {
+    memoizedAddyOsmani(15)
   })
   .on('cycle', (event) => {
     console.log(String(event.target))
