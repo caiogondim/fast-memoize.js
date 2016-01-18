@@ -2,6 +2,7 @@
 
 let Benchmark = require('benchmark')
 let memoize1 = require('./1')
+let memoize2 = require('./2')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
@@ -15,6 +16,7 @@ let fibonacci = (n) => {
 }
 
 let memoized1 = memoize1(fibonacci)
+let memoized2 = memoize2(fibonacci)
 let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
@@ -27,6 +29,9 @@ suiteFibonnaci
   })
   .add('algorithm1', () => {
     memoized1(15)
+  })
+  .add('algorithm2', () => {
+    memoized2(15)
   })
   .add('underscore', () => {
     memoizedUnderscore(15)
