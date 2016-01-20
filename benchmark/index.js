@@ -25,33 +25,61 @@ let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
 let memoizedAddyOsmani = addyOsmani(fibonacci)
 
-let suiteFibonnaci = new Benchmark.Suite()
+let caches = []
+caches.push(require('./cache/map'))
+caches.push(require('./cache/object'))
 
+let resolvers = []
+resolvers.push(require('./resolver/json-stringify'))
+
+let memoizers = []
+memoizers.push(require('./memoizer/index'))
+memoizers.push(require('./memoizer/optimize-for-single-argument'))
+
+let memoizedFunctions = []
+memoizers.forEach(function(memoizer) {
+  resolvers.forEach(function(resolver) {
+    caches.forEach(function(cache) {
+      memoizedFunctions.push(memoizer(fibonacci, cache, resolver))
+    })
+  })
+})
+
+let suiteFibonnaci = new Benchmark.Suite()
+let args = [5]
 suiteFibonnaci
   .add('vanilla', () => {
-    fibonacci(15)
+    fibonacci(5)
   })
   .add('algorithm1', () => {
-    memoized1(15)
+    memoized1(5)
   })
   .add('algorithm2', () => {
-    memoized2(15)
+    memoized2(5)
   })
   .add('algorithm3', () => {
-    memoized3(15)
+    memoized3(5)
   })
   .add('underscore', () => {
-    memoizedUnderscore(15)
+    memoizedUnderscore(5)
   })
   .add('lodash', () => {
-    memoizedLodash(15)
+    memoizedLodash(5)
   })
   .add('memoizee', () => {
-    memoizedMemoizee(15)
+    memoizedMemoizee(5)
   })
   .add('addy-osmani', () => {
-    memoizedAddyOsmani(15)
+    memoizedAddyOsmani(5)
   })
+
+memoizedFunctions.forEach(function(memoizedFunction) {
+  suiteFibonnaci.add(memoizedFunction._name, () => {
+    memoizedFunction(5)
+  })
+})
+
+suiteFibonnaci
   .on('cycle', (event) => {
     console.log(String(event.target))
   })
