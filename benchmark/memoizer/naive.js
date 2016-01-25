@@ -13,7 +13,7 @@ module.exports = function memoizer1(fn, Cache, resolver) {
   }
 
   memoized._cache = new Cache()
-  memoized._name = 'memoizer: Naive, cache: ' + memoized._cache._name + ', resolver: ' + resolver._name
+  memoized._name = 'memoizer: Naive, cache: ' + memoized._cache._name + ', serializer: ' + resolver._name
 
   return memoized
 }

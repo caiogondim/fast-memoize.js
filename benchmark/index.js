@@ -30,8 +30,8 @@ caches.push(require('./cache/map'))
 caches.push(require('./cache/object'))
 caches.push(require('./cache/isaacs-lru-cache'))
 
-let resolvers = []
-resolvers.push(require('./resolver/json-stringify'))
+let serializers = []
+serializers.push(require('./serializer/json-stringify'))
 
 let memoizers = []
 memoizers.push(require('./memoizer/naive'))
@@ -39,7 +39,7 @@ memoizers.push(require('./memoizer/optimize-for-single-argument'))
 
 let memoizedFunctions = []
 memoizers.forEach(function(memoizer) {
-  resolvers.forEach(function(resolver) {
+  serializers.forEach(function(resolver) {
     caches.forEach(function(cache) {
       memoizedFunctions.push(memoizer(fibonacci, cache, resolver))
     })

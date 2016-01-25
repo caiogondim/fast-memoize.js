@@ -5,5 +5,4 @@ function jsonStringify() {
 }
 
 jsonStringify._name = 'jsonStringify'
-
 module.exports = jsonStringify
