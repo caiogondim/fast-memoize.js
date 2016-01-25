@@ -34,7 +34,7 @@ let resolvers = []
 resolvers.push(require('./resolver/json-stringify'))
 
 let memoizers = []
-memoizers.push(require('./memoizer/index'))
+memoizers.push(require('./memoizer/naive'))
 memoizers.push(require('./memoizer/optimize-for-single-argument'))
 
 let memoizedFunctions = []
