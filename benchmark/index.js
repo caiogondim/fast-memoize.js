@@ -28,6 +28,7 @@ let memoizedAddyOsmani = addyOsmani(fibonacci)
 let caches = []
 caches.push(require('./cache/map'))
 caches.push(require('./cache/object'))
+caches.push(require('./cache/isaacs-lru-cache'))
 
 let resolvers = []
 resolvers.push(require('./resolver/json-stringify'))
@@ -46,31 +47,32 @@ memoizers.forEach(function(memoizer) {
 })
 
 let suiteFibonnaci = new Benchmark.Suite()
-let args = [5]
+let fibNumber = 15
+
 suiteFibonnaci
   .add('vanilla', () => {
-    fibonacci(5)
+    fibonacci(fibNumber)
   })
   .add('algorithm1', () => {
-    memoized1(5)
+    memoized1(fibNumber)
   })
   .add('algorithm2', () => {
-    memoized2(5)
+    memoized2(fibNumber)
   })
   .add('algorithm3', () => {
-    memoized3(5)
+    memoized3(fibNumber)
   })
   .add('underscore', () => {
-    memoizedUnderscore(5)
+    memoizedUnderscore(fibNumber)
   })
   .add('lodash', () => {
-    memoizedLodash(5)
+    memoizedLodash(fibNumber)
   })
   .add('memoizee', () => {
-    memoizedMemoizee(5)
+    memoizedMemoizee(fibNumber)
   })
   .add('addy-osmani', () => {
-    memoizedAddyOsmani(5)
+    memoizedAddyOsmani(fibNumber)
   })
 
 memoizedFunctions.forEach(function(memoizedFunction) {

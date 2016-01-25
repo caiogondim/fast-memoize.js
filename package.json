@@ -19,6 +19,7 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "lodash": "^4.0.0",
+    "lru-cache": "^4.0.0",
     "memoizee": "^0.3.9",
     "underscore": "^1.8.3"
   }
