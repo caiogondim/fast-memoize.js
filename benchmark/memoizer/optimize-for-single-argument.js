@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = function(fn, Cache, resolver) {
+module.exports = function(fn, Cache, serializer) {
 
   var memoized = function() {
     var cacheKey
@@ -8,7 +8,7 @@ module.exports = function(fn, Cache, resolver) {
     if (arguments.length === 1) {
       cacheKey = arguments[0]
     } else {
-      cacheKey = resolver(arguments)
+      cacheKey = serializer(arguments)
     }
 
     if (!memoized._cache.has(cacheKey)) {
@@ -19,7 +19,7 @@ module.exports = function(fn, Cache, resolver) {
   }
 
   memoized._cache = new Cache()
-  memoized._name = 'memoizer: Optimize for single argument, cache: ' + memoized._cache._name + ', resolver: ' + resolver._name
+  memoized._name = 'memoizer: Optimize for single argument, cache: ' + memoized._cache._name + ', serializer: ' + serializer._name
 
   return memoized
 }
