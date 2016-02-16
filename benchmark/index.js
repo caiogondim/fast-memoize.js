@@ -1,9 +1,6 @@
 'use strict'
 
 let Benchmark = require('benchmark')
-let memoize1 = require('./1')
-let memoize2 = require('./2')
-let memoize3 = require('./3')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
@@ -17,9 +14,6 @@ let fibonacci = (n) => {
   return n < 2 ? n: fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-let memoized1 = memoize1(fibonacci)
-let memoized2 = memoize2(fibonacci)
-let memoized3 = memoize3(fibonacci)
 let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
@@ -52,15 +46,6 @@ let fibNumber = 15
 suiteFibonnaci
   .add('vanilla', () => {
     fibonacci(fibNumber)
-  })
-  .add('algorithm1', () => {
-    memoized1(fibNumber)
-  })
-  .add('algorithm2', () => {
-    memoized2(fibNumber)
-  })
-  .add('algorithm3', () => {
-    memoized3(fibNumber)
   })
   .add('underscore', () => {
     memoizedUnderscore(fibNumber)
