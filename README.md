@@ -2,6 +2,8 @@
 
 # fast-memoize
 
+<img src="https://travis-ci.org/caiogondim/fast-memoize.svg?branch=master" alt="Travis CI"> <img src="https://david-dm.org/caiogondim/fast-memoize/dev-status.svg" alt="David DM">
+
 ## Benchmark
 
 This lib tries to be the fast memoization possible that supports `N` arguments.
