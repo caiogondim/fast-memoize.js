@@ -1,8 +1,7 @@
 'use strict'
 
-module.exports = function(fn, Cache, serializer) {
-
-  var memoized = function() {
+module.exports = function (fn, Cache, serializer) {
+  var memoized = function () {
     var cacheKey
 
     if (arguments.length === 1) {

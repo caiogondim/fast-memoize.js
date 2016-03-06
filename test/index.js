@@ -6,8 +6,8 @@ const memoize = require('../src')
 tap.test('speed', (test) => {
   // Vanilla Fibonacci
 
-  function vanillaFibonacci(n) {
-    return n < 2 ? n: vanillaFibonacci(n - 1) + vanillaFibonacci(n - 2)
+  function vanillaFibonacci (n) {
+    return n < 2 ? n : vanillaFibonacci(n - 1) + vanillaFibonacci(n - 2)
   }
 
   const vanillaExecTimeStart = Date.now()
@@ -16,8 +16,8 @@ tap.test('speed', (test) => {
 
   // Memoized
 
-  function fibonacci(n) {
-    return n < 2 ? n: fibonacci(n - 1) + fibonacci(n - 2)
+  let fibonacci = function (n) {
+    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
   }
 
   fibonacci = memoize(fibonacci)
@@ -37,7 +37,7 @@ tap.test('speed', (test) => {
 })
 
 tap.test('memoize functions with single arguments', (test) => {
-  function plusPlus(number) {
+  function plusPlus (number) {
     return number + 1
   }
 
@@ -51,17 +51,17 @@ tap.test('memoize functions with single arguments', (test) => {
 })
 
 tap.test('memoize functions with N arguments', (test) => {
-    function nToThePower(n, power) {
-      return Math.pow(n, power)
-    }
+  function nToThePower (n, power) {
+    return Math.pow(n, power)
+  }
 
-    const memoizedNToThePower = memoize(nToThePower)
+  const memoizedNToThePower = memoize(nToThePower)
 
-    // Assertions
+  // Assertions
 
-    test.equal(memoizedNToThePower(2, 3), 8, 'first run')
-    test.equal(memoizedNToThePower(2, 3), 8, 'memoized run')
-    test.end()
+  test.equal(memoizedNToThePower(2, 3), 8, 'first run')
+  test.equal(memoizedNToThePower(2, 3), 8, 'memoized run')
+  test.end()
 })
 
 tap.test('inject custom cache', (test) => {
@@ -76,31 +76,31 @@ tap.test('inject custom cache', (test) => {
   // - set
   // - delete
   class CustomCache {
-    constructor() {
+    constructor () {
       this._cache = Object.create(null)
       this._name = 'Object'
     }
 
-    has(key) {
+    has (key) {
       hasMethodExecutionCount++
       return (key in this._cache)
     }
 
-    get(key) {
+    get (key) {
       return this._cache[key]
     }
 
-    set(key, value) {
+    set (key, value) {
       setMethodExecutionCount++
       this._cache[key] = value
     }
 
-    delete(key) {
+    delete (key) {
       delete this._cache[key]
     }
   }
 
-  function minus(a, b) {
+  function minus (a, b) {
     return a - b
   }
 
@@ -126,12 +126,12 @@ tap.test('inject custom cache', (test) => {
 tap.test('inject custom serializer', (test) => {
   let serializerMethodExecutionCount = 0
 
-  function serializer() {
+  function serializer () {
     serializerMethodExecutionCount++
     return JSON.stringify(arguments)
   }
 
-  function minus(a, b) {
+  function minus (a, b) {
     return a - b
   }
 

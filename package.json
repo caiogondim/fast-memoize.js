@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tap test/*.js --cov --reporter=spec",
+    "test": "standard && tap test/*.js --cov --reporter=spec",
     "benchmark": "node benchmark"
   },
   "repository": {
@@ -23,7 +23,13 @@
     "logdown": "^1.2.4",
     "lru-cache": "^4.0.0",
     "memoizee": "^0.3.9",
+    "standard": "^6.0.7",
     "tap": "^5.7.0",
     "underscore": "^1.8.3"
+  },
+  "standard": {
+    "ignore": [
+      "/benchmark/addy-osmani.js"
+    ]
   }
 }

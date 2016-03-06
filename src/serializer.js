@@ -1,6 +1,6 @@
 'use strict'
 
-function jsonStringify() {
+function jsonStringify () {
   return JSON.stringify(arguments)
 }
 

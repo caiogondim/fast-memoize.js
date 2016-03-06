@@ -3,7 +3,7 @@
 var IsaacsLruCache = require('lru-cache')
 
 class LruCache extends IsaacsLruCache {
-  constructor() {
+  constructor () {
     super()
     this._name = 'isaacs-lru-cache'
   }

@@ -1,7 +1,7 @@
 'use strict'
 
 class MapCache extends Map {
-  constructor() {
+  constructor () {
     super()
     this._name = 'Map'
   }

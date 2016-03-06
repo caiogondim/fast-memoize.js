@@ -7,13 +7,12 @@ let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
 let addyOsmani = require('./addy-osmani')
 
-
 //
 // Fibonacci suite
 //
 
 let fibonacci = (n) => {
-  return n < 2 ? n: fibonacci(n - 1) + fibonacci(n - 2)
+  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
 let memoizedUnderscore = underscore(fibonacci)
@@ -34,9 +33,9 @@ strategies.push(require('./strategy/naive'))
 strategies.push(require('./strategy/optimize-for-single-argument'))
 
 let memoizedFunctions = []
-strategies.forEach(function(strategy) {
-  serializers.forEach(function(resolver) {
-    caches.forEach(function(cache) {
+strategies.forEach(function (strategy) {
+  serializers.forEach(function (resolver) {
+    caches.forEach(function (cache) {
       memoizedFunctions.push(strategy(fibonacci, cache, resolver))
     })
   })
@@ -62,7 +61,7 @@ suiteFibonnaci
     memoizedAddyOsmani(fibNumber)
   })
 
-memoizedFunctions.forEach(function(memoizedFunction) {
+memoizedFunctions.forEach(function (memoizedFunction) {
   suiteFibonnaci.add(memoizedFunction._name, () => {
     memoizedFunction(5)
   })
@@ -74,7 +73,7 @@ suiteFibonnaci
       .replace(/(.*)\ x/, (match, p1) => `\`${p1}\` x`)
     debug.log(currentRunning)
   })
-  .on('complete', function() {
+  .on('complete', function () {
     debug.log()
     debug.log(`Fastest is \`${this.filter('fastest').map('name')}\``)
   })

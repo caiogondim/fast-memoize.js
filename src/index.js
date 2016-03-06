@@ -3,8 +3,7 @@
 const CacheDefault = require('./cache')
 const serializerDefault = require('./serializer')
 
-function memoize(fn, Cache, serializer) {
-
+function memoize (fn, Cache, serializer) {
   if (!Cache) {
     Cache = CacheDefault
   }
@@ -12,7 +11,7 @@ function memoize(fn, Cache, serializer) {
     serializer = serializerDefault
   }
 
-  function memoized() {
+  function memoized () {
     let cacheKey
 
     if (arguments.length === 1) {
