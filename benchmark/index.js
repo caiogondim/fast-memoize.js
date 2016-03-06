@@ -1,10 +1,12 @@
 'use strict'
 
+const debug = require('logdown')()
 let Benchmark = require('benchmark')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
 let addyOsmani = require('./addy-osmani')
+
 
 //
 // Fibonacci suite
@@ -68,9 +70,12 @@ memoizedFunctions.forEach(function(memoizedFunction) {
 
 suiteFibonnaci
   .on('cycle', (event) => {
-    console.log(String(event.target))
+    const currentRunning = String(event.target)
+      .replace(/(.*)\ x/, (match, p1) => `\`${p1}\` x`)
+    debug.log(currentRunning)
   })
   .on('complete', function() {
-    console.log('Fastest is ' + this.filter('fastest').map('name'))
+    debug.log()
+    debug.log(`Fastest is \`${this.filter('fastest').map('name')}\``)
   })
   .run({'async': true})
