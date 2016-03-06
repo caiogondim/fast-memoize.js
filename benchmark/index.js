@@ -29,15 +29,15 @@ caches.push(require('./cache/isaacs-lru-cache'))
 let serializers = []
 serializers.push(require('./serializer/json-stringify'))
 
-let memoizers = []
-memoizers.push(require('./memoizer/naive'))
-memoizers.push(require('./memoizer/optimize-for-single-argument'))
+let strategies = []
+strategies.push(require('./strategy/naive'))
+strategies.push(require('./strategy/optimize-for-single-argument'))
 
 let memoizedFunctions = []
-memoizers.forEach(function(memoizer) {
+strategies.forEach(function(strategy) {
   serializers.forEach(function(resolver) {
     caches.forEach(function(cache) {
-      memoizedFunctions.push(memoizer(fibonacci, cache, resolver))
+      memoizedFunctions.push(strategy(fibonacci, cache, resolver))
     })
   })
 })
