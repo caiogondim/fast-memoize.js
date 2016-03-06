@@ -19,7 +19,7 @@ module.exports = function(fn, Cache, serializer) {
   }
 
   memoized._cache = new Cache()
-  memoized._name = 'memoizer: Optimize for single argument, cache: ' + memoized._cache._name + ', serializer: ' + serializer._name
+  memoized._name = 'strategy: Optimize for single argument, cache: ' + memoized._cache._name + ', serializer: ' + serializer._name
 
   return memoized
 }
