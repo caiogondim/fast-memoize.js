@@ -1,8 +1,8 @@
 {
   "name": "fast-memoize",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Fastest memoization lib that supports N arguments",
+  "main": "src/index.js",
   "scripts": {
     "test": "standard && tap test/*.js --cov --reporter=spec",
     "benchmark": "node benchmark"
