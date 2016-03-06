@@ -1,0 +1,4 @@
+benchmark/
+img/
+test/
+.travis.yml
