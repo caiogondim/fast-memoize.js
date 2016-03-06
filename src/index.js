@@ -5,8 +5,12 @@ const serializerDefault = require('./serializer')
 
 function memoize(fn, Cache, serializer) {
 
-  Cache = Cache || CacheDefault
-  serializer = serializer || serializerDefault
+  if (!Cache) {
+    Cache = CacheDefault
+  }
+  if (!serializer) {
+    serializer = serializerDefault
+  }
 
   function memoized() {
     let cacheKey

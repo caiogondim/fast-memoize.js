@@ -3,7 +3,7 @@
 const tap = require('tap')
 const memoize = require('../src')
 
-tap.test('memoized function should be faster than original', (test) => {
+tap.test('speed', (test) => {
   // Vanilla Fibonacci
 
   function vanillaFibonacci(n) {
@@ -29,7 +29,10 @@ tap.test('memoized function should be faster than original', (test) => {
 
   // Assertion
 
-  test.ok((memoizedExecTime < vanillaExecTime))
+  test.ok(
+    (memoizedExecTime < vanillaExecTime),
+    'memoized function should be faster than original'
+  )
   test.end()
 })
 
@@ -42,10 +45,8 @@ tap.test('memoize functions with single arguments', (test) => {
 
   // Assertions
 
-  test.equal(memoizedPlusPlus(1), 2)
-  test.equal(memoizedPlusPlus(1), 2) // Hits the cache
-  test.equal(memoizedPlusPlus(2), 3)
-  test.equal(memoizedPlusPlus(2), 3) // Hits the cache
+  test.equal(memoizedPlusPlus(1), 2, 'first run')
+  test.equal(memoizedPlusPlus(1), 2, 'memoized run')
   test.end()
 })
 
@@ -58,10 +59,8 @@ tap.test('memoize functions with N arguments', (test) => {
 
     // Assertions
 
-    test.equal(memoizedNToThePower(2, 3), 8)
-    test.equal(memoizedNToThePower(2, 3), 8) // Hits the cache
-    test.equal(memoizedNToThePower(3, 2), 9)
-    test.equal(memoizedNToThePower(3, 2), 9) // Hits the cache
+    test.equal(memoizedNToThePower(2, 3), 8, 'first run')
+    test.equal(memoizedNToThePower(2, 3), 8, 'memoized run')
     test.end()
 })
 
@@ -111,8 +110,16 @@ tap.test('inject custom cache', (test) => {
 
   // Assertions
 
-  test.equal(hasMethodExecutionCount, 2)
-  test.equal(setMethodExecutionCount, 1)
+  test.equal(
+    hasMethodExecutionCount,
+    2,
+    'cache.has method from custom cache should be called'
+  )
+  test.equal(
+    setMethodExecutionCount,
+    1,
+    'set.has method from custom cache should be called'
+  )
   test.end()
 })
 
@@ -134,6 +141,10 @@ tap.test('inject custom serializer', (test) => {
 
   // Assertions
 
-  test.equal(serializerMethodExecutionCount, 2)
+  test.equal(
+    serializerMethodExecutionCount,
+    2,
+    'custom serialized should be called'
+  )
   test.end()
 })

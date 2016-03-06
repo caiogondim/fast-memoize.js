@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test -- --cov",
+    "test": "tap test/*.js --cov --reporter=spec",
     "benchmark": "node benchmark"
   },
   "repository": {
