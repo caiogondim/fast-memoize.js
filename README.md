@@ -17,7 +17,7 @@ very fast enough** or accept **only one argument**.
 
 To use the library, install it through [npm](https://npmjs.com)
 
-```
+```shell
 npm install fast-memoize
 ```
 
@@ -58,6 +58,14 @@ other library but [lodash](https://lodash.com). The reason why is that
 [lodash](https://lodash.com) does not support *N* arguments and is very
 optimized to that unique use case. But even though, *fast-memoize* is the
 library that supports *N* that comes closer to it.
+
+To run the benchmark, clone the repo, install the dependencies and run `npm run benchmark`.
+```shell
+git clone git@github.com:caiogondim/fast-memoize.git
+cd fast-memoize
+npm install
+npm run benchmark
+```
 
 ## Reference
 - https://talideon.com/weblog/2005/07/javascript-memoization.cfm
