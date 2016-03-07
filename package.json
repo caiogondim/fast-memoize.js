@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/caiogondim/cheap-memoize.git"
+    "url": "git+https://github.com/caiogondim/fast-memoize.git"
   },
   "author": "Caio Gondim <me@caiogondim.com> (http://caiogondim.com)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/caiogondim/cheap-memoize/issues"
+    "url": "https://github.com/caiogondim/fast-memoize/issues"
   },
-  "homepage": "https://github.com/caiogondim/cheap-memoize#readme",
+  "homepage": "https://github.com/caiogondim/fast-memoize#readme",
   "devDependencies": {
     "benchmark": "^2.0.0",
     "lodash": "^4.0.0",
