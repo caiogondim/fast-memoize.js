@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "standard && tap test/*.js --cov --reporter=spec",
+    "build": "webpack",
     "benchmark": "node benchmark"
   },
   "repository": {
@@ -25,7 +26,8 @@
     "memoizee": "^0.3.9",
     "standard": "^6.0.7",
     "tap": "^5.7.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "webpack": "^1.13.1"
   },
   "standard": {
     "ignore": [
