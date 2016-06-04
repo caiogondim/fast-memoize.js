@@ -4,7 +4,7 @@
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
   "scripts": {
-    "test": "standard && tap test/*.js --cov --reporter=spec",
+    "test": "standard src/* test/* && tap test/*.js --cov --reporter=spec",
     "build": "webpack",
     "benchmark": "node benchmark"
   },
