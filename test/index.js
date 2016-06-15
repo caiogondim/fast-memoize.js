@@ -1,6 +1,6 @@
 'use strict'
 
-const tap = require('tap')
+const tap = require('tape')
 const memoize = require('../src')
 
 tap.test('speed', (test) => {
