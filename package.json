@@ -22,6 +22,7 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "karma": "^0.13.22",
+    "karma-firefox-launcher": "^1.0.0",
     "karma-tap": "^1.0.4",
     "karma-webpack": "^1.7.0",
     "lodash": "^4.0.0",
