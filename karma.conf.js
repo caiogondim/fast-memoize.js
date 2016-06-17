@@ -31,6 +31,11 @@ module.exports = function(config) {
       'Firefox',
       'Safari'
     ],
-    singleRun: false
+    singleRun: false,
+
+    // To avoid DISCONNECTED messages
+    browserDisconnectTimeout : 10000,
+    browserDisconnectTolerance : 1,
+    browserNoActivityTimeout : 60000
   })
 };
