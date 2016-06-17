@@ -2,7 +2,7 @@
 
 # fast-memoize
 
-<img src="https://travis-ci.org/caiogondim/fast-memoize.svg?branch=master" alt="Travis CI"> <img src="https://david-dm.org/caiogondim/fast-memoize/dev-status.svg" alt="David DM">
+<img src="http://travis-ci.org/caiogondim/fast-memoize.js.svg?branch=master" alt="Travis CI"> <img src="http://david-dm.org/caiogondim/fast-memoize.js/dev-status.svg" alt="David DM">
 
 > In computing, memoization is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
 > — Wikipedia
