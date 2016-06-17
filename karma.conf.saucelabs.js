@@ -57,7 +57,7 @@ module.exports = function(config) {
     webpackMiddleware: {
       noInfo: true
     },
-    reporters: [ 'dots' ],
+    reporters: ['dots', 'saucelabs'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
