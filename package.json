@@ -24,6 +24,7 @@
     "karma": "^0.13.22",
     "karma-firefox-launcher": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
+    "karma-sauce-launcher": "^1.0.0",
     "karma-tap": "^1.0.4",
     "karma-webpack": "^1.7.0",
     "lodash": "^4.0.0",
