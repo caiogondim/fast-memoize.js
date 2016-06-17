@@ -26,6 +26,18 @@ var sauceLabsConf = {
       version: 'latest',
       platform: 'Windows 10'
     },
+    'sl_safari_8': {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.10',
+      version: '8'
+    },
+    'sl_safari_9': {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.11',
+      version: '9'
+    },
     sl_safari_ios_latest: {
       base: 'SauceLabs',
       browserName: 'safari',
