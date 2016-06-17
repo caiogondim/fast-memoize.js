@@ -1,3 +1,5 @@
+// Config file used as example: https://github.com/angular/angular.js/blob/master/karma-shared.conf.js
+
 var package = require('./package.json')
 var debug = require('logdown')('Karma')
 
@@ -23,6 +25,13 @@ var sauceLabsConf = {
       browserName: 'firefox',
       version: 'latest',
       platform: 'Windows 10'
+    },
+    sl_safari_ios_latest: {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.10',
+      version: 'latest',
+      deviceName: 'iPhone 6 Plus'
     }
   }
 }
