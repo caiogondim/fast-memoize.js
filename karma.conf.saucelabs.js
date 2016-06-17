@@ -1,4 +1,5 @@
 var package = require('./package.json')
+var debug = require('logdown')('Karma')
 
 //
 // SauceLabs conf
@@ -7,8 +8,8 @@ var package = require('./package.json')
 var sauceLabsConf = {
   sauceLabs: {
     testName: package.name,
-    username: 'caiogondim',
-    accessKey: '16e6906a-153a-4aec-a34e-00c0f7f58611'
+    username: process.env.SAUCELABS_USERNAME,
+    accessKey: process.env.SAUCELABS_ACCESS_KEY
   },
   customLaunchers: {
     sl_chrome: {
@@ -31,6 +32,11 @@ var sauceLabsConf = {
 //
 
 module.exports = function(config) {
+  if (!process.env.SAUCELABS_USERNAME || !process.env.SAUCELABS_ACCESS_KEY) {
+    debug.error('Set env variables `SAUCELABS_USERNAME` and `SAUCELABS_ACCESS_KEY` with your SauceLabs credentials.')
+    throw new Error()
+  }
+
   var confOptions = {
     plugins: [
       require('karma-webpack'),
@@ -65,8 +71,7 @@ module.exports = function(config) {
     browserNoActivityTimeout : 60000,
   }
 
-  // SauceLabs
-
+  // Add SauceLabs browsers
   Object.assign(confOptions, sauceLabsConf)
   confOptions.browsers.push(...Object.keys(sauceLabsConf.customLaunchers))
 
