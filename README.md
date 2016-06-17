@@ -67,6 +67,10 @@ npm install
 npm run benchmark
 ```
 
+## Support
+
+![SauceLabs support matrix](http://soysauce.berabou.me/u/caiogondim.svg)
+
 ## Reference
 - https://talideon.com/weblog/2005/07/javascript-memoization.cfm
 - https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
