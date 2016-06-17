@@ -1,10 +1,11 @@
 'use strict'
 
-class MapCache extends Map {
-  constructor () {
-    super()
-    this._name = 'Map'
-  }
+function create () {
+  var cache = new Map()
+  cache._name = 'Map'
+  return cache
 }
 
-module.exports = MapCache
+module.exports = {
+  create: create
+}

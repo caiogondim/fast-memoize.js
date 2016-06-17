@@ -1,31 +1,31 @@
 'use strict'
 
-const tap = require('tape')
-const memoize = require('../src')
+var tap = require('tape')
+var memoize = require('../src')
 
-tap.test('speed', (test) => {
+tap.test('speed', function (test) {
   // Vanilla Fibonacci
 
   function vanillaFibonacci (n) {
     return n < 2 ? n : vanillaFibonacci(n - 1) + vanillaFibonacci(n - 2)
   }
 
-  const vanillaExecTimeStart = Date.now()
+  var vanillaExecTimeStart = Date.now()
   vanillaFibonacci(35)
-  const vanillaExecTime = Date.now() - vanillaExecTimeStart
+  var vanillaExecTime = Date.now() - vanillaExecTimeStart
 
   // Memoized
 
-  let fibonacci = function (n) {
+  var fibonacci = function (n) {
     return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
   }
 
   fibonacci = memoize(fibonacci)
-  const memoizedFibonacci = fibonacci
+  var memoizedFibonacci = fibonacci
 
-  const memoizedExecTimeStart = Date.now()
+  var memoizedExecTimeStart = Date.now()
   memoizedFibonacci(35)
-  const memoizedExecTime = Date.now() - memoizedExecTimeStart
+  var memoizedExecTime = Date.now() - memoizedExecTimeStart
 
   // Assertion
 
@@ -36,12 +36,12 @@ tap.test('speed', (test) => {
   test.end()
 })
 
-tap.test('memoize functions with single arguments', (test) => {
+tap.test('memoize functions with single arguments', function (test) {
   function plusPlus (number) {
     return number + 1
   }
 
-  const memoizedPlusPlus = memoize(plusPlus)
+  var memoizedPlusPlus = memoize(plusPlus)
 
   // Assertions
 
@@ -50,12 +50,12 @@ tap.test('memoize functions with single arguments', (test) => {
   test.end()
 })
 
-tap.test('memoize functions with N arguments', (test) => {
+tap.test('memoize functions with N arguments', function (test) {
   function nToThePower (n, power) {
     return Math.pow(n, power)
   }
 
-  const memoizedNToThePower = memoize(nToThePower)
+  var memoizedNToThePower = memoize(nToThePower)
 
   // Assertions
 
@@ -64,39 +64,39 @@ tap.test('memoize functions with N arguments', (test) => {
   test.end()
 })
 
-tap.test('inject custom cache', (test) => {
+tap.test('inject custom cache', function (test) {
   'use strict'
 
-  let hasMethodExecutionCount = 0
-  let setMethodExecutionCount = 0
+  var hasMethodExecutionCount = 0
+  var setMethodExecutionCount = 0
 
   // a custom cache instance must implement:
   // - has
   // - get
   // - set
   // - delete
-  class CustomCache {
-    constructor () {
-      this._cache = Object.create(null)
-      this._name = 'Object'
-    }
-
-    has (key) {
+  var customCacheProto = {
+    has: function (key) {
       hasMethodExecutionCount++
       return (key in this._cache)
-    }
-
-    get (key) {
+    },
+    get: function (key) {
       return this._cache[key]
-    }
-
-    set (key, value) {
+    },
+    set: function (key, value) {
       setMethodExecutionCount++
       this._cache[key] = value
-    }
-
-    delete (key) {
+    },
+    delete: function (key) {
       delete this._cache[key]
+    },
+    _name: 'Object'
+  }
+  var customCache = {
+    create: function () {
+      var cache = Object.create(customCacheProto)
+      cache._cache = Object.create(null)
+      return cache
     }
   }
 
@@ -104,7 +104,7 @@ tap.test('inject custom cache', (test) => {
     return a - b
   }
 
-  const memoizedMinus = memoize(minus, CustomCache)
+  var memoizedMinus = memoize(minus, customCache)
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 
@@ -123,8 +123,8 @@ tap.test('inject custom cache', (test) => {
   test.end()
 })
 
-tap.test('inject custom serializer', (test) => {
-  let serializerMethodExecutionCount = 0
+tap.test('inject custom serializer', function (test) {
+  var serializerMethodExecutionCount = 0
 
   function serializer () {
     serializerMethodExecutionCount++
@@ -135,7 +135,7 @@ tap.test('inject custom serializer', (test) => {
     return a - b
   }
 
-  const memoizedMinus = memoize(minus, null, serializer)
+  var memoizedMinus = memoize(minus, null, serializer)
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 

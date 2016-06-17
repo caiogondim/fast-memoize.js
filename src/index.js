@@ -1,18 +1,18 @@
 'use strict'
 
-const CacheDefault = require('./cache')
-const serializerDefault = require('./serializer')
+var cacheDefault = require('./cache')
+var serializerDefault = require('./serializer')
 
-function memoize (fn, Cache, serializer) {
-  if (!Cache) {
-    Cache = CacheDefault
+function memoize (fn, cache, serializer) {
+  if (!cache) {
+    cache = cacheDefault
   }
   if (!serializer) {
     serializer = serializerDefault
   }
 
   function memoized () {
-    let cacheKey
+    var cacheKey
 
     if (arguments.length === 1) {
       cacheKey = arguments[0]
@@ -27,7 +27,7 @@ function memoize (fn, Cache, serializer) {
     return memoized._cache.get(cacheKey)
   }
 
-  memoized._cache = new Cache()
+  memoized._cache = cache.create()
 
   return memoized
 }
