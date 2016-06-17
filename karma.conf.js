@@ -4,7 +4,8 @@ module.exports = function(config) {
       require('karma-webpack'),
       require('karma-tap'),
       require('karma-chrome-launcher'),
-      require('karma-firefox-launcher')
+      require('karma-firefox-launcher'),
+      require('karma-safari-launcher')
     ],
     basePath: '',
     frameworks: [ 'tap' ],
@@ -25,7 +26,11 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', 'Firefox'],
+    browsers: [
+      'Chrome',
+      'Firefox',
+      'Safari'
+    ],
     singleRun: false
   })
 };
