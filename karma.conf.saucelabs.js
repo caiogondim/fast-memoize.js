@@ -18,13 +18,13 @@ var sauceLabsConf = {
       base: 'SauceLabs',
       browserName: 'chrome',
       version: 'latest',
-      platform: 'Windows 10'
+      platform: 'OS X 10.11'
     },
     sl_firefox: {
       base: 'SauceLabs',
       browserName: 'firefox',
       version: 'latest',
-      platform: 'Windows 10'
+      platform: 'OS X 10.11'
     },
     'sl_safari_8': {
       base: 'SauceLabs',
