@@ -43,7 +43,16 @@ var sauceLabsConf = {
       browserName: 'safari',
       platform: 'OS X 10.10',
       version: 'latest',
-      deviceName: 'iPhone 6 Plus'
+      deviceName: 'iPhone 6',
+      deviceOrientation: 'portrait'
+    },
+    sl_ios_8: {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.11',
+      version: '8.4',
+      deviceName: 'iPhone 6',
+      deviceOrientation: 'portrait'
     }
   }
 }
