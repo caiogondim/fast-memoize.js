@@ -32,12 +32,12 @@ bundler. No favorite yet? Try: [Browserify](http://browserify.org/),
 ```js
 const memoize = require('fast-memoize')
 
-const fn = function (one, two, three) { /* ... */ };
+const fn = function (one, two, three) { /* ... */ }
 
-memoized = memoize(fn);
+memoized = memoize(fn)
 
-memoized('foo', 3, 'bar');
-memoized('foo', 3, 'bar'); // Cache hit
+memoized('foo', 3, 'bar')
+memoized('foo', 3, 'bar') // Cache hit
 ```
 
 ## Benchmark
