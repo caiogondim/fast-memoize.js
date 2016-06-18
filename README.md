@@ -34,7 +34,7 @@ const memoize = require('fast-memoize')
 
 const fn = function (one, two, three) { /* ... */ }
 
-memoized = memoize(fn)
+const memoized = memoize(fn)
 
 memoized('foo', 3, 'bar')
 memoized('foo', 3, 'bar') // Cache hit
