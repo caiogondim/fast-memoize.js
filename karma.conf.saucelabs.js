@@ -53,7 +53,13 @@ var sauceLabsConf = {
       version: '8.4',
       deviceName: 'iPhone 6',
       deviceOrientation: 'portrait'
-    }
+    },
+    sl_ie_11: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 10',
+      version: '11'
+    },
   }
 }
 
