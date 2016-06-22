@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard src/* test/* && tape test/*.js --cov --reporter=spec",
     "test:karma": "karma start --singleRun",
-    "test:saucelabs": "karma start karma.conf.saucelabs.js --singleRun",
+    "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
     "build": "webpack",
     "benchmark": "node benchmark"
   },
