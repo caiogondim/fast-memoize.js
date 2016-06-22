@@ -60,6 +60,24 @@ var sauceLabsConf = {
       platform: 'Windows 10',
       version: '11'
     },
+    sl_ie_10: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 2012',
+      version: '10'
+    },
+    sl_ie_9: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 2008',
+      version: '9'
+    },
+    sl_ie_8: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 7',
+      version: '8'
+    },
   }
 }
 
