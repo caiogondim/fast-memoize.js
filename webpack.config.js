@@ -1,9 +1,9 @@
 module.exports = {
   output: {
-    library: 'cheapMemoize',
+    library: 'fastMemoize',
     libraryTarget: 'umd',
     path: './dist',
-    filename: 'cheap-memoize.js'
+    filename: 'fast-memoize.js'
   },
   entry: {
     library: './src/index.js'

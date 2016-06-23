@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["cheapMemoize"] = factory();
+		exports["fastMemoize"] = factory();
 	else
-		root["cheapMemoize"] = factory();
+		root["fastMemoize"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -56,19 +56,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict'
 
-	const CacheDefault = __webpack_require__(1)
-	const serializerDefault = __webpack_require__(2)
+	var cacheDefault = __webpack_require__(1)
+	var serializerDefault = __webpack_require__(4)
 
-	function memoize (fn, Cache, serializer) {
-	  if (!Cache) {
-	    Cache = CacheDefault
+	function memoize (fn, cache, serializer) {
+	  if (!cache) {
+	    cache = cacheDefault
 	  }
 	  if (!serializer) {
 	    serializer = serializerDefault
 	  }
 
 	  function memoized () {
-	    let cacheKey
+	    var cacheKey
 
 	    if (arguments.length === 1) {
 	      cacheKey = arguments[0]
@@ -83,7 +83,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return memoized._cache.get(cacheKey)
 	  }
 
-	  memoized._cache = new Cache()
+	  memoized._cache = cache.create()
 
 	  return memoized
 	}
@@ -93,22 +93,98 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
 
-	class MapCache extends Map {
-	  constructor () {
-	    super()
-	    this._name = 'Map'
+	var mapCache = __webpack_require__(2)
+	var objectCache = __webpack_require__(3)
+
+	function create () {
+	  var cache
+
+	  if (mapCache.hasSupport()) {
+	    cache = mapCache.create()
+	  } else {
+	    cache = objectCache.create()
 	  }
+
+	  return cache
 	}
 
-	module.exports = MapCache
+	module.exports = {
+	  create: create
+	}
 
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	'use strict'
+
+	function hasSupport () {
+	  var hasSupport = true
+
+	  try {
+	    eval('new Map()')
+	  } catch (error) {
+	    hasSupport = false
+	  } finally {
+	    return hasSupport
+	  }
+	}
+
+	function create () {
+	  var cache = new Map()
+	  cache._name = 'Map'
+	  return cache
+	}
+
+	module.exports = {
+	  create: create,
+	  hasSupport: hasSupport
+	}
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict'
+
+	function ObjectCache () {
+	  this._cache = {}
+	  // Removing prototype makes key lookup faster.
+	  this._cache.prototype = null
+	  this._name = 'Object'
+	}
+
+	ObjectCache.prototype.has = function (key) {
+	  return (key in this._cache)
+	}
+
+	ObjectCache.prototype.get = function (key) {
+	  return this._cache[key]
+	}
+
+	ObjectCache.prototype.set = function (key, value) {
+	  this._cache[key] = value
+	}
+
+	ObjectCache.prototype.delete = function (key) {
+	  delete this._cache[key]
+	}
+
+	module.exports = {
+	  create: function () {
+	    return new ObjectCache()
+	  }
+	}
+
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict'
