@@ -6,6 +6,8 @@
   "scripts": {
     "test:lint": "standard src/* test/*",
     "test": "tape test/*.js --cov --reporter=spec",
+    "test:coverage": "covert test/*.js",
+    "test:cov": "npm run test:coverage",
     "test:karma": "karma start --singleRun",
     "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
     "build": "webpack",
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/caiogondim/fast-memoize#readme",
   "devDependencies": {
     "benchmark": "^2.0.0",
+    "covert": "^1.1.0",
     "karma": "^0.13.22",
     "karma-firefox-launcher": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
