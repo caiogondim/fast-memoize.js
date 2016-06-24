@@ -1,3 +1,2 @@
-[ ] Support enviroments without `Map`
-[ ] second arguments as objec
+[ ] Second arguments as obj
 [ ] Test other serialization libs https://www.npmjs.com/package/msgpack-lite
