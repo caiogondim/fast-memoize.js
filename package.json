@@ -12,7 +12,9 @@
     "test:all": "npm run test:lint && npm test && npm run test:karma",
     "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
     "build": "webpack",
-    "benchmark": "node benchmark"
+    "benchmark": "node benchmark",
+    "preversion": "npm run test:all",
+    "version": "npm run build && git add ."
   },
   "repository": {
     "type": "git",
