@@ -13,6 +13,7 @@ var sauceLabsConf = {
     username: process.env.SAUCELABS_USERNAME,
     accessKey: process.env.SAUCELABS_ACCESS_KEY
   },
+  concurrency: 1,
   customLaunchers: {
     sl_chrome: {
       base: 'SauceLabs',
