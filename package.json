@@ -4,11 +4,12 @@
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
   "scripts": {
-    "test:lint": "standard src/* test/*",
     "test": "tape test/*.js --cov --reporter=spec",
+    "test:lint": "standard src/* test/*",
     "test:coverage": "covert test/*.js",
     "test:cov": "npm run test:coverage",
     "test:karma": "karma start --singleRun",
+    "test:all": "npm run test:lint && npm test && npm run test:karma",
     "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
     "build": "webpack",
     "benchmark": "node benchmark"
