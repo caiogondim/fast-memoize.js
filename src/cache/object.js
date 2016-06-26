@@ -19,7 +19,8 @@ ObjectCache.prototype.set = function (key, value) {
   this._cache[key] = value
 }
 
-ObjectCache.prototype.delete = function (key) {
+// IE8 crashes if we use a method called `delete` with dot-notation.
+ObjectCache.prototype['delete'] = function (key) {
   delete this._cache[key]
 }
 
