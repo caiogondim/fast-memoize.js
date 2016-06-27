@@ -6,6 +6,8 @@ let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
 let addyOsmani = require('./addy-osmani')
+const fastMemoize = require('../src/')
+const packageJSON = require('../package.json')
 
 //
 // Fibonacci suite
@@ -19,6 +21,7 @@ let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
 let memoizedAddyOsmani = addyOsmani(fibonacci)
+const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 let caches = []
 caches.push(require('./cache/map'))
@@ -59,6 +62,9 @@ suiteFibonnaci
   })
   .add('addy-osmani', () => {
     memoizedAddyOsmani(fibNumber)
+  })
+  .add(`fast-memoize v${packageJSON.version}`, () => {
+    memoizedFastMemoizeCurrentVersion(fibNumber)
   })
 
 memoizedFunctions.forEach(function (memoizedFunction) {
