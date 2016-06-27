@@ -52,7 +52,7 @@ library that supports *N* arguments, but is not even close on performance to
 Below you can see a performance benchmark between some of the most popular libraries
 for memoization.
 
-<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark.png" width="100%" />
+<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-chart.png" width="100%" />
 
 [fast-memoize](https://github.com/caiogondim/fast-memoize) is faster than any
 other library but [lodash](https://lodash.com). The reason why is that
@@ -67,6 +67,8 @@ cd fast-memoize
 npm install
 npm run benchmark
 ```
+
+<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.png" width="100%" />
 
 ## Support
 
