@@ -12,7 +12,7 @@ This library is an attempt to make the **fastest possible memoization library in
 JavaScript that supports *N* arguments**.
 
 There are already very popular solutions for this problem, but they are **not
-very fast enough** or accept **only one argument**.
+fast enough** or accept **only one argument**.
 
 ## Installation
 
