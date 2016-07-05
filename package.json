@@ -14,7 +14,7 @@
     "build": "webpack",
     "benchmark": "node benchmark",
     "preversion": "npm run test:all",
-    "version": "npm run build && git add ."
+    "version": "npm run build && git add dist/"
   },
   "repository": {
     "type": "git",
