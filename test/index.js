@@ -104,7 +104,9 @@ tap.test('inject custom cache', function (test) {
     return a - b
   }
 
-  var memoizedMinus = memoize(minus, customCache)
+  var memoizedMinus = memoize(minus, {
+    cache: customCache
+  })
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 
@@ -135,7 +137,9 @@ tap.test('inject custom serializer', function (test) {
     return a - b
   }
 
-  var memoizedMinus = memoize(minus, null, serializer)
+  var memoizedMinus = memoize(minus, {
+    serializer: serializer
+  })
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 

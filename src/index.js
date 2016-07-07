@@ -3,11 +3,19 @@
 var cacheDefault = require('./cache')
 var serializerDefault = require('./serializer')
 
-function memoize (fn, cache, serializer) {
-  if (!cache) {
+function memoize (fn, options) {
+  var cache
+  var serializer
+
+  if (options && options.cache) {
+    cache = options.cache
+  } else {
     cache = cacheDefault
   }
-  if (!serializer) {
+
+  if (options && options.serializer) {
+    serializer = options.serializer
+  } else {
     serializer = serializerDefault
   }
 
