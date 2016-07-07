@@ -59,11 +59,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	var cacheDefault = __webpack_require__(1)
 	var serializerDefault = __webpack_require__(4)
 
-	function memoize (fn, cache, serializer) {
-	  if (!cache) {
+	function memoize (fn, options) {
+	  var cache
+	  var serializer
+
+	  if (options && options.cache) {
+	    cache = options.cache
+	  } else {
 	    cache = cacheDefault
 	  }
-	  if (!serializer) {
+
+	  if (options && options.serializer) {
+	    serializer = options.serializer
+	  } else {
 	    serializer = serializerDefault
 	  }
 
@@ -127,7 +135,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var hasSupport = true
 
 	  try {
-	    eval('new Map()')
+	    var map = new Map()
+	    map.set(null)
 	  } catch (error) {
 	    hasSupport = false
 	  } finally {
