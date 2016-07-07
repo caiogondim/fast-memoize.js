@@ -40,6 +40,37 @@ memoized('foo', 3, 'bar')
 memoized('foo', 3, 'bar') // Cache hit
 ```
 
+### Custom cache
+
+The fastest cache is used for the running enviroment, but it is possible to
+pass a custom cache to be used.
+
+```js
+const memoized = memoize(fn, {
+  cache: customCache
+})
+```
+
+The custom cache must implement the following methods:
+- `get`
+- `set`
+- `has`
+- `delete`
+
+### Custom serializer
+
+To use a custom serializer:
+```js
+const memoized = memoize(fn, {
+  serializer: customSerializer
+})
+```
+
+The serializer is a function that receives one argument and outputs a string
+that represents it. It has to be a
+[deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm)
+meaning that, given one input, it always give the same output.
+
 ## Benchmark
 
 There is already plenty of libraries that does memoization on JS world.
