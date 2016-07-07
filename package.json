@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "tape test/*.js --cov --reporter=spec",
-    "test:lint": "standard src/* test/*",
+    "test:lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "test:coverage": "covert test/*.js",
     "test:cov": "npm run test:coverage",
     "test:karma": "karma start --singleRun",

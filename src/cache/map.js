@@ -4,7 +4,8 @@ function hasSupport () {
   var hasSupport = true
 
   try {
-    eval('new Map()')
+    var map = new Map()
+    map.set(null)
   } catch (error) {
     hasSupport = false
   } finally {
