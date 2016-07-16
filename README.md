@@ -127,3 +127,9 @@ npm run benchmark
 ## Credits
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
+
+--- 
+
+[caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
+GitHub [@caiogondim](https://github.com/caiogondim) &nbsp;&middot;&nbsp;
+Twitter [@caio_gondim](https://twitter.com/caio_gondim)
