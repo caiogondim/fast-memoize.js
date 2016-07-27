@@ -19,7 +19,7 @@ fast enough** or accept **only one argument**.
 To use the library, install it through [npm](https://npmjs.com)
 
 ```shell
-npm install fast-memoize
+npm install fast-memoize --save
 ```
 
 To port it to Browser or any other (non CJS) environment, use your favorite CJS
