@@ -13,7 +13,3 @@ cache:
 install:
   - npm i -g npm@latest
   - npm install
-
-script:
-  - npm run test:all
-  - npm run build
