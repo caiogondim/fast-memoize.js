@@ -30,6 +30,7 @@
     "benchmark": "^2.0.0",
     "covert": "^1.1.0",
     "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-sauce-launcher": "^1.0.0",
