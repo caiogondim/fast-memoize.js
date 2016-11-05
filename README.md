@@ -1,6 +1,6 @@
 <img src="http://rawgit.com/caiogondim/fast-memoize/master/img/icon.svg" width="100%" />
 
-<h1 align="center">fast-memoize</h1>
+<h1 align="center">fast-memoize.js</h1>
 
 <div align="center">
   <img src="http://travis-ci.org/caiogondim/fast-memoize.js.svg?branch=master" alt="Travis CI">  <img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="JS standard style">
