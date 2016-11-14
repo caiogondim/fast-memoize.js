@@ -10,6 +10,7 @@ function ttlCheck (cacheKey, memoized, ttl) {
   }
   // if it's not true then delete the key (if it exists) and return false
   memoized._cache.delete(cacheKey)
+  memoized._ttlcache.delete(cacheKey)
   return false
 }
 
