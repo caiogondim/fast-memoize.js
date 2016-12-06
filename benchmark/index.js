@@ -28,6 +28,7 @@ const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 let caches = []
 caches.push(require('./cache/map'))
 caches.push(require('./cache/object'))
+caches.push(require('./cache/object-without-prototype'))
 caches.push(require('./cache/isaacs-lru-cache'))
 
 let serializers = []
