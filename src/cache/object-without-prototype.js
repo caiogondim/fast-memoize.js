@@ -1,9 +1,8 @@
 'use strict'
 
-class ObjectCache {
+class ObjectWithoutPrototypeCache {
   constructor () {
-    this._cache = {}
-    this._name = 'Object'
+    this._cache = Object.create(null)
   }
 
   has (key) {
@@ -23,4 +22,7 @@ class ObjectCache {
   }
 }
 
-module.exports = ObjectCache
+module.exports = {
+  create: () => new ObjectWithoutPrototypeCache(),
+  name: 'Object without prototype'
+}

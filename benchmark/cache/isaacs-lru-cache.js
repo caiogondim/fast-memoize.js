@@ -9,4 +9,6 @@ class LruCache extends IsaacsLruCache {
   }
 }
 
-module.exports = LruCache
+module.exports = {
+  create: () => new LruCache()
+}

@@ -1,11 +1,13 @@
 'use strict'
 
-var cacheDefault = require('./cache')
-var serializerDefault = require('./serializer')
+var cacheDefault = require('./cache/object')
+var serializerDefault = require('./serializer/json-stringify')
+var strategyDefault = require('./strategy/optimize-for-single-argument')
 
 function memoize (fn, options) {
   var cache
   var serializer
+  var strategy
 
   if (options && options.cache) {
     cache = options.cache
@@ -19,25 +21,16 @@ function memoize (fn, options) {
     serializer = serializerDefault
   }
 
-  function memoized () {
-    var cacheKey
-
-    if (arguments.length === 1) {
-      cacheKey = arguments[0]
-    } else {
-      cacheKey = serializer(arguments)
-    }
-
-    if (!memoized._cache.has(cacheKey)) {
-      memoized._cache.set(cacheKey, fn.apply(this, arguments))
-    }
-
-    return memoized._cache.get(cacheKey)
+  if (options && options.strategy) {
+    strategy = options.strategy
+  } else {
+    strategy = strategyDefault
   }
 
-  memoized._cache = cache.create()
-
-  return memoized
+  return strategy(fn, {
+    cache,
+    serializer
+  })
 }
 
 module.exports = memoize
