@@ -1,4 +1,4 @@
-function strategy(fn, options) {
+function strategy (fn, options) {
   function memoized () {
     var cacheKey
 
