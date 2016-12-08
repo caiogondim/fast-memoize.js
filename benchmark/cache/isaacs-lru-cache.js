@@ -1,14 +1,8 @@
 'use strict'
 
-var IsaacsLruCache = require('lru-cache')
-
-class LruCache extends IsaacsLruCache {
-  constructor () {
-    super()
-    this._name = 'isaacs-lru-cache'
-  }
-}
+var LruCache = require('lru-cache')
 
 module.exports = {
-  create: () => new LruCache()
+  create: () => new LruCache(),
+  name: 'isaacs-lru-cache'
 }

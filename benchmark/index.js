@@ -37,6 +37,7 @@ serializers.push(require('../src/serializer/json-stringify'))
 let strategies = []
 strategies.push(require('../src/strategy/naive'))
 strategies.push(require('../src/strategy/optimize-for-single-argument'))
+strategies.push(require('../src/strategy/infer-arity'))
 
 let memoizedFunctions = []
 strategies.forEach(function (strategy) {
@@ -75,7 +76,7 @@ suiteFibonnaci
 
 memoizedFunctions.forEach(function (memoizedFunction) {
   suiteFibonnaci.add(memoizedFunction._name, () => {
-    memoizedFunction(5)
+    memoizedFunction(fibNumber)
   })
 })
 
