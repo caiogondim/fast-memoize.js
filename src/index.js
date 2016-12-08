@@ -2,7 +2,7 @@
 
 var cacheDefault = require('./cache/object')
 var serializerDefault = require('./serializer/json-stringify')
-var strategyDefault = require('./strategy/optimize-for-single-argument')
+var strategyDefault = require('./strategy/infer-arity')
 
 function memoize (fn, options) {
   var cache
