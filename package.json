@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "benchmark": "node benchmark",
+    "benchmark:solo": "node benchmark/solo.js",
     "build": "webpack",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
