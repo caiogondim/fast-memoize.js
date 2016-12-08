@@ -6,3 +6,7 @@
 - [ ] Inline code
 - [ ] Google Closure compiler to optimize code
 - [ ] Real inline code
+- [ ] Implement "optimize after fist run" strategy
+- [ ] Implement "explicit" strategy
+- [ ] Implement "single primitive" strategy
+- [ ] Implement "single non-primitive" strategy
