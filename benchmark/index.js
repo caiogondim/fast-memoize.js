@@ -24,18 +24,18 @@ let memoizedRamda = R.memoize(fibonacci)
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 let caches = []
-caches.push(require('../src/cache/map'))
-caches.push(require('../src/cache/object'))
-caches.push(require('../src/cache/object-without-prototype'))
+caches.push(require('./cache/map'))
+caches.push(require('./cache/object'))
+caches.push(require('./cache/object-without-prototype'))
 caches.push(require('./cache/isaacs-lru-cache'))
 
 let serializers = []
-serializers.push(require('../src/serializer/json-stringify'))
+serializers.push(require('./serializer/json-stringify'))
 
 let strategies = []
-strategies.push(require('../src/strategy/naive'))
-strategies.push(require('../src/strategy/optimize-for-single-argument'))
-strategies.push(require('../src/strategy/infer-arity'))
+strategies.push(require('./strategy/naive'))
+strategies.push(require('./strategy/optimize-for-single-argument'))
+strategies.push(require('./strategy/infer-arity'))
 
 let memoizedFunctions = []
 strategies.forEach(function (strategy) {

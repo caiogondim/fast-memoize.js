@@ -11,4 +11,16 @@
 - [ ] Implement "single primitive" strategy
 - [ ] Implement "single non-primitive" strategy
 - [ ] Remove names from benchmark (be polite)
-- [ ] Remove `use strict`
+
+## Steps
+- Inline
+- Explicit strategy
+- NodeJS optimizations
+- Google Closure compile
+
+
+---
+
+- bind with args
+- reflect api
+- has prop
