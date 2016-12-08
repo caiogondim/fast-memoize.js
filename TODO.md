@@ -10,7 +10,7 @@
 - [ ] Implement "explicit" strategy
 - [ ] Implement "single primitive" strategy
 - [ ] Implement "single non-primitive" strategy
-- [ ] Remove names from benchmark (be polite)
+- [ ] 100% coverage
 
 ## Steps
 - Inline
@@ -22,5 +22,5 @@
 ---
 
 - bind with args
-- reflect api
 - has prop
+  - reflect api
