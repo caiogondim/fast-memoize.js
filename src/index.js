@@ -1,5 +1,3 @@
-'use strict'
-
 var cacheDefault = require('./cache/object')
 var serializerDefault = require('./serializer/json-stringify')
 var strategyDefault = require('./strategy/infer-arity')

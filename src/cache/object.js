@@ -1,5 +1,3 @@
-'use strict'
-
 class ObjectCache {
   constructor () {
     this._cache = {}

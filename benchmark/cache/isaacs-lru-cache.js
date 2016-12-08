@@ -1,5 +1,3 @@
-'use strict'
-
 var LruCache = require('lru-cache')
 
 module.exports = {

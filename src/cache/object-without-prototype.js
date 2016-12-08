@@ -1,5 +1,3 @@
-'use strict'
-
 class ObjectWithoutPrototypeCache {
   constructor () {
     this._cache = Object.create(null)

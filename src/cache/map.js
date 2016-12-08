@@ -1,5 +1,3 @@
-'use strict'
-
 function hasSupport () {
   var hasSupport = true
 

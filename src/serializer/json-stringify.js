@@ -1,5 +1,3 @@
-'use strict'
-
 function jsonStringify () {
   return JSON.stringify(arguments)
 }

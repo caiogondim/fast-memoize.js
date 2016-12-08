@@ -1,5 +1,3 @@
-'use strict'
-
 const debug = require('logdown')()
 let Benchmark = require('benchmark')
 let underscore = require('underscore').memoize
