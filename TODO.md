@@ -1,2 +1,8 @@
 - [ ] Fix single argument case for non primitive argument
 - [ ] Fix lint task
+- [ ] better benchmark output
+- [ ] `benchmark:solo` task
+- [ ] Use `function.length` to predict arity
+- [ ] Inline code
+- [ ] Google Closure compiler to optimize code
+- [ ] Real inline code
