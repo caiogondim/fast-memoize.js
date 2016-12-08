@@ -3,7 +3,6 @@ let Benchmark = require('benchmark')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
-let addyOsmani = require('./addy-osmani')
 let R = require('ramda')
 const fastMemoize = require('../src/')
 const packageJSON = require('../package.json')
@@ -19,7 +18,6 @@ let fibonacci = (n) => {
 let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
-let memoizedAddyOsmani = addyOsmani(fibonacci)
 let memoizedRamda = R.memoize(fibonacci)
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
@@ -27,7 +25,7 @@ let caches = []
 caches.push(require('./cache/map'))
 caches.push(require('./cache/object'))
 caches.push(require('./cache/object-without-prototype'))
-caches.push(require('./cache/isaacs-lru-cache'))
+caches.push(require('./cache/lru-cache'))
 
 let serializers = []
 serializers.push(require('./serializer/json-stringify'))
@@ -61,9 +59,6 @@ suiteFibonnaci
   })
   .add('memoizee', () => {
     memoizedMemoizee(fibNumber)
-  })
-  .add('addy-osmani', () => {
-    memoizedAddyOsmani(fibNumber)
   })
   .add('ramda', () => {
     memoizedRamda(fibNumber)
