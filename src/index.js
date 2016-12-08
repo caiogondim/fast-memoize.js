@@ -3,31 +3,29 @@
 //
 
 function strategyDefault (fn, options) {
-  function monadic () {
-    var cacheKey = arguments[0]
-
-    if (!memoized._cache.has(cacheKey)) {
-      memoized._cache.set(cacheKey, fn.apply(this, arguments))
+  function monadic (fn, cache, serializer, arg) {
+    if (!cache.has(arg)) {
+      cache.set(arg, fn.call(this, arg))
     }
 
-    return memoized._cache.get(cacheKey)
+    return cache.get(arg)
   }
 
-  function variadic () {
-    var cacheKey = options.serializer(arguments)
+  function variadic (fn, cache, serializer, ...args) {
+    var cacheKey = serializer(args)
 
-    if (!memoized._cache.has(cacheKey)) {
-      memoized._cache.set(cacheKey, fn.apply(this, arguments))
+    if (!cache.has(cacheKey)) {
+      cache.set(cacheKey, fn.apply(this, args))
     }
 
-    return memoized._cache.get(cacheKey)
+    return cache.get(cacheKey)
   }
 
   var memoized = fn.length === 1
     ? monadic
     : variadic
 
-  memoized._cache = options.cache.create()
+  memoized = memoized.bind(this, fn, options.cache.create(), options.serializer)
   memoized._name = 'strategy: Infer arity, cache: ' + options.cache.name + ', serializer: ' + options.serializer._name
 
   return memoized

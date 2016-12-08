@@ -1,5 +1,3 @@
-'use strict'
-
 var tap = require('tape')
 var memoize = require('../src')
 
@@ -65,8 +63,6 @@ tap.test('memoize functions with N arguments', function (test) {
 })
 
 tap.test('inject custom cache', function (test) {
-  'use strict'
-
   var hasMethodExecutionCount = 0
   var setMethodExecutionCount = 0
 
@@ -120,7 +116,7 @@ tap.test('inject custom cache', function (test) {
   test.equal(
     setMethodExecutionCount,
     1,
-    'set.has method from custom cache should be called'
+    'cache.set method from custom cache should be called'
   )
   test.end()
 })
