@@ -10,3 +10,5 @@
 - [ ] Implement "explicit" strategy
 - [ ] Implement "single primitive" strategy
 - [ ] Implement "single non-primitive" strategy
+- [ ] Remove names from benchmark (be polite)
+- [ ] Remove `use strict`
