@@ -30,6 +30,7 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "covert": "^1.1.0",
+    "iMemoized": "0.0.10",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-firefox-launcher": "^1.0.0",

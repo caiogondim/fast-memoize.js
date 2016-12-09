@@ -1,4 +1,5 @@
 const debug = require('logdown')()
+const iMemoized = require('iMemoized')
 let Benchmark = require('benchmark')
 let underscore = require('underscore').memoize
 let lodash = require('lodash').memoize
@@ -19,6 +20,7 @@ let memoizedUnderscore = underscore(fibonacci)
 let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
 let memoizedRamda = R.memoize(fibonacci)
+let memoizedImemoized = iMemoized.memoize(fibonacci)
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 let caches = []
@@ -62,6 +64,9 @@ suiteFibonnaci
   })
   .add('ramda', () => {
     memoizedRamda(fibNumber)
+  })
+  .add('iMemoized', () => {
+    memoizedImemoized(fibNumber)
   })
   .add(`fast-memoize v${packageJSON.version}`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
