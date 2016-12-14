@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "benchmark": "node benchmark",
+    "benchmark:combination": "node benchmark/combination.js",
     "benchmark:solo": "node benchmark/solo.js",
     "benchmark:increasing-n": "node benchmark/increasing-n.js",
     "benchmark:devtools": "node --inspect --debug-brk benchmark/for-devtools.js",
