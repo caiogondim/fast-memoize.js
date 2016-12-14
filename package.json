@@ -10,16 +10,11 @@
     "benchmark:increasing-n": "node benchmark/increasing-n.js",
     "benchmark:devtools": "node --inspect --debug-brk benchmark/for-devtools.js",
     "benchmark:v8-optimization-analysis": "node --allow_natives_syntax --expose_debug_as=VirtualMachine benchmark/v8-optimization-analysis.js",
-    "build": "webpack",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
     "test": "jest",
-    "test:all": "npm run lint && npm test && npm run test:karma",
-    "test:cov": "npm run test:coverage",
-    "test:coverage": "covert test/*.js",
-    "test:karma": "karma start --singleRun",
-    "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
-    "version": "npm run build && git add dist/"
+    "test:all": "npm run lint && npm run test",
+    "test:coverage": "covert test/*.js"
   },
   "files": [
     "README.md",
@@ -47,8 +42,7 @@
     "mocha": "^2.5.3",
     "ramda": "^0.22.1",
     "standard": "^6.0.7",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.1"
+    "underscore": "^1.8.3"
   },
   "standard": {
     "ignore": [
