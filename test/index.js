@@ -1,4 +1,4 @@
-var tap = require('tape')
+var tap = require('tap')
 var memoize = require('../src')
 
 tap.test('speed', function (test) {

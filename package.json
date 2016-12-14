@@ -12,7 +12,7 @@
     "build": "webpack",
     "lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
-    "test": "tape test/*.js --cov --reporter=spec",
+    "test": "tap test/*.js --cov --reporter=spec",
     "test:all": "npm run lint && npm test && npm run test:karma",
     "test:cov": "npm run test:coverage",
     "test:coverage": "covert test/*.js",
@@ -48,8 +48,7 @@
     "mocha": "^2.5.3",
     "ramda": "^0.22.1",
     "standard": "^6.0.7",
-    "tap": "^5.7.0",
-    "tape": "^4.5.1",
+    "tap": "^5.8.0",
     "underscore": "^1.8.3",
     "webpack": "^1.13.1"
   },
