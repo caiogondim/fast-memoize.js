@@ -21,6 +21,10 @@
     "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
     "version": "npm run build && git add dist/"
   },
+  "files": [
+    "README.md",
+    "src/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caiogondim/fast-memoize.git"
