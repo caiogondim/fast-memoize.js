@@ -10,7 +10,7 @@
     "benchmark:increasing-n": "node benchmark/increasing-n.js",
     "benchmark:devtools": "node --inspect --debug-brk benchmark/for-devtools.js",
     "benchmark:v8-optimization-analysis": "node --allow_natives_syntax --expose_debug_as=VirtualMachine benchmark/v8-optimization-analysis.js",
-    "lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
+    "lint": "eslint --fix \"src/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
     "test": "jest",
     "test:all": "npm run lint && npm run test",
@@ -33,6 +33,10 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "covert": "^1.1.0",
+    "eslint": "^3.12.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
     "iMemoized": "0.0.10",
     "jest": "^17.0.3",
     "lodash": "^4.0.0",
@@ -41,7 +45,6 @@
     "memoizee": "^0.4.1",
     "mocha": "^2.5.3",
     "ramda": "^0.22.1",
-    "standard": "^6.0.7",
     "underscore": "^1.8.3"
   },
   "standard": {
@@ -51,5 +54,11 @@
   },
   "jest": {
     "testRegex": "\\.test\\.js$"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "parserOptions": {
+      "ecmaVersion": 6
+    }
   }
 }

@@ -1,19 +1,17 @@
-'use strict'
-
 // All runtime flags in:
 // - https://github.com/v8/v8/blob/75128636f31636ab4695b9c75d986bcca654a1f5/src/runtime/runtime.h
 // - https://github.com/thlorenz/v8-flags/blob/master/flags-0.11.md
 
-const v8 = require('v8')
-const logger = require('logdown')()
-const fastMemoize = require('../src')
+// const v8 = require('v8')
+// const logger = require('logdown')()
+// const fastMemoize = require('../src')
 
-v8.setFlagsFromString('--allow_natives_syntax')
-v8.setFlagsFromString('--trace_gc')
+// v8.setFlagsFromString('--allow_natives_syntax')
+// v8.setFlagsFromString('--trace_gc')
 
-function fibonacci (n) {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-}
+// function fibonacci (n) {
+//   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+// }
 
 // function printOptimizationStatus (fn) {
 //   switch(%GetOptimizationStatus(fn)) {
@@ -25,10 +23,10 @@ function fibonacci (n) {
 //   }
 // }
 
-const fibonacciMemoized = fastMemoize(fibonacci)
+// const fibonacciMemoized = fastMemoize(fibonacci)
 
-console.log(VirtualMachine)
-fibonacciMemoized(30)
-%OptimizeFunctionOnNextCall(fibonacciMemoized)
-fibonacciMemoized(30)
+// console.log(VirtualMachine)
+// fibonacciMemoized(30)
+// % OptimizeFunctionOnNextCall(fibonacciMemoized)
+// fibonacciMemoized(30)
 // printOptimizationStatus(fibonacciMemoized)

@@ -1,3 +1,5 @@
+/* global test, expect */
+
 var memoize = require('../src')
 
 test('speed', function () {

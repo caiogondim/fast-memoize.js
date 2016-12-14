@@ -1,7 +1,6 @@
 const debug = require('logdown')()
 let Benchmark = require('benchmark')
 const fastMemoize = require('../src/')
-const packageJSON = require('../package.json')
 
 //
 // Fibonacci suite
@@ -52,7 +51,7 @@ memoizedFunctions.forEach(function (memoizedFunction) {
 suiteFibonnaci
   .on('cycle', (event) => {
     const currentRunning = String(event.target)
-      .replace(/(.*)\ x/, (match, p1) => `*${p1}* x`)
+      .replace(/(.*) x/, (match, p1) => `*${p1}* x`)
     debug.log(currentRunning)
   })
   .on('complete', function () {

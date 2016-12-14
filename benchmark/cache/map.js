@@ -6,9 +6,9 @@ function hasSupport () {
     map.set(null)
   } catch (error) {
     hasSupport = false
-  } finally {
-    return hasSupport
   }
+
+  return hasSupport
 }
 
 function create () {

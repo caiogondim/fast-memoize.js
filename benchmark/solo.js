@@ -12,7 +12,6 @@ const fibonacci = (n) => {
 
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
-
 const suiteFibonnaci = new Benchmark.Suite()
 const fibNumber = 15
 
@@ -22,7 +21,7 @@ suiteFibonnaci
   })
   .on('cycle', (event) => {
     const currentRunning = String(event.target)
-      .replace(/(.*)\ x/, (match, p1) => `\`${p1}\` x`)
+      .replace(/(.*) x/, (match, p1) => `\`${p1}\` x`)
     debug.log(currentRunning)
   })
   .run({'async': true})

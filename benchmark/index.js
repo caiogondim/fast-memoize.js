@@ -6,7 +6,6 @@ let lodash = require('lodash').memoize
 let memoizee = require('memoizee')
 let R = require('ramda')
 const fastMemoize = require('../src/')
-const packageJSON = require('../package.json')
 
 //
 // Fibonacci suite
@@ -52,7 +51,7 @@ suiteFibonnaci
 suiteFibonnaci
   .on('cycle', (event) => {
     const currentRunning = String(event.target)
-      .replace(/(.*)\ x/, (match, p1) => `*${p1}* x`)
+      .replace(/(.*) x/, (match, p1) => `*${p1}* x`)
     debug.log(currentRunning)
   })
   .on('complete', function () {
