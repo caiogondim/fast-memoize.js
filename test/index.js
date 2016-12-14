@@ -34,7 +34,7 @@ tap.test('speed', function (test) {
   test.end()
 })
 
-tap.test('memoize functions with single arguments', function (test) {
+tap.test('memoize functions with single primitive argument', function (test) {
   function plusPlus (number) {
     return number + 1
   }
@@ -45,6 +45,23 @@ tap.test('memoize functions with single arguments', function (test) {
 
   test.equal(memoizedPlusPlus(1), 2, 'first run')
   test.equal(memoizedPlusPlus(1), 2, 'memoized run')
+  test.end()
+})
+
+tap.test('memoize functions with single non-primitive argument', function (test) {
+  var numberOfCalls = 0
+  function plusPlus (obj) {
+    numberOfCalls += 1
+    return obj.number + 1
+  }
+
+  var memoizedPlusPlus = memoize(plusPlus)
+
+  // Assertions
+  test.equal(memoizedPlusPlus({number: 1}), 2, 'first run')
+  test.equal(numberOfCalls, 1)
+  test.equal(memoizedPlusPlus({number: 1}), 2, 'memoized run')
+  test.equal(numberOfCalls, 1)
   test.end()
 })
 

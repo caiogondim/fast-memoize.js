@@ -2,20 +2,35 @@
 // Strategy
 //
 
+function isPrimitive (value) {
+  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+}
+
 function strategyDefault (fn, options) {
   function monadic (fn, cache, serializer, arg) {
-    if (!cache.has(arg)) {
-      cache.set(arg, fn.call(this, arg))
+    var cacheKey
+    if (isPrimitive(arg)) {
+      cacheKey = arg
+    } else {
+      cacheKey = serializer(arg)
     }
 
-    return cache.get(arg)
+    if (!cache.has(cacheKey)) {
+      var computedValue = fn.call(this, arg)
+      cache.set(cacheKey, computedValue)
+      return computedValue
+    }
+
+    return cache.get(cacheKey)
   }
 
   function variadic (fn, cache, serializer, ...args) {
     var cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
-      cache.set(cacheKey, fn.apply(this, args))
+      var computedValue = fn.apply(this, args)
+      cache.set(cacheKey, computedValue)
+      return computedValue
     }
 
     return cache.get(cacheKey)
