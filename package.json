@@ -30,7 +30,7 @@
     "url": "git+https://github.com/caiogondim/fast-memoize.git"
   },
   "author": "Caio Gondim <me@caiogondim.com> (http://caiogondim.com)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/caiogondim/fast-memoize/issues"
   },
