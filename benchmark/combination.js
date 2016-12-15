@@ -25,6 +25,7 @@ let strategies = []
 strategies.push(require('./strategy/naive'))
 strategies.push(require('./strategy/optimize-for-single-argument'))
 strategies.push(require('./strategy/infer-arity'))
+strategies.push(require('./strategy/partial-application'))
 
 let memoizedFunctions = []
 strategies.forEach(function (strategy) {
