@@ -20,6 +20,7 @@ caches.push(require('./cache/lru-cache'))
 
 let serializers = []
 serializers.push(require('./serializer/json-stringify'))
+serializers.push(require('./serializer/msgpack-lite'))
 
 let strategies = []
 strategies.push(require('./strategy/naive'))
@@ -44,7 +45,7 @@ suiteFibonnaci.add(`fast-memoize@current`, () => {
 })
 
 memoizedFunctions.forEach(function (memoizedFunction) {
-  suiteFibonnaci.add(memoizedFunction._name, () => {
+  suiteFibonnaci.add(memoizedFunction.label, () => {
     memoizedFunction(fibNumber)
   })
 })

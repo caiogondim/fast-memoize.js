@@ -22,5 +22,5 @@ class ObjectCache {
 
 module.exports = {
   create: () => new ObjectCache(),
-  name: 'Object'
+  label: 'Object'
 }

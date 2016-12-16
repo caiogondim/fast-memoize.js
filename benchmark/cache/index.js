@@ -26,7 +26,7 @@ strategies.forEach(function (strategy) {
   serializers.forEach(function (serializer) {
     caches.forEach(function (cache) {
       let memoizedFibonacci = strategy(fibonacci, {cache, serializer})
-      memoizedFibonacci._name = cache.name
+      memoizedFibonacci.label = cache.label
       memoizedFunctions.push(memoizedFibonacci)
     })
   })
@@ -36,7 +36,7 @@ let suiteFibonnaci = new Benchmark.Suite()
 let fibNumber = 15
 
 memoizedFunctions.forEach(function (memoizedFunction) {
-  suiteFibonnaci.add(memoizedFunction._name, () => {
+  suiteFibonnaci.add(memoizedFunction.label, () => {
     memoizedFunction(fibNumber)
   })
 })

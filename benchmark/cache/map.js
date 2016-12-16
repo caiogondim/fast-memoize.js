@@ -19,5 +19,5 @@ function create () {
 module.exports = {
   create: create,
   hasSupport: hasSupport,
-  name: 'Map'
+  label: 'Map'
 }

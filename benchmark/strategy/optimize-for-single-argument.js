@@ -16,7 +16,7 @@ function strategy (fn, options) {
   }
 
   memoized._cache = options.cache.create()
-  memoized._name = 'strategy: Optimize for single argument, cache: ' + options.cache.name + ', serializer: ' + options.serializer._name
+  memoized.label = 'strategy: Optimize for single argument, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
 
   return memoized
 }

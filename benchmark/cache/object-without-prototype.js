@@ -22,5 +22,5 @@ class ObjectWithoutPrototypeCache {
 
 module.exports = {
   create: () => new ObjectWithoutPrototypeCache(),
-  name: 'Object without prototype'
+  label: 'Object without prototype'
 }

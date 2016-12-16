@@ -24,7 +24,7 @@ function strategy (fn, options) {
     : variadic
 
   memoized._cache = options.cache.create()
-  memoized._name = 'strategy: Infer arity, cache: ' + options.cache.name + ', serializer: ' + options.serializer._name
+  memoized.label = 'strategy: Infer arity, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
 
   return memoized
 }

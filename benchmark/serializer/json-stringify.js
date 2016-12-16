@@ -2,5 +2,5 @@ function jsonStringify () {
   return JSON.stringify(arguments)
 }
 
-jsonStringify._name = 'jsonStringify'
+jsonStringify.label = 'jsonStringify'
 module.exports = jsonStringify

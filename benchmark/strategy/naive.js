@@ -12,7 +12,7 @@ function strategy (fn, options) {
   }
 
   memoized._cache = options.cache.create()
-  memoized._name = 'strategy: Naive, cache: ' + options.cache.name + ', serializer: ' + options.serializer._name
+  memoized.label = 'strategy: Naive, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
 
   return memoized
 }

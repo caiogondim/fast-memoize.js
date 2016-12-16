@@ -39,7 +39,7 @@ function strategy (fn, options) {
     : variadic
 
   memoized = memoized.bind(this, fn, options.cache.create(), options.serializer)
-  memoized._name = 'strategy: Partial application, cache: ' + options.cache.name + ', serializer: ' + options.serializer._name
+  memoized.label = 'strategy: Partial application, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
 
   return memoized
 }
