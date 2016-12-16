@@ -17,4 +17,6 @@ function strategy (fn, options) {
   return memoized
 }
 
+strategy.label = 'Naive'
+
 module.exports = strategy

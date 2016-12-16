@@ -21,4 +21,6 @@ function strategy (fn, options) {
   return memoized
 }
 
+strategy.label = 'Optimize for single argument'
+
 module.exports = strategy

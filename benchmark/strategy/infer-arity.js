@@ -28,5 +28,6 @@ function strategy (fn, options) {
 
   return memoized
 }
+strategy.label = 'Infer arity'
 
 module.exports = strategy

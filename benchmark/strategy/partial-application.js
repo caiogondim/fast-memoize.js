@@ -4,7 +4,7 @@ function isPrimitive (value) {
   return value == null || (typeof value !== 'function' && typeof value !== 'object')
 }
 
-function parcialApplication (fn, options) {
+function strategy (fn, options) {
   function monadic (fn, cache, serializer, arg) {
     var cacheKey
     if (isPrimitive(arg)) {
@@ -44,4 +44,6 @@ function parcialApplication (fn, options) {
   return memoized
 }
 
-module.exports = parcialApplication
+strategy.label = 'Partial application'
+
+module.exports = strategy
