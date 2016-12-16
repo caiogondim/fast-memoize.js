@@ -85,24 +85,23 @@ test('inject custom cache', function () {
   var customCacheProto = {
     has: function (key) {
       hasMethodExecutionCount++
-      return (key in this._cache)
+      return (key in this.cache)
     },
     get: function (key) {
-      return this._cache[key]
+      return this.cache[key]
     },
     set: function (key, value) {
       setMethodExecutionCount++
-      this._cache[key] = value
+      this.cache[key] = value
     },
     delete: function (key) {
-      delete this._cache[key]
-    },
-    _name: 'Object'
+      delete this.cache[key]
+    }
   }
   var customCache = {
     create: function () {
       var cache = Object.create(customCacheProto)
-      cache._cache = Object.create(null)
+      cache.cache = Object.create(null)
       return cache
     }
   }

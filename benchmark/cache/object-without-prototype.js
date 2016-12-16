@@ -1,22 +1,22 @@
 class ObjectWithoutPrototypeCache {
   constructor () {
-    this._cache = Object.create(null)
+    this.cache = Object.create(null)
   }
 
   has (key) {
-    return (key in this._cache)
+    return (key in this.cache)
   }
 
   get (key) {
-    return this._cache[key]
+    return this.cache[key]
   }
 
   set (key, value) {
-    this._cache[key] = value
+    this.cache[key] = value
   }
 
   delete (key) {
-    delete this._cache[key]
+    delete this.cache[key]
   }
 }
 
