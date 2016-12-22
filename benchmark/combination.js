@@ -1,34 +1,74 @@
+const ora = require('ora')
 const debug = require('logdown')()
-let Benchmark = require('benchmark')
-const fastMemoize = require('../src/')
+const Table = require('cli-table2')
+const Benchmark = require('benchmark')
+
+const results = []
+
+//
+// View
+//
+
+function showResults (results) {
+  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  results.forEach((result) => {
+    table.push([
+      result.target.name,
+      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      `± ${result.target.stats.rme.toFixed(2)}%`,
+      result.target.stats.sample.length
+    ])
+  })
+
+  console.log(table.toString())
+}
+
+function onCycle (event) {
+  ora(event.target.name).succeed()
+}
+
+function onComplete () {
+  spinner.stop()
+  debug.log()
+
+  const orderedResults = sortDescResults(results)
+  showResults(results)
+
+  debug.log()
+  debug.log(`Fastest is *${orderedResults[0].target.name}*`)
+}
+
+function sortDescResults (results) {
+  return results.sort((a, b) => a.target.hz < b.target.hz ? 1 : -1)
+}
+
+const spinner = ora('Running benchmark')
 
 //
 // Fibonacci suite
 //
 
-let fibonacci = (n) => {
+const fibonacci = (n) => {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
-
-let caches = []
+const caches = []
 caches.push(require('./cache/map'))
 caches.push(require('./cache/object'))
 caches.push(require('./cache/object-without-prototype'))
 caches.push(require('./cache/lru-cache'))
 
-let serializers = []
+const serializers = []
 serializers.push(require('./serializer/json-stringify'))
 serializers.push(require('./serializer/msgpack-lite'))
 
-let strategies = []
+const strategies = []
 strategies.push(require('./strategy/naive'))
 strategies.push(require('./strategy/optimize-for-single-argument'))
 strategies.push(require('./strategy/infer-arity'))
 strategies.push(require('./strategy/partial-application'))
 
-let memoizedFunctions = []
+const memoizedFunctions = []
 strategies.forEach(function (strategy) {
   serializers.forEach(function (serializer) {
     caches.forEach(function (cache) {
@@ -37,12 +77,8 @@ strategies.forEach(function (strategy) {
   })
 })
 
-let suiteFibonnaci = new Benchmark.Suite()
-let fibNumber = 15
-
-suiteFibonnaci.add(`fast-memoize@current`, () => {
-  memoizedFastMemoizeCurrentVersion(fibNumber)
-})
+const suiteFibonnaci = new Benchmark.Suite()
+const fibNumber = 15
 
 memoizedFunctions.forEach(function (memoizedFunction) {
   suiteFibonnaci.add(memoizedFunction.label, () => {
@@ -52,12 +88,10 @@ memoizedFunctions.forEach(function (memoizedFunction) {
 
 suiteFibonnaci
   .on('cycle', (event) => {
-    const currentRunning = String(event.target)
-      .replace(/(.*) x/, (match, p1) => `*${p1}* x`)
-    debug.log(currentRunning)
+    results.push(event)
+    onCycle(event)
   })
-  .on('complete', function () {
-    debug.log()
-    debug.log(`Fastest is *${this.filter('fastest').map('name')}*`)
-  })
+  .on('complete', onComplete)
   .run({'async': true})
+
+spinner.start()

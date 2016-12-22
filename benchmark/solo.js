@@ -1,9 +1,38 @@
-const debug = require('logdown')()
+const ora = require('ora')
+const Table = require('cli-table2')
 const Benchmark = require('benchmark')
 const fastMemoize = require('../src')
 
+const benchmarkResults = []
+
 //
-// Fibonacci suite
+// View
+//
+
+const spinner = ora('Running benchmark')
+
+function showResults (benchmarkResults) {
+  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  benchmarkResults.forEach((result) => {
+    table.push([
+      result.target.name,
+      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      `± ${result.target.stats.rme.toFixed(2)}%`,
+      result.target.stats.sample.length
+    ])
+  })
+
+  console.log(table.toString())
+}
+
+function onComplete () {
+  spinner.stop()
+
+  showResults(benchmarkResults)
+}
+
+//
+// Benchmark
 //
 
 const fibonacci = (n) => {
@@ -12,16 +41,17 @@ const fibonacci = (n) => {
 
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
-const suiteFibonnaci = new Benchmark.Suite()
+const benchmark = new Benchmark.Suite()
 const fibNumber = 15
 
-suiteFibonnaci
+benchmark
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
   })
   .on('cycle', (event) => {
-    const currentRunning = String(event.target)
-      .replace(/(.*) x/, (match, p1) => `\`${p1}\` x`)
-    debug.log(currentRunning)
+    benchmarkResults.push(event)
   })
+  .on('complete', onComplete)
   .run({'async': true})
+
+spinner.start()
