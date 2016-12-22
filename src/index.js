@@ -73,17 +73,15 @@ function strategyDefault (fn, options) {
     ? monadic
     : variadic
 
-  memoized = memoized.bind(this, fn, options.cache.create(), options.serializer)
-
-  return memoized
+  return memoized.bind(this, fn, options.cache.create(), options.serializer)
 }
 
 //
 // Serializer
 //
 
-function serializerDefault () {
-  return JSON.stringify(arguments)
+function serializerDefault (...args) {
+  return JSON.stringify(args)
 }
 
 //
