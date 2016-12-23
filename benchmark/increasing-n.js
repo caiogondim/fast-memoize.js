@@ -144,7 +144,7 @@ maxIterations.forEach((maxIteration) => {
 //
 
 function showResults (results) {
-  const table = new Table({head: ['NAME', 'ITERATIONS', 'TIME']})
+  const table = new Table({head: ['NAME', 'ITERATIONS', 'TIME TO COMPLETE IN NANOSECONDS']})
 
   results.forEach((result) => {
     table.push([
