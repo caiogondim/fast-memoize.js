@@ -108,13 +108,13 @@ npm run benchmark
 
 ### Desktop browsers
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) |  ![Edge](https://raw.github.com/alrra/browser-logos/master/edge/edge_48x48.png) |  ![Brave](https://raw.github.com/alrra/browser-logos/master/brave/brave_48x48.png) |
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) |  ![Edge](https://raw.github.com/alrra/browser-logos/master/src/edge/edge_48x48.png) |  ![Brave](https://raw.github.com/alrra/browser-logos/master/src/brave/brave_48x48.png) |
 | --- | --- | --- | --- | --- | --- | --- |
 | Latest | 8+ | Latest | Latest | Latest | Latest | Latest |
 
 ### Mobile browsers
 
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari-ios/safari-ios_48x48.png) | ![Android Browser](https://raw.github.com/alrra/browser-logos/master/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) |  ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![UC](https://raw.github.com/alrra/browser-logos/master/uc/uc_48x48.png) |
+| ![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png) | ![Android Browser](https://raw.github.com/alrra/browser-logos/master/src/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) |  ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![UC](https://raw.github.com/alrra/browser-logos/master/src/uc/uc_48x48.png) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Latest | 6+ | 4.0+ | 8+ | Latest | Latest | Latest |
 
