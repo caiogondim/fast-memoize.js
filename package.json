@@ -48,7 +48,6 @@
     "logdown": "^1.2.5",
     "lru-cache": "^4.0.0",
     "memoizee": "^0.4.1",
-    "mocha": "^2.5.3",
     "msgpack-lite": "^0.1.26",
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
