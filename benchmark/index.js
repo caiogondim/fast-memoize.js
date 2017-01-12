@@ -10,6 +10,7 @@ const R = require('ramda')
 const fastMemoize = require('../src/')
 
 const results = []
+const spinner = ora('Running benchmark')
 
 //
 // View
@@ -29,7 +30,12 @@ function showResults (benchmarkResults) {
   console.log(table.toString())
 }
 
+function sortDescResults (benchmarkResults) {
+  return benchmarkResults.sort((a, b) => a.target.hz < b.target.hz ? 1 : -1)
+}
+
 function onCycle (event) {
+  results.push(event)
   ora(event.target.name).succeed()
 }
 
@@ -39,16 +45,9 @@ function onComplete () {
 
   const orderedBenchmarkResults = sortDescResults(results)
   showResults(orderedBenchmarkResults)
-
-  debug.log()
-  debug.log(`Fastest is *${orderedBenchmarkResults[0].target.name}*`)
 }
 
-function sortDescResults (benchmarkResults) {
-  return benchmarkResults.sort((a, b) => a.target.hz < b.target.hz ? 1 : -1)
-}
-
-const spinner = ora('Running benchmark')
+spinner.start()
 
 //
 // Benchmark
@@ -90,11 +89,6 @@ benchmark
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
   })
-  .on('cycle', (event) => {
-    results.push(event)
-    onCycle(event)
-  })
+  .on('cycle', onCycle)
   .on('complete', onComplete)
   .run({'async': true})
-
-spinner.start()

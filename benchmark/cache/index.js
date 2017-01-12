@@ -1,8 +1,50 @@
+const ora = require('ora')
+const Table = require('cli-table2')
 const debug = require('logdown')()
-let Benchmark = require('benchmark')
+const Benchmark = require('benchmark')
+
+const results = []
+const spinner = ora('Running benchmark')
 
 //
-// Fibonacci suite
+// View
+//
+
+function showResults (benchmarkResults) {
+  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  benchmarkResults.forEach((result) => {
+    table.push([
+      result.target.name,
+      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      `± ${result.target.stats.rme.toFixed(2)}%`,
+      result.target.stats.sample.length
+    ])
+  })
+
+  debug.log(table.toString())
+}
+
+function sortDescResults (benchmarkResults) {
+  return benchmarkResults.sort((a, b) => a.target.hz < b.target.hz ? 1 : -1)
+}
+
+function onCycle (event) {
+  results.push(event)
+  ora(event.target.name).succeed()
+}
+
+function onComplete () {
+  spinner.stop()
+  debug.log()
+
+  const orderedBenchmarkResults = sortDescResults(results)
+  showResults(orderedBenchmarkResults)
+}
+
+spinner.start()
+
+//
+// Benchmark
 //
 
 let fibonacci = (n) => {
@@ -36,19 +78,10 @@ let suiteFibonnaci = new Benchmark.Suite()
 let fibNumber = 15
 
 memoizedFunctions.forEach(function (memoizedFunction) {
-  suiteFibonnaci.add(memoizedFunction.label, () => {
-    memoizedFunction(fibNumber)
-  })
+  suiteFibonnaci.add(memoizedFunction.label, () => memoizedFunction(fibNumber))
 })
 
 suiteFibonnaci
-  .on('cycle', (event) => {
-    const currentRunning = String(event.target)
-      .replace(/(.*) x/, (match, p1) => `*${p1}* x`)
-    debug.log(currentRunning)
-  })
-  .on('complete', function () {
-    debug.log()
-    debug.log(`Fastest is *${this.filter('fastest').map('name')}*`)
-  })
+  .on('cycle', onCycle)
+  .on('complete', onComplete)
   .run({'async': true})

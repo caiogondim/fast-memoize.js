@@ -1,20 +1,7 @@
-- [ ] Separate `infer-arity` into `infer-arity` and `parcial-application`
-- [ ] Benchmark per folder
-- [ ] Create different fibonacci functions for each benchmark
-- [ ] behavior as N goes higher
-- [ ] Fix single argument case for non primitive argument
-- [ ] Fix lint task
-- [ ] better benchmark output
-- [ ] `benchmark:solo` task
-- [ ] Inline code
-- [ ] Google Closure compiler to optimize code
-- [ ] Real inline code
-- [ ] Implement "optimize after fist run" strategy
-- [ ] Implement "explicit" strategy
-- [ ] Implement "single primitive" strategy
-- [ ] Implement "single non-primitive" strategy
 - [ ] 100% coverage
-- [ ] function generator
+- [ ] Implement "explicit" strategy
+- named params
+- npm scripts
 
 ## Steps
 - Inline
@@ -50,3 +37,5 @@ https://github.com/petkaantonov/bluebird/wiki/Optimization-killers
 https://www.npmjs.com/package/v8-natives
 --turbo
 https://gist.github.com/kevincennis/0cd2138c78a07412ef21
+
+https://docs.google.com/presentation/d/1Lq2DD28CGa7bxawVH_2OcmyiTiBn74dvC6vn2essroY/edit#slide=id.g1a504e63c9_2_84

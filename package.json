@@ -5,9 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "benchmark": "node benchmark",
+    "benchmark:cache": "node benchmark/cache",
     "benchmark:combination": "node benchmark/combination.js",
+    "benchmark:recursive-all": "node benchmark/recursive-all.js",
+    "benchmark:recursive-solo": "node --trace-opt benchmark/recursive-solo.js",
+    "benchmark:serializer": "node benchmark/serializer",
     "benchmark:solo": "node benchmark/solo.js",
-    "benchmark:increasing-n": "node --trace-opt benchmark/increasing-n.js",
+    "benchmark:strategy": "node benchmark/strategy",
     "benchmark:trace": "node --trace-inlining --trace-opt --trace-deopt benchmark/trace.js",
     "benchmark:v8-optimization-analysis": "node --allow_natives_syntax --expose_debug_as=VirtualMachine benchmark/v8-optimization-analysis.js",
     "lint": "eslint --fix \"src/**/*.js\" \"benchmark/**/*.js\"",
@@ -49,11 +53,6 @@
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
     "underscore": "^1.8.3"
-  },
-  "standard": {
-    "ignore": [
-      "/benchmark/addy-osmani.js"
-    ]
   },
   "jest": {
     "testRegex": "\\.test\\.js$",
