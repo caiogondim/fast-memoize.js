@@ -57,7 +57,6 @@ caches.push(require('../cache/object'))
 const serializers = []
 serializers.push(require('./json-stringify'))
 serializers.push(require('./json-stringify-binded'))
-serializers.push(require('./msgpack-lite'))
 
 const strategies = []
 strategies.push(require('../strategy/partial-application'))
