@@ -14,9 +14,6 @@
 This library is an attempt to make the **fastest possible memoization library in
 JavaScript that supports *N* arguments**.
 
-There are already very popular solutions for this problem, but they are **not
-fast enough** or accept **only one argument**.
-
 ## Installation
 
 To use the library, install it through [npm](https://npmjs.com)
@@ -76,23 +73,13 @@ meaning that, given one input, it always give the same output.
 
 ## Benchmark
 
-There is already plenty of libraries that does memoization on JS world.
-[underscore](http://underscorejs.org/) and [lodash](https://lodash.com) provides
-it, but they don't accept more than one argument.
-[memoizee](https://www.npmjs.com/package/memoizee) is a very well written
-library that supports *N* arguments, but is not even close on performance to
-[lodash](https://lodash.com).
+For an in depth explanation on how this library was created, go read
+[this post on RisingStack](https://community.risingstack.com/the-worlds-fastest-javascript-memoization-library/).
 
 Below you can see a performance benchmark between some of the most popular libraries
 for memoization.
 
-<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-chart.png" width="100%" />
-
-[fast-memoize](https://github.com/caiogondim/fast-memoize) is faster than any
-other library but [lodash](https://lodash.com). The reason why is that
-[lodash](https://lodash.com) does not support *N* arguments and is very
-optimized to that unique use case. But even though, *fast-memoize* is the
-library that supports *N* that comes closer to it.
+<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark.png" width="100%" />
 
 To run the benchmark, clone the repo, install the dependencies and run `npm run benchmark`.
 ```shell
@@ -103,9 +90,6 @@ npm run benchmark
 ```
 
 <img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.png" width="100%" />
-
-## Reference
-- https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
 
 ## Credits
 - Icon by Mary Rankin from the Noun Project
