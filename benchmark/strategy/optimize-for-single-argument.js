@@ -1,8 +1,12 @@
+function isPrimitive (value) {
+  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+}
+
 function strategy (fn, options) {
   function memoized () {
     var cacheKey
 
-    if (arguments.length === 1) {
+    if (arguments.length === 1 && isPrimitive(arguments[0])) {
       cacheKey = arguments[0]
     } else {
       cacheKey = options.serializer(arguments)

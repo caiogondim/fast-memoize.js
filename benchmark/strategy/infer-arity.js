@@ -1,6 +1,15 @@
+function isPrimitive (value) {
+  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+}
+
 function strategy (fn, options) {
   function monadic () {
-    var cacheKey = arguments[0]
+    var cacheKey
+    if (isPrimitive(arguments[0])) {
+      cacheKey = arguments[0]
+    } else {
+      cacheKey = options.serializer(arguments)
+    }
 
     if (!memoized.cache.has(cacheKey)) {
       memoized.cache.set(cacheKey, fn.apply(this, arguments))
