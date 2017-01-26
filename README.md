@@ -89,7 +89,7 @@ npm install
 npm run benchmark
 ```
 
-<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.png" width="100%" />
+<img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.gif" width="100%" />
 
 ## Credits
 - Icon by Mary Rankin from the Noun Project
