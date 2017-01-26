@@ -74,6 +74,21 @@ that represents it. It has to be a
 [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm)
 meaning that, given one input, it always give the same output.
 
+### TTL
+
+You can pass an optional TTL value as an option. After this time when a cache
+key is retrieved it will be marked as invalid, removed, and the value recomputed.
+
+You can also set data to be automaticaly be removed at the end of the TTL rather
+than just removed when accessed.
+
+```js
+const memoized = memoize(fn, {
+  ttl: 120000, // time in ms
+  autoExpire: true // Defaults to false.
+})
+```
+
 ## Benchmark
 
 There is already plenty of libraries that does memoization on JS world.
@@ -131,7 +146,7 @@ npm run benchmark
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
 
---- 
+---
 
 [caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
 GitHub [@caiogondim](https://github.com/caiogondim) &nbsp;&middot;&nbsp;
