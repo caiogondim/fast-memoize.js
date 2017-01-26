@@ -89,8 +89,44 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-function serializerDefault (...args) {
-  return JSON.stringify(args)
+function customReplacer(args) {
+  var cache = [];
+  const replacer = function (key, value) {
+    if (typeof value === 'object' && value !== null) {
+      if (cache.indexOf(value) !== -1) {
+        // Circular reference found, discard key
+        return;
+      }
+      // Store value in our collection
+      cache.push(value);
+    }
+    return value;
+  }
+  cache = null; // Enable garbage collection
+  return replacer;
+}
+
+//
+// Serializer
+//
+
+function serializerDefault(...args) {
+  try {
+    // try the fastest way first.
+    return JSON.stringify(args)
+  } catch (error) {
+    if (error instanceof TypeError &&
+      error.message === 'Converting circular structure to JSON') {
+      // if node
+      if (util && util.inspect) {
+        return JSON.stringify(util.inspect(args))
+      } else {
+        return JSON.stringify(args, customReplacer)
+      }
+    } else {
+      throw e; // let others bubble up
+    }
+  }
 }
 
 //

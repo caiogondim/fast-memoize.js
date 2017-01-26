@@ -144,3 +144,21 @@ test('inject custom serializer', function () {
 
   expect(serializerMethodExecutionCount).toBe(2)
 })
+
+test('memoize circular JSON', function () {
+  var circular = {
+    a: 'foo'
+  }
+  circular.b = circular
+
+  function circularFunction(a) {
+    return a.a
+  }
+
+  var memoizedCircularFunction = memoize(circularFunction)
+
+  // Assertions
+
+  expect(memoizedCircularFunction(circular)).toBe("foo")
+  expect(memoizedCircularFunction(circular)).toBe("foo")
+})
