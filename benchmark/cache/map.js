@@ -1,10 +1,23 @@
-'use strict'
+function hasSupport () {
+  var hasSupport = true
 
-class MapCache extends Map {
-  constructor () {
-    super()
-    this._name = 'Map'
+  try {
+    var map = new Map()
+    map.set(null)
+  } catch (error) {
+    hasSupport = false
   }
+
+  return hasSupport
 }
 
-module.exports = MapCache
+function create () {
+  var cache = new Map()
+  return cache
+}
+
+module.exports = {
+  create: create,
+  hasSupport: hasSupport,
+  label: 'Map'
+}

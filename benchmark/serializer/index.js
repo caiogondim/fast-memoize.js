@@ -1,13 +1,7 @@
 const ora = require('ora')
 const Table = require('cli-table2')
 const debug = require('logdown')()
-const iMemoized = require('iMemoized')
 const Benchmark = require('benchmark')
-const underscore = require('underscore').memoize
-const lodash = require('lodash').memoize
-const memoizee = require('memoizee')
-const R = require('ramda')
-const fastMemoize = require('../src/')
 
 const results = []
 const spinner = ora('Running benchmark')
@@ -27,7 +21,7 @@ function showResults (benchmarkResults) {
     ])
   })
 
-  console.log(table.toString())
+  debug.log(table.toString())
 }
 
 function sortDescResults (benchmarkResults) {
@@ -53,42 +47,39 @@ spinner.start()
 // Benchmark
 //
 
-let fibonacci = (n) => {
+const fibonacci = (n) => {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-let memoizedUnderscore = underscore(fibonacci)
-let memoizedLodash = lodash(fibonacci)
-let memoizedMemoizee = memoizee(fibonacci)
-let memoizedRamda = R.memoize(fibonacci)
-let memoizedImemoized = iMemoized.memoize(fibonacci)
-const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
+const caches = []
+caches.push(require('../cache/object'))
 
-let benchmark = new Benchmark.Suite()
-let fibNumber = 15
+const serializers = []
+serializers.push(require('./json-stringify'))
+serializers.push(require('./json-stringify-binded'))
 
-benchmark
-  .add('vanilla', () => {
-    fibonacci(fibNumber)
+const strategies = []
+strategies.push(require('../strategy/partial-application'))
+
+const memoizedFunctions = []
+strategies.forEach((strategy) => {
+  serializers.forEach((serializer) => {
+    caches.forEach((cache) => {
+      const memoizedFibonacci = strategy(fibonacci, {cache, serializer})
+      memoizedFibonacci.label = serializer.label
+      memoizedFunctions.push(memoizedFibonacci)
+    })
   })
-  .add('underscore', () => {
-    memoizedUnderscore(fibNumber)
-  })
-  .add('lodash', () => {
-    memoizedLodash(fibNumber)
-  })
-  .add('memoizee', () => {
-    memoizedMemoizee(fibNumber)
-  })
-  .add('ramda', () => {
-    memoizedRamda(fibNumber)
-  })
-  .add('iMemoized', () => {
-    memoizedImemoized(fibNumber)
-  })
-  .add(`fast-memoize@current`, () => {
-    memoizedFastMemoizeCurrentVersion(fibNumber)
-  })
+})
+
+const suiteFibonnaci = new Benchmark.Suite()
+const fibNumber = 20
+
+memoizedFunctions.forEach((memoizedFunction) => {
+  suiteFibonnaci.add(memoizedFunction.label, () => memoizedFunction(fibNumber))
+})
+
+suiteFibonnaci
   .on('cycle', onCycle)
   .on('complete', onComplete)
   .run({'async': true})

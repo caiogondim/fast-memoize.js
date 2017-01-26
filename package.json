@@ -4,53 +4,62 @@
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
   "scripts": {
-    "test": "tape test/*.js --cov --reporter=spec",
-    "test:lint": "standard \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
-    "test:coverage": "covert test/*.js",
-    "test:cov": "npm run test:coverage",
-    "test:karma": "karma start --singleRun",
-    "test:all": "npm run test:lint && npm test && npm run test:karma",
-    "test:saucelabs": "karma start saucelabs.karma.conf.js --singleRun",
-    "build": "webpack",
     "benchmark": "node benchmark",
+    "benchmark:cache": "node benchmark/cache",
+    "benchmark:combination": "node benchmark/combination.js",
+    "benchmark:recursive-all": "node benchmark/recursive-all.js",
+    "benchmark:recursive-solo": "node --trace-opt benchmark/recursive-solo.js",
+    "benchmark:serializer": "node benchmark/serializer",
+    "benchmark:solo": "node benchmark/solo.js",
+    "benchmark:strategy": "node benchmark/strategy",
+    "benchmark:trace": "node --trace-inlining --trace-opt --trace-deopt benchmark/trace.js",
+    "benchmark:v8-optimization-analysis": "node --allow_natives_syntax --expose_debug_as=VirtualMachine benchmark/v8-optimization-analysis.js",
+    "lint": "eslint --fix \"src/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
-    "version": "npm run build && git add dist/"
+    "test": "jest",
+    "test:all": "npm run lint && npm run test",
+    "test:coverage": "covert test/*.js"
   },
+  "files": [
+    "README.md",
+    "src/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caiogondim/fast-memoize.git"
   },
   "author": "Caio Gondim <me@caiogondim.com> (http://caiogondim.com)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/caiogondim/fast-memoize/issues"
   },
   "homepage": "https://github.com/caiogondim/fast-memoize#readme",
   "devDependencies": {
     "benchmark": "^2.0.0",
+    "cli-table2": "^0.2.0",
     "covert": "^1.1.0",
-    "karma": "^0.13.22",
-    "karma-chrome-launcher": "^1.0.1",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-safari-launcher": "^1.0.0",
-    "karma-sauce-launcher": "^1.0.0",
-    "karma-tap": "^1.0.4",
-    "karma-webpack": "^1.7.0",
+    "eslint": "^3.12.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "iMemoized": "0.0.10",
+    "jest": "^17.0.3",
     "lodash": "^4.0.0",
     "logdown": "^1.2.5",
     "lru-cache": "^4.0.0",
-    "memoizee": "^0.3.9",
-    "mocha": "^2.5.3",
-    "ramda": "^0.21.0",
-    "standard": "^6.0.7",
-    "tap": "^5.7.0",
-    "tape": "^4.5.1",
-    "underscore": "^1.8.3",
-    "webpack": "^1.13.1"
+    "memoizee": "^0.4.1",
+    "ora": "^0.3.0",
+    "ramda": "^0.22.1",
+    "underscore": "^1.8.3"
   },
-  "standard": {
-    "ignore": [
-      "/benchmark/addy-osmani.js"
-    ]
+  "jest": {
+    "testRegex": "\\.test\\.js$",
+    "collectCoverage": true
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "parserOptions": {
+      "ecmaVersion": 6
+    }
   }
 }

@@ -1,8 +1,6 @@
-'use strict'
-
 function jsonStringify () {
   return JSON.stringify(arguments)
 }
 
-jsonStringify._name = 'jsonStringify'
+jsonStringify.label = 'json-stringify'
 module.exports = jsonStringify

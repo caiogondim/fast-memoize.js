@@ -1,9 +1,8 @@
-'use strict'
+/* global test, expect */
 
-var tap = require('tape')
 var memoize = require('../src')
 
-tap.test('speed', function (test) {
+test('speed', function () {
   // Vanilla Fibonacci
 
   function vanillaFibonacci (n) {
@@ -29,14 +28,10 @@ tap.test('speed', function (test) {
 
   // Assertion
 
-  test.ok(
-    (memoizedExecTime < vanillaExecTime),
-    'memoized function should be faster than original'
-  )
-  test.end()
+  expect(memoizedExecTime < vanillaExecTime).toBe(true)
 })
 
-tap.test('memoize functions with single arguments', function (test) {
+test('memoize functions with single primitive argument', function () {
   function plusPlus (number) {
     return number + 1
   }
@@ -45,12 +40,27 @@ tap.test('memoize functions with single arguments', function (test) {
 
   // Assertions
 
-  test.equal(memoizedPlusPlus(1), 2, 'first run')
-  test.equal(memoizedPlusPlus(1), 2, 'memoized run')
-  test.end()
+  expect(memoizedPlusPlus(1)).toBe(2)
+  expect(memoizedPlusPlus(1)).toBe(2)
 })
 
-tap.test('memoize functions with N arguments', function (test) {
+test('memoize functions with single non-primitive argument', function () {
+  var numberOfCalls = 0
+  function plusPlus (obj) {
+    numberOfCalls += 1
+    return obj.number + 1
+  }
+
+  var memoizedPlusPlus = memoize(plusPlus)
+
+  // Assertions
+  expect(memoizedPlusPlus({number: 1})).toBe(2)
+  expect(numberOfCalls).toBe(1)
+  expect(memoizedPlusPlus({number: 1})).toBe(2)
+  expect(numberOfCalls).toBe(1)
+})
+
+test('memoize functions with N arguments', function () {
   function nToThePower (n, power) {
     return Math.pow(n, power)
   }
@@ -59,14 +69,11 @@ tap.test('memoize functions with N arguments', function (test) {
 
   // Assertions
 
-  test.equal(memoizedNToThePower(2, 3), 8, 'first run')
-  test.equal(memoizedNToThePower(2, 3), 8, 'memoized run')
-  test.end()
+  expect(memoizedNToThePower(2, 3)).toBe(8)
+  expect(memoizedNToThePower(2, 3)).toBe(8)
 })
 
-tap.test('inject custom cache', function (test) {
-  'use strict'
-
+test('inject custom cache', function () {
   var hasMethodExecutionCount = 0
   var setMethodExecutionCount = 0
 
@@ -78,24 +85,23 @@ tap.test('inject custom cache', function (test) {
   var customCacheProto = {
     has: function (key) {
       hasMethodExecutionCount++
-      return (key in this._cache)
+      return (key in this.cache)
     },
     get: function (key) {
-      return this._cache[key]
+      return this.cache[key]
     },
     set: function (key, value) {
       setMethodExecutionCount++
-      this._cache[key] = value
+      this.cache[key] = value
     },
     delete: function (key) {
-      delete this._cache[key]
-    },
-    _name: 'Object'
+      delete this.cache[key]
+    }
   }
   var customCache = {
     create: function () {
       var cache = Object.create(customCacheProto)
-      cache._cache = Object.create(null)
+      cache.cache = Object.create(null)
       return cache
     }
   }
@@ -112,20 +118,11 @@ tap.test('inject custom cache', function (test) {
 
   // Assertions
 
-  test.equal(
-    hasMethodExecutionCount,
-    2,
-    'cache.has method from custom cache should be called'
-  )
-  test.equal(
-    setMethodExecutionCount,
-    1,
-    'set.has method from custom cache should be called'
-  )
-  test.end()
+  expect(hasMethodExecutionCount).toBe(2)
+  expect(setMethodExecutionCount).toBe(1)
 })
 
-tap.test('inject custom serializer', function (test) {
+test('inject custom serializer', function () {
   var serializerMethodExecutionCount = 0
 
   function serializer () {
@@ -145,10 +142,5 @@ tap.test('inject custom serializer', function (test) {
 
   // Assertions
 
-  test.equal(
-    serializerMethodExecutionCount,
-    2,
-    'custom serialized should be called'
-  )
-  test.end()
+  expect(serializerMethodExecutionCount).toBe(2)
 })

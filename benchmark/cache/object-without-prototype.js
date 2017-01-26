@@ -1,6 +1,6 @@
-class ObjectCache {
+class ObjectWithoutPrototypeCache {
   constructor () {
-    this.cache = {}
+    this.cache = Object.create(null)
   }
 
   has (key) {
@@ -21,6 +21,6 @@ class ObjectCache {
 }
 
 module.exports = {
-  create: () => new ObjectCache(),
-  label: 'Object'
+  create: () => new ObjectWithoutPrototypeCache(),
+  label: 'Object without prototype'
 }

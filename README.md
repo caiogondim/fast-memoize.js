@@ -104,26 +104,6 @@ npm run benchmark
 
 <img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.png" width="100%" />
 
-## Support
-
-### Desktop browsers
-
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) |  ![Edge](https://raw.github.com/alrra/browser-logos/master/edge/edge_48x48.png) |  ![Brave](https://raw.github.com/alrra/browser-logos/master/brave/brave_48x48.png) |
-| --- | --- | --- | --- | --- | --- | --- |
-| Latest | 8+ | Latest | Latest | Latest | Latest | Latest |
-
-### Mobile browsers
-
-| ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari-ios/safari-ios_48x48.png) | ![Android Browser](https://raw.github.com/alrra/browser-logos/master/android/android_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) |  ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![UC](https://raw.github.com/alrra/browser-logos/master/uc/uc_48x48.png) |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Latest | 6+ | 4.0+ | 8+ | Latest | Latest | Latest |
-
-### Server
-
-| <a href="https://nodejs.org"><img height=48 src="https://raw.githubusercontent.com/caiogondim/javascript-server-side-logos/master/node.js/standard/454x128.png"></a> |
-| --- |
-| 0.10+ ✔ |
-
 ## Reference
 - https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
 
@@ -131,7 +111,7 @@ npm run benchmark
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
 
---- 
+---
 
 [caiogondim.com](https://caiogondim.com) &nbsp;&middot;&nbsp;
 GitHub [@caiogondim](https://github.com/caiogondim) &nbsp;&middot;&nbsp;

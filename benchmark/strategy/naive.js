@@ -1,18 +1,22 @@
-'use strict'
+function strategy (fn, options) {
+  function memoized () {
+    var cacheKey
 
-module.exports = function memoizer1 (fn, Cache, serializer) {
-  var memoized = function () {
-    var cacheKey = serializer(arguments)
+    cacheKey = options.serializer(arguments)
 
-    if (!memoized._cache.has(cacheKey)) {
-      memoized._cache.set(cacheKey, fn.apply(this, arguments))
+    if (!memoized.cache.has(cacheKey)) {
+      memoized.cache.set(cacheKey, fn.apply(this, arguments))
     }
 
-    return memoized._cache.get(cacheKey)
+    return memoized.cache.get(cacheKey)
   }
 
-  memoized._cache = new Cache()
-  memoized._name = 'strategy: Naive, cache: ' + memoized._cache._name + ', serializer: ' + serializer._name
+  memoized.cache = options.cache.create()
+  memoized.label = 'strategy: Naive, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
 
   return memoized
 }
+
+strategy.label = 'Naive'
+
+module.exports = strategy
