@@ -121,7 +121,7 @@ benchmark
   })
   .add('Mark\'s Memoized', () => {
     const memoizedMarks = marks((n) => {
-      return n < 2 ? n : marks(n - 1) + marks(n - 2)
+      return n < 2 ? n : memoizedMarks(n - 1) + memoizedMarks(n - 2)
     })
 
     memoizedMarks(fibNumber)
