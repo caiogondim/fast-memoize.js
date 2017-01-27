@@ -111,7 +111,7 @@ class ObjectWithoutPrototypeCache {
   }
 
   set (key, value) {
-    this.cache[key] = value
+    return this.cache[key] = value
   }
 
   delete (key) {
