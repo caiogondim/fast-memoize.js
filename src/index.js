@@ -1,3 +1,4 @@
+'use stict'
 const util = require('util')
 //
 // Main
@@ -58,7 +59,11 @@ function strategyDefault (fn, options) {
     return cache.get(cacheKey)
   }
 
-  function variadic (fn, cache, serializer, ...args) {
+  function variadic (fn, cache, serializerrgs) {
+    for (var _len = arguments.length, args = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+      args[_key - 3] = arguments[_key];
+    }
+
     var cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
@@ -70,9 +75,9 @@ function strategyDefault (fn, options) {
     return cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
-    ? monadic
-    : variadic
+  var memoized = fn.length === 1 ?
+    monadic :
+    variadic
 
   memoized = memoized.bind(
     this,
@@ -96,22 +101,25 @@ function customReplacer(args) {
     if (typeof value === 'object' && value !== null) {
       if (cache.indexOf(value) !== -1) {
         // Circular reference found, discard key
-        return;
+        return
       }
       // Store value in our collection
-      cache.push(value);
+      cache.push(value)
     }
-    return value;
   }
-  cache = null; // Enable garbage collection
-  return replacer;
+  cache = null // Enable garbage collection
+  return replacer
 }
 
 //
 // Serializer
 //
 
-function serializerDefault(...args) {
+function serializerDefault () {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key]
+  }
+
   try {
     // try the fastest way first.
     return JSON.stringify(args)
@@ -125,7 +133,7 @@ function serializerDefault(...args) {
         return JSON.stringify(args, customReplacer)
       }
     } else {
-      throw e; // let others bubble up
+      throw error // let others bubble up
     }
   }
 }
@@ -135,23 +143,23 @@ function serializerDefault(...args) {
 //
 
 class ObjectWithoutPrototypeCache {
-  constructor () {
+  constructor() {
     this.cache = Object.create(null)
   }
 
-  has (key) {
+  has(key) {
     return (key in this.cache)
   }
 
-  get (key) {
+  get(key) {
     return this.cache[key]
   }
 
-  set (key, value) {
+  set(key, value) {
     this.cache[key] = value
   }
 
-  delete (key) {
+  delete(key) {
     delete this.cache[key]
   }
 }

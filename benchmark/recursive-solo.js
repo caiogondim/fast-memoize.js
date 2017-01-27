@@ -1,3 +1,4 @@
+'use stict'
 const ora = require('ora')
 const logger = require('logdown')()
 const Table = require('cli-table2')

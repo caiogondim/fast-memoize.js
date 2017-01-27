@@ -22,7 +22,10 @@ function strategy (fn, options) {
     return cache.get(cacheKey)
   }
 
-  function variadic (fn, cache, serializer, ...args) {
+  function variadic (fn, cache, serializer) {
+    for (var _len = arguments.length, args = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+      args[_key - 3] = arguments[_key];
+    }
     var cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
@@ -34,9 +37,9 @@ function strategy (fn, options) {
     return cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
-    ? monadic
-    : variadic
+  var memoized = fn.length === 1 ?
+    monadic :
+    variadic
 
   memoized = memoized.bind(this, fn, options.cache.create(), options.serializer)
   memoized.label = 'strategy: Partial application, cache: ' + options.cache.label + ', serializer: ' + options.serializer.label
