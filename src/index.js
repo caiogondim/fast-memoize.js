@@ -1,4 +1,4 @@
-'use stict'
+'use strict'
 const util = require('util')
 //
 // Main
