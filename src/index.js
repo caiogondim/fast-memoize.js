@@ -52,9 +52,7 @@ function strategyDefault (fn, options) {
       return cache.get(cacheKey)
     }
 
-    var computedValue = fn.call(this, arg)
-    cache.set(cacheKey, computedValue)
-    return computedValue
+    return cache.set(cacheKey, fn.call(this, arg))
   }
 
   function variadic (fn, cache, serializer, ...args) {
@@ -64,9 +62,7 @@ function strategyDefault (fn, options) {
       return cache.get(cacheKey)
     }
 
-    var computedValue = fn.apply(this, args)
-    cache.set(cacheKey, computedValue)
-    return computedValue
+    return cache.set(cacheKey, fn.apply(this, args))
   }
 
   var memoized = fn.length === 1
