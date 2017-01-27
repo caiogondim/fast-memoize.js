@@ -142,28 +142,44 @@ function serializerDefault () {
 // Cache
 //
 
-class ObjectWithoutPrototypeCache {
-  constructor() {
-    this.cache = Object.create(null)
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ObjectWithoutPrototypeCache = function () {
+  function ObjectWithoutPrototypeCache() {
+    _classCallCheck(this, ObjectWithoutPrototypeCache);
+
+    this.cache = Object.create(null);
   }
 
-  has(key) {
-    return (key in this.cache)
-  }
+  _createClass(ObjectWithoutPrototypeCache, [{
+    key: "has",
+    value: function has(key) {
+      return key in this.cache;
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      return this.cache[key];
+    }
+  }, {
+    key: "set",
+    value: function set(key, value) {
+      this.cache[key] = value;
+    }
+  }, {
+    key: "delete",
+    value: function _delete(key) {
+      delete this.cache[key];
+    }
+  }]);
 
-  get(key) {
-    return this.cache[key]
-  }
+  return ObjectWithoutPrototypeCache;
+}();
 
-  set(key, value) {
-    this.cache[key] = value
+var cacheDefault = {
+  create: function create() {
+    return new ObjectWithoutPrototypeCache();
   }
-
-  delete(key) {
-    delete this.cache[key]
-  }
-}
-
-const cacheDefault = {
-  create: () => new ObjectWithoutPrototypeCache()
-}
+};
