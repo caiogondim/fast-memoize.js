@@ -80,8 +80,6 @@ function strategyDefault (fn, options) {
     options.serializer
   )
 
-  arguments[0] = memoized
-
   return memoized
 }
 
