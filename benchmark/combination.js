@@ -61,6 +61,7 @@ caches.push(require('./cache/lru-cache'))
 const serializers = []
 serializers.push(require('./serializer/json-stringify'))
 serializers.push(require('./serializer/json-stringify-binded'))
+serializers.push(require('./serializer/util-inspect'))
 
 const strategies = []
 strategies.push(require('./strategy/naive'))
