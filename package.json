@@ -53,7 +53,8 @@
     "underscore": "^1.8.3"
   },
   "jest": {
-    "testRegex": "\\.test\\.js$",
+    "testPathDirs": ["test/"],
+    "testRegex": "test\/.*\\.js$",
     "collectCoverage": true
   },
   "eslintConfig": {
