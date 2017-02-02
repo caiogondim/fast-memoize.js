@@ -3,27 +3,17 @@
 //
 
 module.exports = function memoize (fn, options) {
-  var cache
-  var serializer
-  var strategy
+  const cache = options && options.cache
+    ? options.cache
+    : cacheDefault
 
-  if (options && options.cache) {
-    cache = options.cache
-  } else {
-    cache = cacheDefault
-  }
+  const serializer = options && options.serializer
+    ? options.serializer
+    : serializerDefault
 
-  if (options && options.serializer) {
-    serializer = options.serializer
-  } else {
-    serializer = serializerDefault
-  }
-
-  if (options && options.strategy) {
-    strategy = options.strategy
-  } else {
-    strategy = strategyDefault
-  }
+  const strategy = options && options.strategy
+    ? options.strategy
+    : strategyDefault
 
   return strategy(fn, {
     cache,
@@ -35,21 +25,15 @@ module.exports = function memoize (fn, options) {
 // Strategy
 //
 
-function isPrimitive (value) {
-  return value == null || (typeof value !== 'function' && typeof value !== 'object')
-}
+const isPrimitive = (value) =>
+  value == null || (typeof value !== 'function' && typeof value !== 'object')
 
 function strategyDefault (fn, options) {
   function monadic (fn, cache, serializer, arg) {
-    var cacheKey
-    if (isPrimitive(arg)) {
-      cacheKey = arg
-    } else {
-      cacheKey = serializer(arg)
-    }
+    const cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.call(this, arg)
+      const computedValue = fn.call(this, arg)
       cache.set(cacheKey, computedValue)
       return computedValue
     }
@@ -58,10 +42,10 @@ function strategyDefault (fn, options) {
   }
 
   function variadic (fn, cache, serializer, ...args) {
-    var cacheKey = serializer(args)
+    const cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.apply(this, args)
+      const computedValue = fn.apply(this, args)
       cache.set(cacheKey, computedValue)
       return computedValue
     }
@@ -69,9 +53,7 @@ function strategyDefault (fn, options) {
     return cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
-    ? monadic
-    : variadic
+  let memoized = fn.length === 1 ? monadic : variadic
 
   memoized = memoized.bind(
     this,
@@ -87,9 +69,7 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-function serializerDefault (...args) {
-  return JSON.stringify(args)
-}
+const serializerDefault = (...args) => JSON.stringify(args)
 
 //
 // Cache
