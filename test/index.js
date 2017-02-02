@@ -1,42 +1,40 @@
 /* global test, expect */
 
-var memoize = require('../src')
+const memoize = require('../src')
 
-test('speed', function () {
+test('speed', () => {
   // Vanilla Fibonacci
 
   function vanillaFibonacci (n) {
     return n < 2 ? n : vanillaFibonacci(n - 1) + vanillaFibonacci(n - 2)
   }
 
-  var vanillaExecTimeStart = Date.now()
+  const vanillaExecTimeStart = Date.now()
   vanillaFibonacci(35)
-  var vanillaExecTime = Date.now() - vanillaExecTimeStart
+  const vanillaExecTime = Date.now() - vanillaExecTimeStart
 
   // Memoized
 
-  var fibonacci = function (n) {
-    return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-  }
+  let fibonacci = n => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
   fibonacci = memoize(fibonacci)
-  var memoizedFibonacci = fibonacci
+  const memoizedFibonacci = fibonacci
 
-  var memoizedExecTimeStart = Date.now()
+  const memoizedExecTimeStart = Date.now()
   memoizedFibonacci(35)
-  var memoizedExecTime = Date.now() - memoizedExecTimeStart
+  const memoizedExecTime = Date.now() - memoizedExecTimeStart
 
   // Assertion
 
   expect(memoizedExecTime < vanillaExecTime).toBe(true)
 })
 
-test('memoize functions with single primitive argument', function () {
+test('memoize functions with single primitive argument', () => {
   function plusPlus (number) {
     return number + 1
   }
 
-  var memoizedPlusPlus = memoize(plusPlus)
+  const memoizedPlusPlus = memoize(plusPlus)
 
   // Assertions
 
@@ -44,14 +42,14 @@ test('memoize functions with single primitive argument', function () {
   expect(memoizedPlusPlus(1)).toBe(2)
 })
 
-test('memoize functions with single non-primitive argument', function () {
-  var numberOfCalls = 0
+test('memoize functions with single non-primitive argument', () => {
+  let numberOfCalls = 0
   function plusPlus (obj) {
     numberOfCalls += 1
     return obj.number + 1
   }
 
-  var memoizedPlusPlus = memoize(plusPlus)
+  const memoizedPlusPlus = memoize(plusPlus)
 
   // Assertions
   expect(memoizedPlusPlus({number: 1})).toBe(2)
@@ -60,12 +58,12 @@ test('memoize functions with single non-primitive argument', function () {
   expect(numberOfCalls).toBe(1)
 })
 
-test('memoize functions with N arguments', function () {
+test('memoize functions with N arguments', () => {
   function nToThePower (n, power) {
     return Math.pow(n, power)
   }
 
-  var memoizedNToThePower = memoize(nToThePower)
+  const memoizedNToThePower = memoize(nToThePower)
 
   // Assertions
 
@@ -73,34 +71,34 @@ test('memoize functions with N arguments', function () {
   expect(memoizedNToThePower(2, 3)).toBe(8)
 })
 
-test('inject custom cache', function () {
-  var hasMethodExecutionCount = 0
-  var setMethodExecutionCount = 0
+test('inject custom cache', () => {
+  let hasMethodExecutionCount = 0
+  let setMethodExecutionCount = 0
 
   // a custom cache instance must implement:
   // - has
   // - get
   // - set
   // - delete
-  var customCacheProto = {
-    has: function (key) {
+  const customCacheProto = {
+    has (key) {
       hasMethodExecutionCount++
       return (key in this.cache)
     },
-    get: function (key) {
+    get (key) {
       return this.cache[key]
     },
-    set: function (key, value) {
+    set (key, value) {
       setMethodExecutionCount++
       this.cache[key] = value
     },
-    delete: function (key) {
+    delete (key) {
       delete this.cache[key]
     }
   }
-  var customCache = {
-    create: function () {
-      var cache = Object.create(customCacheProto)
+  const customCache = {
+    create () {
+      const cache = Object.create(customCacheProto)
       cache.cache = Object.create(null)
       return cache
     }
@@ -110,7 +108,7 @@ test('inject custom cache', function () {
     return a - b
   }
 
-  var memoizedMinus = memoize(minus, {
+  const memoizedMinus = memoize(minus, {
     cache: customCache
   })
   memoizedMinus(3, 1)
@@ -122,8 +120,8 @@ test('inject custom cache', function () {
   expect(setMethodExecutionCount).toBe(1)
 })
 
-test('inject custom serializer', function () {
-  var serializerMethodExecutionCount = 0
+test('inject custom serializer', () => {
+  let serializerMethodExecutionCount = 0
 
   function serializer () {
     serializerMethodExecutionCount++
@@ -134,8 +132,8 @@ test('inject custom serializer', function () {
     return a - b
   }
 
-  var memoizedMinus = memoize(minus, {
-    serializer: serializer
+  const memoizedMinus = memoize(minus, {
+    serializer
   })
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
