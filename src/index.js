@@ -91,10 +91,6 @@ class ObjectWithoutPrototypeCache {
   set (key, value) {
     this.cache[key] = value
   }
-
-  delete (key) {
-    delete this.cache[key]
-  }
 }
 
 const cacheDefault = {
