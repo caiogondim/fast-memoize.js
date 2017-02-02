@@ -1,6 +1,6 @@
 {
   "name": "fast-memoize",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
   "scripts": {
@@ -53,8 +53,10 @@
     "underscore": "^1.8.3"
   },
   "jest": {
-    "testPathDirs": ["test/"],
-    "testRegex": "test\/.*\\.js$",
+    "testPathDirs": [
+      "test/"
+    ],
+    "testRegex": "test/.*\\.js$",
     "collectCoverage": true
   },
   "eslintConfig": {
