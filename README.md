@@ -55,7 +55,6 @@ The custom cache must implement the following methods:
 - `get`
 - `set`
 - `has`
-- `delete`
 
 ### Custom serializer
 
