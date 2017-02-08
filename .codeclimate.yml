@@ -10,6 +10,6 @@ engines:
 
 ratings:
  paths:
- - "**.js"
-
+ - "src/**.js"
+ - "test/**.js"
 exclude_paths:
