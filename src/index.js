@@ -45,7 +45,7 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-const serializerDefault = (...args) => JSON.stringify(args);
+const serializerDefault = (...args) => JSON.stringify(args)
 
 //
 // Cache
@@ -84,10 +84,10 @@ const defaults = {
 }
 
 module.exports = function memoize (fn, options) {
-  const activeOptions = Object.assign({}, defaults, options);
+  const activeOptions = Object.assign({}, defaults, options)
 
   return activeOptions.strategy(fn, {
     serializer: activeOptions.serializer,
-    cache: activeOptions.cache,
+    cache: activeOptions.cache
   })
 }
