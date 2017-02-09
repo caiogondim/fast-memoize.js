@@ -1,32 +1,8 @@
-//
-// Main
-//
-
-module.exports = function memoize (fn, options) {
-  const cache = options && options.cache
-    ? options.cache
-    : cacheDefault
-
-  const serializer = options && options.serializer
-    ? options.serializer
-    : serializerDefault
-
-  const strategy = options && options.strategy
-    ? options.strategy
-    : strategyDefault
-
-  return strategy(fn, {
-    cache,
-    serializer
-  })
-}
+const isPrimitive = require('./isPrimitive')
 
 //
 // Strategy
 //
-
-const isPrimitive = (value) =>
-  value == null || (typeof value !== 'function' && typeof value !== 'object')
 
 function strategyDefault (fn, options) {
   function monadic (fn, cache, serializer, arg) {
@@ -69,7 +45,7 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-const serializerDefault = (...args) => JSON.stringify(args)
+const serializerDefault = (...args) => JSON.stringify(args);
 
 //
 // Cache
@@ -95,4 +71,23 @@ class ObjectWithoutPrototypeCache {
 
 const cacheDefault = {
   create: () => new ObjectWithoutPrototypeCache()
+}
+
+//
+// export Main
+//
+
+const defaults = {
+  strategy: strategyDefault,
+  serializer: serializerDefault,
+  cache: cacheDefault
+}
+
+module.exports = function memoize (fn, options) {
+  const activeOptions = Object.assign({}, defaults, options);
+
+  return activeOptions.strategy(fn, {
+    serializer: activeOptions.serializer,
+    cache: activeOptions.cache,
+  })
 }
