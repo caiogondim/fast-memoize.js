@@ -70,6 +70,19 @@ that represents it. It has to be a
 [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm)
 meaning that, given one input, it always give the same output.
 
+### TTL
+
+To use a time-to-live:
+```js
+const memoized = memoize(fn, {
+  ttl: 100 // ms
+})
+```
+
+`ttl` is used to expire/delete cache keys. Valid time range up to 24 hours.
+
+Note: cache entries are not groomed aggressively, for performance reasons. So a cache entry may reside in memory for up to `ttl * 2` before actually being purged. However, if a cache entry is accessed anytime after its expiration, it will then be immediately deleted and re-calculated.
+
 ## Benchmark
 
 For an in depth explanation on how this library was created, go read
