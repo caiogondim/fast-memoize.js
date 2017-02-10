@@ -47,11 +47,20 @@ pass a custom cache to be used.
 
 ```js
 const memoized = memoize(fn, {
-  cache: customCache
+  cache: {
+    create() {
+      var store = {};
+      return {
+        has(key) { return (key in store); },
+        get(key) { return store[key]; },
+        set(key, value) { store[key] = value; }
+      };
+    }
+  }
 })
 ```
 
-The custom cache must implement the following methods:
+The custom cache should be an object containing a `create` method that returns an object implementing the following methods:
 - `get`
 - `set`
 - `has`
