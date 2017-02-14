@@ -58,6 +58,26 @@ test('memoize functions with single non-primitive argument', () => {
   expect(numberOfCalls).toBe(1)
 })
 
+test('memoize functions with single non-primitive argument and TTL', () => {
+  let numberOfCalls = 0
+  function plusPlus (obj) {
+    numberOfCalls += 1
+    return obj.number + 1
+  }
+
+  const memoizedPlusPlus = memoize(plusPlus, { ttl: 2 })
+
+  memoizedPlusPlus({number: 1})
+  memoizedPlusPlus({number: 1})
+  let i = 50000
+  /* a simple delay */ while (i--) Math.random() * Math.random()
+  memoizedPlusPlus({number: 1})
+  memoizedPlusPlus({number: 1})
+
+  // Assertions
+  expect(numberOfCalls).toBe(2)
+})
+
 test('memoize functions with N arguments', () => {
   function nToThePower (n, power) {
     return Math.pow(n, power)
