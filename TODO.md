@@ -7,7 +7,7 @@
 - Inline
 - Explicit strategy
 - NodeJS optimizations
-  - instrospection
+  - introspection
 - Enable turbo
 - web tracing framework
 
