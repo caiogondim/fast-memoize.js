@@ -42,7 +42,7 @@ memoized('foo', 3, 'bar') // Cache hit
 
 ### Custom cache
 
-The fastest cache is used for the running enviroment, but it is possible to
+The fastest cache is used for the running environment, but it is possible to
 pass a custom cache to be used.
 
 ```js
