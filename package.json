@@ -14,6 +14,7 @@
     "benchmark:strategy": "node benchmark/strategy",
     "benchmark:trace": "node --trace-inlining --trace-opt --trace-deopt benchmark/trace.js",
     "benchmark:v8-optimization-analysis": "node --allow_natives_syntax --expose_debug_as=VirtualMachine benchmark/v8-optimization-analysis.js",
+    "benchmark:compare": "./benchmark/compare-commits/index.sh",
     "lint": "eslint --fix \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
     "test": "jest",
