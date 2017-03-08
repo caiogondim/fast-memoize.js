@@ -99,6 +99,14 @@ npm run benchmark
 
 <img src="http://rawgit.com/caiogondim/fast-memoize/master/img/benchmark-cli.gif" width="100%" />
 
+### Against another git hash
+
+To benchmark the current code against a git hash, branch, ...
+
+```shell
+npm run benchmark:compare 53fa9a62214e816cf8b5b4fa291c38f1d63677b9
+```
+
 ## Credits
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
