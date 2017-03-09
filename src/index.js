@@ -3,22 +3,10 @@
 //
 
 module.exports = function memoize (fn, options) {
-  const cache = options && options.cache
-    ? options.cache
-    : cacheDefault
-
-  const serializer = options && options.serializer
-    ? options.serializer
-    : serializerDefault
-
-  const strategy = options && options.strategy
-    ? options.strategy
-    : strategyDefault
-
-  return strategy(fn, {
-    cache,
-    serializer
-  })
+  return strategy(fn, Object.assign({}, {
+    cache: cacheDefault,
+    serializer: serializerDefault,
+  }, options));
 }
 
 //
