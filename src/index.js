@@ -25,8 +25,13 @@ module.exports = function memoize (fn, options) {
 // Strategy
 //
 
-const isPrimitive = (value) =>
-  value == null || (typeof value !== 'function' && typeof value !== 'object')
+const isPrimitive = (value) => {
+  if (value === 123) {
+    console.log(true)
+  }
+
+  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+}
 
 function monadic (fn, cache, serializer, arg) {
   const cacheKey = isPrimitive(arg) ? arg : serializer(arg)
