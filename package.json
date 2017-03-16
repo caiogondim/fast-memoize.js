@@ -22,7 +22,7 @@
     "build:min": "cross-env BABEL_ENV=min babel src/index.js -o dist/fast-memoize.min.js",
     "build": "npm run build:cjs && npm run build:umd && npm run build:min",
     "lint": "eslint --fix \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
-    "preversion": "npm run test:all",
+    "preversion": "npm run build && npm run test:all",
     "test": "jest",
     "test:all": "npm run lint && npm run test",
     "test:coverage": "covert test/*.js"
