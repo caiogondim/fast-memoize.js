@@ -3,7 +3,7 @@
 <h1 align="center">fast-memoize.js</h1>
 
 <div align="center">
-  <img src="http://travis-ci.org/caiogondim/fast-memoize.js.svg?branch=master" alt="Travis CI">  <img src="http://img.badgesize.io/caiogondim/fast-memoize.js/master/src/index.js?compression=gzip"> <img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="JS standard style">
+  <img src="http://travis-ci.org/caiogondim/fast-memoize.js.svg?branch=master" alt="Travis CI">  <img src="http://img.badgesize.io/caiogondim/fast-memoize.js/master/src/index.js?compression=gzip"> <img src="https://codecov.io/gh/caiogondim/fast-memoize.js/branch/master/graph/badge.svg)](https://codecov.io/gh/caiogondim/fast-memoize.js" alt="Code coverage">
 </div>
 
 <br>
