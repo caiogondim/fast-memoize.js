@@ -95,6 +95,6 @@ ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
   this.cache[key] = value
 }
 
-const cacheDefault = {
+var cacheDefault = {
   create: () => new ObjectWithoutPrototypeCache()
 }
