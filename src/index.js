@@ -71,7 +71,7 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-function serializerDefault() {
+function serializerDefault () {
   return JSON.stringify(arguments)
 }
 
@@ -79,7 +79,7 @@ function serializerDefault() {
 // Cache
 //
 
-function ObjectWithoutPrototypeCache() {
+function ObjectWithoutPrototypeCache () {
   this.cache = Object.create(null)
 }
 
