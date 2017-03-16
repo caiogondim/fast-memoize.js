@@ -3,15 +3,15 @@
 //
 
 module.exports = function memoize (fn, options) {
-  const cache = options && options.cache
+  var cache = options && options.cache
     ? options.cache
     : cacheDefault
 
-  const serializer = options && options.serializer
+  var serializer = options && options.serializer
     ? options.serializer
     : serializerDefault
 
-  const strategy = options && options.strategy
+  var strategy = options && options.strategy
     ? options.strategy
     : strategyDefault
 
@@ -25,14 +25,15 @@ module.exports = function memoize (fn, options) {
 // Strategy
 //
 
-const isPrimitive = (value) =>
-  value == null || (typeof value !== 'function' && typeof value !== 'object')
+function isPrimitive (value) {
+  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+}
 
 function monadic (fn, cache, serializer, arg) {
-  const cacheKey = isPrimitive(arg) ? arg : serializer(arg)
+  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
   if (!cache.has(cacheKey)) {
-    const computedValue = fn.call(this, arg)
+    var computedValue = fn.call(this, arg)
     cache.set(cacheKey, computedValue)
     return computedValue
   }
@@ -40,11 +41,12 @@ function monadic (fn, cache, serializer, arg) {
   return cache.get(cacheKey)
 }
 
-function variadic (fn, cache, serializer, ...args) {
-  const cacheKey = serializer(args)
+function variadic (fn, cache, serializer) {
+  var args = Array.prototype.slice.call(arguments, 3)
+  var cacheKey = serializer(args)
 
   if (!cache.has(cacheKey)) {
-    const computedValue = fn.apply(this, args)
+    var computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
     return computedValue
   }
@@ -53,7 +55,7 @@ function variadic (fn, cache, serializer, ...args) {
 }
 
 function strategyDefault (fn, options) {
-  let memoized = fn.length === 1 ? monadic : variadic
+  var memoized = fn.length === 1 ? monadic : variadic
 
   memoized = memoized.bind(
     this,
@@ -69,28 +71,28 @@ function strategyDefault (fn, options) {
 // Serializer
 //
 
-const serializerDefault = (...args) => JSON.stringify(args)
+function serializerDefault() {
+  return JSON.stringify(arguments)
+}
 
 //
 // Cache
 //
 
-class ObjectWithoutPrototypeCache {
-  constructor () {
-    this.cache = Object.create(null)
-  }
+function ObjectWithoutPrototypeCache() {
+  this.cache = Object.create(null)
+}
 
-  has (key) {
-    return (key in this.cache)
-  }
+ObjectWithoutPrototypeCache.prototype.has = function (key) {
+  return (key in this.cache)
+}
 
-  get (key) {
-    return this.cache[key]
-  }
+ObjectWithoutPrototypeCache.prototype.get = function (key) {
+  return this.cache[key]
+}
 
-  set (key, value) {
-    this.cache[key] = value
-  }
+ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
+  this.cache[key] = value
 }
 
 const cacheDefault = {
