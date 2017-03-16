@@ -38,6 +38,7 @@
   "devDependencies": {
     "benchmark": "^2.0.0",
     "cli-table2": "^0.2.0",
+    "codecov": "^2.0.2",
     "covert": "^1.1.0",
     "eslint": "^3.12.1",
     "eslint-config-standard": "^6.2.1",
@@ -58,7 +59,8 @@
       "test/"
     ],
     "testRegex": "test/.*\\.js$",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "coverageDirectory": "./coverage/"
   },
   "eslintConfig": {
     "extends": "standard",

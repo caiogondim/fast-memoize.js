@@ -12,3 +12,6 @@ cache:
 install:
   - npm i -g npm@latest
   - npm install
+
+after_success:
+  - ./node_modules/.bin/codecov
