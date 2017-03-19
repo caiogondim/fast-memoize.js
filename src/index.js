@@ -16,8 +16,8 @@ module.exports = function memoize (fn, options) {
     : strategyDefault
 
   return strategy(fn, {
-    cache,
-    serializer
+    cache: cache,
+    serializer: serializer
   })
 }
 
@@ -96,5 +96,7 @@ ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
 }
 
 var cacheDefault = {
-  create: () => new ObjectWithoutPrototypeCache()
+  create: function create() {
+    return new ObjectWithoutPrototypeCache()
+  }
 }
