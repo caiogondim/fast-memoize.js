@@ -96,7 +96,7 @@ ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
 }
 
 var cacheDefault = {
-  create: function create() {
+  create: function create () {
     return new ObjectWithoutPrototypeCache()
   }
 }
