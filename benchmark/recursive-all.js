@@ -7,6 +7,7 @@ const fastMemoize = require('../src/')
 const iMemoized = require('iMemoized')
 const lodash = require('lodash').memoize
 const memoizee = require('memoizee')
+const marks = require('./marks-memoize')
 const R = require('ramda')
 const underscore = require('underscore').memoize
 
@@ -117,6 +118,16 @@ benchmark
     memoizedImemoized(fibNumber + 10)
     memoizedImemoized(fibNumber + 20)
     memoizedImemoized(fibNumber + 30)
+  })
+  .add('Mark\'s Memoized', () => {
+    const memoizedMarks = marks((n) => {
+      return n < 2 ? n : memoizedMarks(n - 1) + memoizedMarks(n - 2)
+    })
+
+    memoizedMarks(fibNumber)
+    memoizedMarks(fibNumber + 10)
+    memoizedMarks(fibNumber + 20)
+    memoizedMarks(fibNumber + 30)
   })
   .add(`fast-memoize@current`, () => {
     const memoizedFastMemoizeCurrentVersion = fastMemoize((n) => {

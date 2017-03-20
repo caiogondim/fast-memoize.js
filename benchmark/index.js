@@ -9,6 +9,8 @@ const memoizee = require('memoizee')
 const R = require('ramda')
 const fastMemoize = require('../src/')
 
+const marks = require('./marks-memoize')
+
 const results = []
 const spinner = ora('Running benchmark')
 
@@ -62,6 +64,8 @@ let memoizedLodash = lodash(fibonacci)
 let memoizedMemoizee = memoizee(fibonacci)
 let memoizedRamda = R.memoize(fibonacci)
 let memoizedImemoized = iMemoized.memoize(fibonacci)
+let memoizedMarks = marks(fibonacci)
+
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 let benchmark = new Benchmark.Suite()
@@ -85,6 +89,9 @@ benchmark
   })
   .add('iMemoized', () => {
     memoizedImemoized(fibNumber)
+  })
+  .add('Mark\'s Memoized', () => {
+    memoizedMarks(fibNumber)
   })
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
