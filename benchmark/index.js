@@ -1,6 +1,7 @@
 const ora = require('ora')
 const Table = require('cli-table2')
 const debug = require('logdown')()
+const lruMemoize = require('lru-memoize').default
 const iMemoized = require('iMemoized')
 const Benchmark = require('benchmark')
 const underscore = require('underscore').memoize
@@ -53,19 +54,23 @@ spinner.start()
 // Benchmark
 //
 
-let fibonacci = (n) => {
+const fibonacci = (n) => {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-let memoizedUnderscore = underscore(fibonacci)
-let memoizedLodash = lodash(fibonacci)
-let memoizedMemoizee = memoizee(fibonacci)
-let memoizedRamda = R.memoize(fibonacci)
-let memoizedImemoized = iMemoized.memoize(fibonacci)
+const fibNumber = 15
+const fibCount = 1973
+
+const memoizedUnderscore = underscore(fibonacci)
+const memoizedLodash = lodash(fibonacci)
+const memoizedMemoizee = memoizee(fibonacci)
+const memoizedRamda = R.memoize(fibonacci)
+const memoizedImemoized = iMemoized.memoize(fibonacci)
+const memoizedLRUSingleCache = lruMemoize(fibonacci)
+const memoizedLRUWithLimit = lruMemoize(fibCount)(fibonacci)
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
-let benchmark = new Benchmark.Suite()
-let fibNumber = 15
+const benchmark = new Benchmark.Suite()
 
 benchmark
   .add('vanilla', () => {
@@ -85,6 +90,12 @@ benchmark
   })
   .add('iMemoized', () => {
     memoizedImemoized(fibNumber)
+  })
+  .add('lru-memoize (single cache)', () => {
+    memoizedLRUSingleCache(fibNumber)
+  })
+  .add('lru-memoize (with limit)', () => {
+    memoizedLRUWithLimit(fibNumber)
   })
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
