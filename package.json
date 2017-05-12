@@ -49,6 +49,7 @@
     "lodash": "^4.0.0",
     "logdown": "^1.2.5",
     "lru-cache": "^4.0.0",
+    "lru-memoize": "^1.0.2",
     "memoizee": "^0.4.1",
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
