@@ -1,0 +1,28 @@
+{
+	"presets": [
+		"es2015",
+	],
+	"env": {
+		"umd": {
+			"plugins": [
+				["transform-es2015-modules-umd", {
+					"globals": {
+						"index": "fastMemoize"
+					},
+					"exactGlobals": true
+				}]
+			],
+		},
+		"min": {
+			"presets": ["babili"],
+			"plugins": [
+				["transform-es2015-modules-umd", {
+					"globals": {
+						"index": "fastMemoize"
+					},
+					"exactGlobals": true
+				}]
+			],
+		},
+	}
+}
