@@ -3,21 +3,21 @@
 //
 
 module.exports = function memoize (fn, options) {
-  var cache = options && options.cache
+  const cache = options && options.cache
     ? options.cache
     : cacheDefault
 
-  var serializer = options && options.serializer
+  const serializer = options && options.serializer
     ? options.serializer
     : serializerDefault
 
-  var strategy = options && options.strategy
+  const strategy = options && options.strategy
     ? options.strategy
     : strategyDefault
 
   return strategy(fn, {
-    cache: cache,
-    serializer: serializer
+    cache,
+    serializer
   })
 }
 
@@ -25,12 +25,11 @@ module.exports = function memoize (fn, options) {
 // Strategy
 //
 
-function isPrimitive (value) {
-  return value == null || (typeof value !== 'function' && typeof value !== 'object')
-}
+const isPrimitive = (value) =>  
+  (typeof value !== 'function' && typeof value !== 'object')
 
 function monadic (fn, cache, serializer, arg) {
-  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
+  const cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
   if (!cache.has(cacheKey)) {
     var computedValue = fn.call(this, arg)
@@ -42,11 +41,11 @@ function monadic (fn, cache, serializer, arg) {
 }
 
 function variadic (fn, cache, serializer) {
-  var args = Array.prototype.slice.call(arguments, 3)
-  var cacheKey = serializer(args)
+  const args = Array.prototype.slice.call(arguments, 3)
+  const cacheKey = serializer(args)
 
   if (!cache.has(cacheKey)) {
-    var computedValue = fn.apply(this, args)
+    const computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
     return computedValue
   }
@@ -55,7 +54,7 @@ function variadic (fn, cache, serializer) {
 }
 
 function strategyDefault (fn, options) {
-  var memoized = fn.length === 1 ? monadic : variadic
+  let memoized = fn.length === 1 ? monadic : variadic
 
   memoized = memoized.bind(
     this,
@@ -95,8 +94,6 @@ ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
   this.cache[key] = value
 }
 
-var cacheDefault = {
-  create: function create () {
-    return new ObjectWithoutPrototypeCache()
-  }
+const cacheDefault = {
+  create: () => new ObjectWithoutPrototypeCache()
 }
