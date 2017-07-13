@@ -77,7 +77,7 @@ const memoized = memoize(fn, {
 The serializer is a function that receives one argument and outputs a string
 that represents it. It has to be a
 [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm)
-meaning that, given one input, it always give the same output.
+meaning that, given one input, it always returns the same output.
 
 ## Benchmark
 
