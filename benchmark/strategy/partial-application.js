@@ -1,4 +1,4 @@
-// This strategy is an improvement over `infer-arity`
+// this strategy is an improvement over `infer-arity`
 
 function isPrimitive (value) {
   return value == null || (typeof value !== 'function' && typeof value !== 'object')
@@ -6,7 +6,7 @@ function isPrimitive (value) {
 
 function strategy (fn, options) {
   function monadic (fn, cache, serializer, arg) {
-    var cacheKey
+    let cacheKey
     if (isPrimitive(arg)) {
       cacheKey = arg
     } else {
@@ -14,8 +14,9 @@ function strategy (fn, options) {
     }
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.call(this, arg)
+      let computedValue = fn.call(this, arg)
       cache.set(cacheKey, computedValue)
+
       return computedValue
     }
 
@@ -23,18 +24,19 @@ function strategy (fn, options) {
   }
 
   function variadic (fn, cache, serializer, ...args) {
-    var cacheKey = serializer(args)
+    let cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.apply(this, args)
+      let computedValue = fn.apply(this, args)
       cache.set(cacheKey, computedValue)
+
       return computedValue
     }
 
     return cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
+  let memoized = fn.length === 1
     ? monadic
     : variadic
 

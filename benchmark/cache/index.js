@@ -7,7 +7,7 @@ const results = []
 const spinner = ora('Running benchmark')
 
 //
-// View
+// view
 //
 
 function showResults (benchmarkResults) {
@@ -44,12 +44,10 @@ function onComplete () {
 spinner.start()
 
 //
-// Benchmark
+// benchmark
 //
 
-let fibonacci = (n) => {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-}
+let fibonacci = (n) => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
 let caches = []
 caches.push(require('./map'))

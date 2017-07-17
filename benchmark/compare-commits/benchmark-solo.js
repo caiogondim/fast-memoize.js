@@ -4,7 +4,7 @@ const fastMemoize = require('../../src')
 const benchmarkResults = []
 
 //
-// View
+// view
 //
 
 function showResults (benchmarkResults) {
@@ -22,12 +22,10 @@ function onComplete () {
 }
 
 //
-// Benchmark
+// benchmark
 //
 
-const fibonacci = (n) => {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-}
+const fibonacci = (n) => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 

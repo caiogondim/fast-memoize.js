@@ -14,7 +14,7 @@ const results = []
 const spinner = ora('Running benchmark')
 
 //
-// View
+// view
 //
 
 function showResults (benchmarkResults) {
@@ -51,12 +51,10 @@ function onComplete () {
 spinner.start()
 
 //
-// Benchmark
+// benchmark
 //
 
-const fibonacci = (n) => {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-}
+const fibonacci = (n) => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
 const fibNumber = 15
 const fibCount = 1973

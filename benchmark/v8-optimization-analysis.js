@@ -1,4 +1,4 @@
-// All runtime flags in:
+// all runtime flags in:
 // - https://github.com/v8/v8/blob/75128636f31636ab4695b9c75d986bcca654a1f5/src/runtime/runtime.h
 // - https://github.com/thlorenz/v8-flags/blob/master/flags-0.11.md
 

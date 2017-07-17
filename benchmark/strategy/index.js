@@ -7,7 +7,7 @@ const results = []
 const spinner = ora('Running benchmark')
 
 //
-// View
+// view
 //
 
 function showResults (benchmarkResults) {
@@ -44,10 +44,10 @@ function onComplete () {
 spinner.start()
 
 //
-// Benchmark
+// benchmark
 //
 
-// Creating multiple fibonacci functions to avoid a scenario where a benchmark could start with an
+// creating multiple fibonacci functions to avoid a scenario where a benchmark could start with an
 // optimized function by V8.
 
 // eslint-disable-next-line no-unused-vars
