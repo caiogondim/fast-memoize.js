@@ -17,7 +17,7 @@
     "benchmark:compare": "./benchmark/compare-commits/index.sh",
     "lint": "eslint --fix \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
-    "test": "jest && npm run lint",
+    "test": "jest",
     "test:all": "npm run lint && npm run test",
     "test:coverage": "covert test/*.js"
   },
