@@ -5,13 +5,8 @@ language: node_js
 node_js:
   - 6
 
-cache:
-  directories:
-    - node_modules
-
-install:
-  - npm i -g npm@latest
-  - npm install
+scripts:
+  - "npm run test:all"
 
 after_success:
   - ./node_modules/.bin/codecov
