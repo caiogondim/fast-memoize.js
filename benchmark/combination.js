@@ -6,7 +6,7 @@ const Benchmark = require('benchmark')
 const results = []
 
 //
-// View
+// view
 //
 
 function showResults (results) {
@@ -45,12 +45,10 @@ function sortDescResults (results) {
 const spinner = ora('Running benchmark')
 
 //
-// Fibonacci suite
+// fibonacci suite
 //
 
-const fibonacci = (n) => {
-  return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-}
+const fibonacci = (n) => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
 const caches = []
 caches.push(require('./cache/map'))

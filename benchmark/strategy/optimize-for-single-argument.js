@@ -4,7 +4,7 @@ function isPrimitive (value) {
 
 function strategy (fn, options) {
   function memoized () {
-    var cacheKey
+    let cacheKey
 
     if (arguments.length === 1 && isPrimitive(arguments[0])) {
       cacheKey = arguments[0]

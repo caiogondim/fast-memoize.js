@@ -1,17 +1,17 @@
 //
-// Main
+// main
 //
 
 module.exports = function memoize (fn, options) {
-  var cache = options && options.cache
+  let cache = options && options.cache
     ? options.cache
     : cacheDefault
 
-  var serializer = options && options.serializer
+  let serializer = options && options.serializer
     ? options.serializer
     : serializerDefault
 
-  var strategy = options && options.strategy
+  let strategy = options && options.strategy
     ? options.strategy
     : strategyDefault
 
@@ -22,7 +22,7 @@ module.exports = function memoize (fn, options) {
 }
 
 //
-// Strategy
+// strategy
 //
 
 function isPrimitive (value) {
@@ -30,11 +30,12 @@ function isPrimitive (value) {
 }
 
 function monadic (fn, cache, serializer, arg) {
-  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
+  let cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
   if (!cache.has(cacheKey)) {
-    var computedValue = fn.call(this, arg)
+    let computedValue = fn.call(this, arg)
     cache.set(cacheKey, computedValue)
+
     return computedValue
   }
 
@@ -42,12 +43,13 @@ function monadic (fn, cache, serializer, arg) {
 }
 
 function variadic (fn, cache, serializer) {
-  var args = Array.prototype.slice.call(arguments, 3)
-  var cacheKey = serializer(args)
+  let args = Array.prototype.slice.call(arguments, 3)
+  let cacheKey = serializer(args)
 
   if (!cache.has(cacheKey)) {
-    var computedValue = fn.apply(this, args)
+    let computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
+
     return computedValue
   }
 
@@ -55,7 +57,7 @@ function variadic (fn, cache, serializer) {
 }
 
 function strategyDefault (fn, options) {
-  var memoized = fn.length === 1 ? monadic : variadic
+  let memoized = fn.length === 1 ? monadic : variadic
 
   memoized = memoized.bind(
     this,
@@ -68,7 +70,7 @@ function strategyDefault (fn, options) {
 }
 
 //
-// Serializer
+// serializer
 //
 
 function serializerDefault () {
@@ -76,7 +78,7 @@ function serializerDefault () {
 }
 
 //
-// Cache
+// cache
 //
 
 function ObjectWithoutPrototypeCache () {

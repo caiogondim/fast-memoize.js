@@ -1,4 +1,4 @@
-var LruCache = require('lru-cache')
+let LruCache = require('lru-cache')
 
 module.exports = {
   create: () => new LruCache(),

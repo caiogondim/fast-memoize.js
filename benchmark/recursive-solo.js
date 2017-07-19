@@ -5,7 +5,7 @@ const Table = require('cli-table2')
 const results = []
 
 //
-// Benchmark
+// benchmark
 //
 
 function fibonacci1 (n) {
@@ -17,7 +17,7 @@ function fibonacci2 (n) {
 }
 
 function range (begin, end) {
-  var array = []
+  let array = []
   for (let i = begin; i <= end; i++) {
     array.push(i)
   }
@@ -28,7 +28,7 @@ function range (begin, end) {
 const fibonacciNumbers = range(10, 30)
 
 //
-// Recursive memoization
+// recursive memoization
 //
 
 const fastMemoize = require('../src')
@@ -59,7 +59,7 @@ fibonacciNumbers.forEach((n) => {
   })
 })
 
-// Vanilla memoization
+// vanilla memoization
 
 const memoizedFibonacci2 = fastMemoize(fibonacci2)
 
@@ -87,7 +87,7 @@ fibonacciNumbers.forEach((n) => {
 })
 
 //
-// View
+// view
 //
 
 function showResults (results) {

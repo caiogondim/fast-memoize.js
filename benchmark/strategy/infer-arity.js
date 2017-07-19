@@ -4,7 +4,7 @@ function isPrimitive (value) {
 
 function strategy (fn, options) {
   function monadic () {
-    var cacheKey
+    let cacheKey
     if (isPrimitive(arguments[0])) {
       cacheKey = arguments[0]
     } else {
@@ -19,7 +19,7 @@ function strategy (fn, options) {
   }
 
   function variadic () {
-    var cacheKey = options.serializer(arguments)
+    let cacheKey = options.serializer(arguments)
 
     if (!memoized.cache.has(cacheKey)) {
       memoized.cache.set(cacheKey, fn.apply(this, arguments))

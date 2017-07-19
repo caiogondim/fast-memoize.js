@@ -1,8 +1,8 @@
 function hasSupport () {
-  var hasSupport = true
+  let hasSupport = true
 
   try {
-    var map = new Map()
+    let map = new Map()
     map.set(null)
   } catch (error) {
     hasSupport = false
@@ -12,7 +12,8 @@ function hasSupport () {
 }
 
 function create () {
-  var cache = new Map()
+  let cache = new Map()
+
   return cache
 }
 

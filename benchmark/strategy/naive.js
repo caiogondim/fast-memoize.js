@@ -1,6 +1,6 @@
 function strategy (fn, options) {
   function memoized () {
-    var cacheKey
+    let cacheKey
 
     cacheKey = options.serializer(arguments)
 

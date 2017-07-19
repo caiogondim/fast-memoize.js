@@ -14,7 +14,7 @@ const results = []
 const spinner = ora('Running benchmark')
 
 //
-// View
+// view
 //
 
 function showResults (benchmarkResults) {
@@ -51,7 +51,7 @@ function onComplete () {
 spinner.start()
 
 //
-// Benchmark
+// benchmark
 //
 
 const benchmark = new Benchmark.Suite()
@@ -59,9 +59,7 @@ const fibNumber = 10
 
 benchmark
   .add('vanilla', () => {
-    const fibonacci = (n) => {
-      return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-    }
+    const fibonacci = (n) => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
     fibonacci(fibNumber)
     fibonacci(fibNumber + 10)
@@ -69,9 +67,7 @@ benchmark
     fibonacci(fibNumber + 30)
   })
   .add('underscore', () => {
-    const memoizedUnderscore = underscore((n) => {
-      return n < 2 ? n : memoizedUnderscore(n - 1) + memoizedUnderscore(n - 2)
-    })
+    const memoizedUnderscore = underscore((n) => n < 2 ? n : memoizedUnderscore(n - 1) + memoizedUnderscore(n - 2))
 
     memoizedUnderscore(fibNumber)
     memoizedUnderscore(fibNumber + 10)
@@ -79,9 +75,7 @@ benchmark
     memoizedUnderscore(fibNumber + 30)
   })
   .add('lodash', () => {
-    const memoizedLodash = lodash((n) => {
-      return n < 2 ? n : memoizedLodash(n - 1) + memoizedLodash(n - 2)
-    })
+    const memoizedLodash = lodash((n) => n < 2 ? n : memoizedLodash(n - 1) + memoizedLodash(n - 2))
 
     memoizedLodash(fibNumber)
     memoizedLodash(fibNumber + 10)
@@ -89,9 +83,7 @@ benchmark
     memoizedLodash(fibNumber + 30)
   })
   .add('memoizee', () => {
-    const memoizedMemoizee = memoizee((n) => {
-      return n < 2 ? n : memoizedMemoizee(n - 1) + memoizedMemoizee(n - 2)
-    })
+    const memoizedMemoizee = memoizee((n) => n < 2 ? n : memoizedMemoizee(n - 1) + memoizedMemoizee(n - 2))
 
     memoizedMemoizee(fibNumber)
     memoizedMemoizee(fibNumber + 10)
@@ -99,9 +91,7 @@ benchmark
     memoizedMemoizee(fibNumber + 30)
   })
   .add('ramda', () => {
-    const memoizedRamda = R.memoize((n) => {
-      return n < 2 ? n : memoizedRamda(n - 1) + memoizedRamda(n - 2)
-    })
+    const memoizedRamda = R.memoize((n) => n < 2 ? n : memoizedRamda(n - 1) + memoizedRamda(n - 2))
 
     memoizedRamda(fibNumber)
     memoizedRamda(fibNumber + 10)
@@ -109,9 +99,7 @@ benchmark
     memoizedRamda(fibNumber + 30)
   })
   .add('iMemoized', () => {
-    const memoizedImemoized = iMemoized.memoize((n) => {
-      return n < 2 ? n : memoizedImemoized(n - 1) + memoizedImemoized(n - 2)
-    })
+    const memoizedImemoized = iMemoized.memoize((n) => n < 2 ? n : memoizedImemoized(n - 1) + memoizedImemoized(n - 2))
 
     memoizedImemoized(fibNumber)
     memoizedImemoized(fibNumber + 10)
@@ -119,9 +107,7 @@ benchmark
     memoizedImemoized(fibNumber + 30)
   })
   .add(`fast-memoize@current`, () => {
-    const memoizedFastMemoizeCurrentVersion = fastMemoize((n) => {
-      return n < 2 ? n : memoizedFastMemoizeCurrentVersion(n - 1) + memoizedFastMemoizeCurrentVersion(n - 2)
-    })
+    const memoizedFastMemoizeCurrentVersion = fastMemoize((n) => n < 2 ? n : memoizedFastMemoizeCurrentVersion(n - 1) + memoizedFastMemoizeCurrentVersion(n - 2))
 
     memoizedFastMemoizeCurrentVersion(fibNumber)
     memoizedFastMemoizeCurrentVersion(fibNumber + 10)

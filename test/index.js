@@ -3,7 +3,7 @@
 const memoize = require('../src')
 
 test('speed', () => {
-  // Vanilla Fibonacci
+  // vanilla Fibonacci
 
   function vanillaFibonacci (n) {
     return n < 2 ? n : vanillaFibonacci(n - 1) + vanillaFibonacci(n - 2)
@@ -13,7 +13,7 @@ test('speed', () => {
   vanillaFibonacci(35)
   const vanillaExecTime = Date.now() - vanillaExecTimeStart
 
-  // Memoized
+  // memoized
 
   let fibonacci = n => n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 
@@ -24,7 +24,7 @@ test('speed', () => {
   memoizedFibonacci(35)
   const memoizedExecTime = Date.now() - memoizedExecTimeStart
 
-  // Assertion
+  // assertion
 
   expect(memoizedExecTime < vanillaExecTime).toBe(true)
 })
@@ -36,7 +36,7 @@ test('memoize functions with single primitive argument', () => {
 
   const memoizedPlusPlus = memoize(plusPlus)
 
-  // Assertions
+  // assertions
 
   expect(memoizedPlusPlus(1)).toBe(2)
   expect(memoizedPlusPlus(1)).toBe(2)
@@ -46,12 +46,13 @@ test('memoize functions with single non-primitive argument', () => {
   let numberOfCalls = 0
   function plusPlus (obj) {
     numberOfCalls += 1
+
     return obj.number + 1
   }
 
   const memoizedPlusPlus = memoize(plusPlus)
 
-  // Assertions
+  // assertions
   expect(memoizedPlusPlus({number: 1})).toBe(2)
   expect(numberOfCalls).toBe(1)
   expect(memoizedPlusPlus({number: 1})).toBe(2)
@@ -65,7 +66,7 @@ test('memoize functions with N arguments', () => {
 
   const memoizedNToThePower = memoize(nToThePower)
 
-  // Assertions
+  // assertions
 
   expect(memoizedNToThePower(2, 3)).toBe(8)
   expect(memoizedNToThePower(2, 3)).toBe(8)
@@ -83,6 +84,7 @@ test('inject custom cache', () => {
   const customCacheProto = {
     has (key) {
       hasMethodExecutionCount++
+
       return (key in this.cache)
     },
     get (key) {
@@ -100,6 +102,7 @@ test('inject custom cache', () => {
     create () {
       const cache = Object.create(customCacheProto)
       cache.cache = Object.create(null)
+
       return cache
     }
   }
@@ -114,7 +117,7 @@ test('inject custom cache', () => {
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 
-  // Assertions
+  // assertions
 
   expect(hasMethodExecutionCount).toBe(2)
   expect(setMethodExecutionCount).toBe(1)
@@ -125,6 +128,7 @@ test('inject custom serializer', () => {
 
   function serializer () {
     serializerMethodExecutionCount++
+
     return JSON.stringify(arguments)
   }
 
@@ -138,7 +142,7 @@ test('inject custom serializer', () => {
   memoizedMinus(3, 1)
   memoizedMinus(3, 1)
 
-  // Assertions
+  // assertions
 
   expect(serializerMethodExecutionCount).toBe(2)
 })
