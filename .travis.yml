@@ -5,7 +5,7 @@ language: node_js
 node_js:
   - 6
 
-scripts:
+script:
   - "npm run test:all"
 
 after_success:
