@@ -71,6 +71,21 @@ test('memoize functions with N arguments', () => {
   expect(memoizedNToThePower(2, 3)).toBe(8)
 })
 
+test('memoize functions with spread arguments', () => {
+  function multiply (multiplier, ...theArgs) {
+    return theArgs.map(function (element) {
+      return multiplier * element
+    })
+  }
+
+  const memoizedMultiply = memoize(multiply)
+
+  // Assertions
+
+  expect(memoizedMultiply(2, 1, 2, 3)).toEqual([2, 4, 6])
+  expect(memoizedMultiply(2, 4, 5, 6)).toEqual([8, 10, 12])
+})
+
 test('inject custom cache', () => {
   let hasMethodExecutionCount = 0
   let setMethodExecutionCount = 0
