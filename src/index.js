@@ -2,7 +2,7 @@
 // Main
 //
 
-module.exports = function memoize (fn, options) {
+function memoize (fn, options) {
   var cache = options && options.cache
     ? options.cache
     : cacheDefault
@@ -54,17 +54,49 @@ function variadic (fn, cache, serializer) {
   return cache.get(cacheKey)
 }
 
-function strategyDefault (fn, options) {
-  var memoized = fn.length === 1 ? monadic : variadic
-
-  memoized = memoized.bind(
-    this,
+function assemble(fn, context, strategy, cache, serialize) {
+  return strategy.bind(
+    context,
     fn,
+    cache,
+    serialize
+  )
+}
+
+function strategyDefault (fn, options) {
+  var strategy = fn.length === 1 ? monadic : variadic
+
+  return assemble(
+    fn,
+    this,
+    strategy,
     options.cache.create(),
     options.serializer
   )
+}
 
-  return memoized
+function strategyVariadic (fn, options) {
+  var strategy = variadic
+
+  return assemble(
+    fn,
+    this,
+    strategy,
+    options.cache.create(),
+    options.serializer
+  )
+}
+
+function strategyMonadic (fn, options) {
+  var strategy = monadic
+
+  return assemble(
+    fn,
+    this,
+    strategy,
+    options.cache.create(),
+    options.serializer
+  )
 }
 
 //
@@ -99,4 +131,14 @@ var cacheDefault = {
   create: function create () {
     return new ObjectWithoutPrototypeCache()
   }
+}
+
+//
+// API
+//
+
+module.exports = memoize
+module.exports.strategies = {
+  variadic: strategyVariadic,
+  monadic: strategyMonadic
 }

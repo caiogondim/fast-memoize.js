@@ -107,6 +107,30 @@ To benchmark the current code against a git hash, branch, ...
 npm run benchmark:compare 53fa9a62214e816cf8b5b4fa291c38f1d63677b9
 ```
 
+### Gotchas
+
+#### Spread arguments
+
+We check for `function.lenght` to get upfront the expected number of arguments in order to use
+the fastest strategy. But with spread arguments we don't receive the right number.
+
+```js
+function multiply (multiplier, ...theArgs) {
+  return theArgs.map(function (element) {
+    return multiplier * element
+  })
+}
+multiply.length // => 1
+```
+
+So if you use spread arguments, explicitly set the strategy to variadic.
+
+```js
+const memoizedMultiply = memoize(multiply, {
+  strategy: memoize.strategies.variadic
+})
+```
+
 ## Credits
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)

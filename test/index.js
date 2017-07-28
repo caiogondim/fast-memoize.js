@@ -78,7 +78,9 @@ test('memoize functions with spread arguments', () => {
     })
   }
 
-  const memoizedMultiply = memoize(multiply)
+  const memoizedMultiply = memoize(multiply, {
+    strategy: memoize.strategies.variadic
+  })
 
   // Assertions
 
