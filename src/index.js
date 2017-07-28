@@ -54,7 +54,7 @@ function variadic (fn, cache, serializer) {
   return cache.get(cacheKey)
 }
 
-function assemble(fn, context, strategy, cache, serialize) {
+function assemble (fn, context, strategy, cache, serialize) {
   return strategy.bind(
     context,
     fn,
