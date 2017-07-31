@@ -111,7 +111,7 @@ npm run benchmark:compare 53fa9a62214e816cf8b5b4fa291c38f1d63677b9
 
 #### Spread arguments
 
-We check for `function.lenght` to get upfront the expected number of arguments in order to use
+We check for `function.length` to get upfront the expected number of arguments in order to use
 the fastest strategy. But with spread arguments we don't receive the right number.
 
 ```js
