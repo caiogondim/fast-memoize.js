@@ -1,4 +1,4 @@
-/* global test, expect */
+/* global test, expect, jest */
 
 const memoize = require('../src')
 
@@ -158,4 +158,44 @@ test('inject custom serializer', () => {
   // Assertions
 
   expect(serializerMethodExecutionCount).toBe(2)
+})
+
+test('explicitly use exposed monadic strategy', () => {
+  let numberOfCalls = 0
+  function plusPlus (number) {
+    numberOfCalls += 1
+    return number + 1
+  }
+  const spy = jest.spyOn(memoize.strategies, 'monadic')
+  const memoizedPlusPlus = memoize(plusPlus, { strategy: memoize.strategies.monadic })
+
+  // Assertions
+  expect(memoizedPlusPlus(1)).toBe(2)
+  expect(numberOfCalls).toBe(1)
+  expect(memoizedPlusPlus(1)).toBe(2)
+  expect(numberOfCalls).toBe(1)
+  expect(spy).toHaveBeenCalled()
+
+  // Teardown
+  spy.mockRestore()
+})
+
+test('explicitly use exposed variadic strategy', () => {
+  let numberOfCalls = 0
+  function plusPlus (number) {
+    numberOfCalls += 1
+    return number + 1
+  }
+  const spy = jest.spyOn(memoize.strategies, 'variadic')
+  const memoizedPlusPlus = memoize(plusPlus, { strategy: memoize.strategies.variadic })
+
+  // Assertions
+  expect(memoizedPlusPlus(1)).toBe(2)
+  expect(numberOfCalls).toBe(1)
+  expect(memoizedPlusPlus(1)).toBe(2)
+  expect(numberOfCalls).toBe(1)
+  expect(spy).toHaveBeenCalled()
+
+  // Teardown
+  spy.mockRestore()
 })

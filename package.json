@@ -41,7 +41,7 @@
     "codecov": "^2.0.2",
     "covert": "^1.1.0",
     "iMemoized": "0.0.10",
-    "jest": "^17.0.3",
+    "jest": "20.0.4",
     "lodash": "^4.0.0",
     "logdown": "^1.2.5",
     "lru-cache": "^4.0.0",
