@@ -131,6 +131,30 @@ const memoizedMultiply = memoize(multiply, {
 })
 ```
 
+#### Function Arguments
+
+The default serializer uses `JSON.stringify` which will serialize functions as `null`. This means that if you are passing any functions as arguments you will get the same output regardless of whether you pass in different functions or indeed no function at all. The cache key generated will always be the same. To get around this you can give each function a unique ID and use that.
+
+```
+let id = 0
+function memoizedId(x) {
+  if (!x.__memoizedId) x.__memoizedId = ++id
+  return { __memoizedId: x.__memoizedId }
+}
+
+memoize((aFunction, foo) => {
+  return aFunction.bind(foo)
+}, {
+  serializer: args => {
+    const argumentsWithFuncIds = Array.from(args).map(x => {
+      if (typeof x === 'function') return memoizedId(x)
+      return x
+    })
+    return JSON.stringify(argumentsWithFuncIds)
+  }
+})
+```
+
 ## Credits
 - Icon by Mary Rankin from the Noun Project
 - [Bullet train ZSH theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
