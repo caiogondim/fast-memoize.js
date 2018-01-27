@@ -26,7 +26,7 @@ function memoize (fn, options) {
 //
 
 function isPrimitive (value) {
-  return value == null || (typeof value !== 'function' && typeof value !== 'object')
+  return value == null || typeof value === "number" || typeof value === "boolean"; // || typeof value === "string" 'unsafe' primitive for our needs
 }
 
 function monadic (fn, cache, serializer, arg) {
