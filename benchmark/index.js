@@ -8,6 +8,7 @@ const underscore = require('underscore').memoize
 const lodash = require('lodash').memoize
 const memoizee = require('memoizee')
 const R = require('ramda')
+const nano = require('nano-memoize')
 const fastMemoize = require('../src/')
 
 const results = []
@@ -68,6 +69,7 @@ const memoizedRamda = R.memoize(fibonacci)
 const memoizedImemoized = iMemoized.memoize(fibonacci)
 const memoizedLRUSingleCache = lruMemoize(fibonacci)
 const memoizedLRUWithLimit = lruMemoize(fibCount)(fibonacci)
+const memoizedNano = nano(fibonacci);
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 const benchmark = new Benchmark.Suite()
@@ -96,6 +98,9 @@ benchmark
   })
   .add('lru-memoize (with limit)', () => {
     memoizedLRUWithLimit(fibNumber)
+  })
+  .add('nano-memoize', () => {
+  	memoizedNano(fibNumber)
   })
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)

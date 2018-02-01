@@ -32,26 +32,26 @@ function isPrimitive (value) {
 function monadic (fn, cache, serializer, arg) {
   var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
-  if (!cache.has(cacheKey)) {
-    var computedValue = fn.call(this, arg)
+  var computedValue = cache.get(cacheKey);
+  if (typeof computedValue==="undefined") {
+    computedValue = fn.call(this, arg)
     cache.set(cacheKey, computedValue)
-    return computedValue
   }
 
-  return cache.get(cacheKey)
+  return computedValue;
 }
 
 function variadic (fn, cache, serializer) {
   var args = Array.prototype.slice.call(arguments, 3)
   var cacheKey = serializer(args)
 
-  if (!cache.has(cacheKey)) {
-    var computedValue = fn.apply(this, args)
+  var computedValue = cache.get(cacheKey);
+  if (typeof computedValue==="undefined") {
+    computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
-    return computedValue
   }
 
-  return cache.get(cacheKey)
+  return computedValue;
 }
 
 function assemble (fn, context, strategy, cache, serialize) {
