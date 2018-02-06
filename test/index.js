@@ -97,8 +97,6 @@ test('single arg primitive test', () => {
   const memoizedKindOf = memoize(kindOf)
 
   // Assertions
-  console.log(memoizedKindOf(2))
-   console.log(memoizedKindOf("2"))
   expect(memoizedKindOf(2)).toEqual("number")
   expect(memoizedKindOf("2")).toEqual("string")
 })
