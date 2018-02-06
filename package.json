@@ -54,14 +54,12 @@
     "nano-memoize": "^0.1.0"
   },
   "jest": {
-    "testPathDirs": [
+    "roots": [
       "test/"
     ],
     "testRegex": "test/.*\\.js$",
     "collectCoverage": true,
     "coverageDirectory": "./coverage/"
   },
-  "dependencies": {
-    
-  }
+  "dependencies": {}
 }
