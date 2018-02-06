@@ -26,32 +26,32 @@ function memoize (fn, options) {
 //
 
 function isPrimitive (value) {
-  return value == null || typeof value === "number" || typeof value === "boolean"; // || typeof value === "string" 'unsafe' primitive for our needs
+  return value == null || typeof value === 'number' || typeof value === 'boolean' // || typeof value === "string" 'unsafe' primitive for our needs
 }
 
 function monadic (fn, cache, serializer, arg) {
   var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
-  var computedValue = cache.get(cacheKey);
-  if (typeof computedValue==="undefined") {
+  var computedValue = cache.get(cacheKey)
+  if (typeof computedValue === 'undefined') {
     computedValue = fn.call(this, arg)
     cache.set(cacheKey, computedValue)
   }
 
-  return computedValue;
+  return computedValue
 }
 
 function variadic (fn, cache, serializer) {
   var args = Array.prototype.slice.call(arguments, 3)
   var cacheKey = serializer(args)
 
-  var computedValue = cache.get(cacheKey);
-  if (typeof computedValue==="undefined") {
+  var computedValue = cache.get(cacheKey)
+  if (typeof computedValue === 'undefined') {
     computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
   }
 
-  return computedValue;
+  return computedValue
 }
 
 function assemble (fn, context, strategy, cache, serialize) {

@@ -69,7 +69,7 @@ const memoizedRamda = R.memoize(fibonacci)
 const memoizedImemoized = iMemoized.memoize(fibonacci)
 const memoizedLRUSingleCache = lruMemoize(fibonacci)
 const memoizedLRUWithLimit = lruMemoize(fibCount)(fibonacci)
-const memoizedNano = nano(fibonacci);
+const memoizedNano = nano(fibonacci)
 const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
 
 const benchmark = new Benchmark.Suite()
@@ -100,7 +100,7 @@ benchmark
     memoizedLRUWithLimit(fibNumber)
   })
   .add('nano-memoize', () => {
-  	memoizedNano(fibNumber)
+    memoizedNano(fibNumber)
   })
   .add(`fast-memoize@current`, () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
