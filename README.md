@@ -60,7 +60,8 @@ const memoized = memoize(fn, {
 })
 ```
 
-The custom cache should be an object containing a `create` method that returns an object implementing the following methods:
+The custom cache should be an object containing a `create` method that returns
+an object implementing the following methods:
 - `get`
 - `set`
 - `has`
@@ -111,8 +112,9 @@ npm run benchmark:compare 53fa9a62214e816cf8b5b4fa291c38f1d63677b9
 
 #### Spread arguments
 
-We check for `function.length` to get upfront the expected number of arguments in order to use
-the fastest strategy. But with spread arguments we don't receive the right number.
+We check for `function.length` to get upfront the expected number of arguments
+in order to use the fastest strategy. But with spread arguments we don't receive
+the right number.
 
 ```js
 function multiply (multiplier, ...theArgs) {
@@ -133,9 +135,13 @@ const memoizedMultiply = memoize(multiply, {
 
 #### Function Arguments
 
-The default serializer uses `JSON.stringify` which will serialize functions as `null`. This means that if you are passing any functions as arguments you will get the same output regardless of whether you pass in different functions or indeed no function at all. The cache key generated will always be the same. To get around this you can give each function a unique ID and use that.
+The default serializer uses `JSON.stringify` which will serialize functions as
+`null`. This means that if you are passing any functions as arguments you will
+get the same output regardless of whether you pass in different functions or
+indeed no function at all. The cache key generated will always be the same. To
+get around this you can give each function a unique ID and use that.
 
-```
+```js
 let id = 0
 function memoizedId(x) {
   if (!x.__memoizedId) x.__memoizedId = ++id
