@@ -3,6 +3,7 @@
   "version": "2.3.2",
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "benchmark": "node benchmark",
     "benchmark:cache": "node benchmark/cache",
