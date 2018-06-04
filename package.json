@@ -3,6 +3,7 @@
   "version": "2.3.2",
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
+  "typings": "typings/fast-memoize.d.ts",
   "scripts": {
     "benchmark": "node benchmark",
     "benchmark:cache": "node benchmark/cache",
@@ -18,8 +19,9 @@
     "lint": "standard --fix \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
     "test": "jest",
-    "test:all": "npm run lint && npm run test",
-    "test:coverage": "covert test/*.js"
+    "test:all": "npm run lint && npm run test:typescript && npm run test",
+    "test:coverage": "covert test/*.js",
+    "test:typescript": "tsc --project ./typings/tests"
   },
   "files": [
     "README.md",
@@ -47,11 +49,12 @@
     "lru-cache": "^4.0.0",
     "lru-memoize": "^1.0.2",
     "memoizee": "^0.4.1",
+    "nano-memoize": "^0.1.0",
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
     "standard": "^10.0.2",
-    "underscore": "^1.8.3",
-    "nano-memoize": "^0.1.0"
+    "typescript": "^2.9.1",
+    "underscore": "^1.8.3"
   },
   "jest": {
     "roots": [
