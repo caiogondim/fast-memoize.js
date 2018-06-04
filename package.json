@@ -1,6 +1,6 @@
 {
   "name": "fast-memoize",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
   "typings": "typings/fast-memoize.d.ts",
