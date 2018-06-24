@@ -1,4 +1,4 @@
-import memoize, { Options, Cache, Serializer } from "../..";
+import memoize, { Options, Cache, Serializer } from "fast-memoize";
 
 function add(a: number, b: number): number {
   return a + b;
