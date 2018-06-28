@@ -1,0 +1,26 @@
+{
+  "name": "fast-memoize-typescript-tests",
+  "version": "1.0.0",
+  "description": "Test publishing the typings of fast-memoize package",
+  "main": "fast-memoize.test.js",
+  "scripts": {
+    "preinstall": "rm -rf ./fast-memoize-*.tgz ./node_modules/",
+    "pack-parent-package-get-filename": "npm pack ../.. | grep \\.tgz",
+    "postinstall": "npm install --no-save `npm run -s pack-parent-package-get-filename`",
+    "test": "tsc --listFiles --project .",
+    "posttest": "echo 'TypeScript typings successfuly compiled!'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/caiogondim/fast-memoize.js.git"
+  },
+  "author": "Nick Ribal <elektronik2k5@gmail.com> (https://about.me/nickribal)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caiogondim/fast-memoize.js/issues"
+  },
+  "homepage": "https://github.com/caiogondim/fast-memoize.js#readme",
+  "dependencies": {
+    "typescript": "^2.9.1"
+  }
+}
