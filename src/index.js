@@ -93,28 +93,34 @@ class ObjectWithoutPrototypeCache {
       const ttlKeyExpMap = {}
 
       this.preHas = (key) => {
-        if (Date.now() > ttlKeyExpMap[key]) {
-          delete ttlKeyExpMap[key]
+        if (Date.now() > ttlKeyExpMap['_' + key]) {
+          delete ttlKeyExpMap['_' + key]
           delete this.cache[key]
         }
       }
+
       this.preGet = (key) => {
-        ttlKeyExpMap[key] = Date.now() + ttl
+        ttlKeyExpMap['_' + key] = Date.now() + ttl
       }
 
-      setInterval(() => {
-        const now = Date.now()
-        const keys = Object.keys(ttlKeyExpMap)
-        // The assumption here is that the order of keys is oldest -> newest,
-        // which coresponds to the order of soonest exp -> latest exp.
-        // So, keep looping thru expiration times *until* a key that hasn't expired.
-        keys.every((key) => {
-          if (now > ttlKeyExpMap[key]) {
-            delete ttlKeyExpMap[key]
-            return true
-          }
-        })
-      }, opts.ttl)
+      setInterval(
+        () => {
+          const now = Date.now()
+          // The assumption here is that the order of keys is oldest -> newest,
+          // which corresponds to the order of soonest exp -> latest exp.
+          // So, keep looping thru expiration times *until* a key that hasn't expired (via .every()).
+          Object.keys(ttlKeyExpMap)
+          .every((key) => {
+            // note: key has "_" prefix, which helps object key ordering remain as expected, even for stringified numbers
+            if (now > ttlKeyExpMap[key]) {
+              delete ttlKeyExpMap[key]
+              return true
+            }
+            // short circuit here -- end looping now
+          })
+        },
+        ttl
+      )
     }
   }
 
