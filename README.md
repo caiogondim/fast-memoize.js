@@ -103,22 +103,28 @@ npm run benchmark:compare 53fa9a62214e816cf8b5b4fa291c38f1d63677b9
 
 ### Gotchas
 
-#### Spread arguments
+#### Rest & Default Parameters
 
 We check for `function.length` to get upfront the expected number of arguments
-in order to use the fastest strategy. But with spread arguments we don't receive
-the right number.
+in order to use the fastest strategy. But when rest & default parameters are being used, we don't receive the right number of arguments ([see details](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/length#Description)).
 
 ```js
+// Rest parameter example
 function multiply (multiplier, ...theArgs) {
   return theArgs.map(function (element) {
     return multiplier * element
   })
 }
 multiply.length // => 1
+
+// Default parameter example
+function divide (element, divisor = 1) {
+  return divisor * element
+}
+divide.length // => 1
 ```
 
-So if you use spread arguments, explicitly set the strategy to variadic.
+So if you use [rest](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) & [default](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters) parameters, explicitly set the strategy to variadic.
 
 ```js
 const memoizedMultiply = memoize(multiply, {
