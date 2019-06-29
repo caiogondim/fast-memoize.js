@@ -48,10 +48,10 @@ function variadic (fn, cache, serializer) {
   var computedValue = cache.get(cacheKey)
   if (typeof computedValue === 'undefined') {
     computedValue = fn.apply(this, args)
-    cache.set(cacheKey, computedValue)
+    return cache.set(cacheKey, computedValue) || computedValue
   }
-
-  return computedValue
+  else
+    return computedValue
 }
 
 function assemble (fn, context, strategy, cache, serialize) {
