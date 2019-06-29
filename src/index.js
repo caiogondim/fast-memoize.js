@@ -35,10 +35,10 @@ function monadic (fn, cache, serializer, arg) {
   var computedValue = cache.get(cacheKey)
   if (typeof computedValue === 'undefined') {
     computedValue = fn.call(this, arg)
-    cache.set(cacheKey, computedValue)
+    return cache.set(cacheKey, computedValue) || computedValue
   }
-
-  return computedValue
+  else
+    return computedValue
 }
 
 function variadic (fn, cache, serializer) {
