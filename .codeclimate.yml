@@ -12,5 +12,5 @@ ratings:
  paths:
  - "src/**.js"
  - "test/**.js"
-exclude_patterns:
+exclude_paths:
  - "**/node_modules/"
