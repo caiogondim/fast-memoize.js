@@ -36,9 +36,7 @@ function monadic (fn, cache, serializer, arg) {
   if (typeof computedValue === 'undefined') {
     computedValue = fn.call(this, arg)
     return cache.set(cacheKey, computedValue) || computedValue
-  }
-  else
-    return computedValue
+  } else { return computedValue }
 }
 
 function variadic (fn, cache, serializer) {
@@ -49,9 +47,7 @@ function variadic (fn, cache, serializer) {
   if (typeof computedValue === 'undefined') {
     computedValue = fn.apply(this, args)
     return cache.set(cacheKey, computedValue) || computedValue
-  }
-  else
-    return computedValue
+  } else { return computedValue }
 }
 
 function assemble (fn, context, strategy, cache, serialize) {
