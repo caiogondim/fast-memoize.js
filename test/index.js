@@ -206,3 +206,43 @@ test('explicitly use exposed variadic strategy', () => {
   // Teardown
   spy.mockRestore()
 })
+
+test('compatiable with generator function', () => {
+  function* myGenerator () {
+    yield 1
+    yield 2
+    yield 3
+    return 4
+  }
+  
+  let store = {}
+  const memoizedMyGenerator = memoize(myGenerator, {
+    cache:{
+      create() {
+        return {
+          has(key) { 
+            return (key in store); 
+          },
+          get(key) {
+            return store[key];
+          },
+          set(key, value) {
+            console.log('key', key)
+            if(typeof value.next === 'function'){
+              let result
+              result = value.next()
+              while(!result.done){
+                result = value.next()
+              }
+              return store[key] = result.value
+            }
+            else
+              return store[key] = value
+          }
+        }
+      },
+    }
+  })
+
+  expect(memoizedMyGenerator()).toBe(4)
+})
