@@ -208,39 +208,38 @@ test('explicitly use exposed variadic strategy', () => {
 })
 
 test('compatiable with generator function', () => {
-  function* myGenerator () {
+  function * myGenerator () {
     yield 1
     yield 2
     yield 3
     return 4
   }
-  
+
   let store = {}
   const memoizedMyGenerator = memoize(myGenerator, {
-    cache:{
-      create() {
+    cache: {
+      create () {
         return {
-          has(key) { 
-            return (key in store); 
+          has (key) {
+            return (key in store)
           },
-          get(key) {
-            return store[key];
+          get (key) {
+            return store[key]
           },
-          set(key, value) {
+          set (key, value) {
             console.log('key', key)
-            if(typeof value.next === 'function'){
+            if (typeof value.next === 'function') {
               let result
               result = value.next()
-              while(!result.done){
+              while (!result.done) {
                 result = value.next()
               }
-              return store[key] = result.value
-            }
-            else
-              return store[key] = value
+              store[key] = result.value
+              return store[key]
+            } else { store[key] = value }
           }
         }
-      },
+      }
     }
   })
 
