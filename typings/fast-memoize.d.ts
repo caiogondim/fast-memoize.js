@@ -6,11 +6,11 @@ export interface Cache<K, V> {
   has(key: K): boolean;
 }
 
-export type Serializer = (args: any[]) => string;
+export type Serializer<F extends Func> = (args: Parameters<F>) => string;
 
 export interface Options<F extends Func> {
   cache?: Cache<string, ReturnType<F>>;
-  serializer?: Serializer;
+  serializer?: Serializer<F>;
   strategy?: MemoizeFunc;
 }
 
