@@ -1,9 +1,15 @@
 type Func = (...args: any[]) => any;
 
 export interface Cache<K, V> {
-  get(key: K): V;
-  set(key: K, value: V): void;
-  has(key: K): boolean;
+  create: CacheCreateFunc<K, V>
+}
+
+interface CacheCreateFunc<K, V> {
+  (): {
+    get(key: K): V;
+    set(key: K, value: V): void;
+    has(key: K): boolean;
+   }
 }
 
 export type Serializer = (args: any[]) => string;
