@@ -12,11 +12,11 @@ interface CacheCreateFunc<K, V> {
    }
 }
 
-export type Serializer<F extends Func> = (args: Parameters<F>) => string;
+export type Serializer = (args: any[]) => string;
 
 export interface Options<F extends Func> {
   cache?: Cache<string, ReturnType<F>>;
-  serializer?: Serializer<F>;
+  serializer?: Serializer;
   strategy?: MemoizeFunc;
 }
 
