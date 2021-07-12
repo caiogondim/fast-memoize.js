@@ -1,8 +1,15 @@
-const ora = require('ora')
-const Table = require('cli-table2')
-const debug = require('logdown')()
-let Benchmark = require('benchmark')
+import ora from 'ora'
+import Table from 'cli-table2'
+import logdown from 'logdown'
+import Benchmark from 'benchmark'
+import objectCache from '../cache/object.js'
+import stringifySerializer from '../serializer/json-stringify.js'
+import naiveStrategy from './naive.js'
+import singleArgumentStrategy from './optimize-for-single-argument.js'
+import inferArityStrategy from './infer-arity.js'
+import partialApplicationStrategy from './partial-application.js'
 
+const debug = logdown()
 const results = []
 const spinner = ora('Running benchmark')
 
@@ -11,11 +18,11 @@ const spinner = ora('Running benchmark')
 //
 
 function showResults (benchmarkResults) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   benchmarkResults.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -75,31 +82,31 @@ function fibonacci5 (n) {
   return n < 2 ? n : fibonacci5(n - 1) + fibonacci5(n - 2)
 }
 
-let caches = []
-caches.push(require('../cache/object'))
+const caches = []
+caches.push(objectCache)
 
-let serializers = []
-serializers.push(require('../serializer/json-stringify'))
+const serializers = []
+serializers.push(stringifySerializer)
 
-let strategies = []
-strategies.push(require('./naive'))
-strategies.push(require('./optimize-for-single-argument'))
-strategies.push(require('./infer-arity'))
-strategies.push(require('./partial-application'))
+const strategies = []
+strategies.push(naiveStrategy)
+strategies.push(singleArgumentStrategy)
+strategies.push(inferArityStrategy)
+strategies.push(partialApplicationStrategy)
 
-let memoizedFunctions = []
+const memoizedFunctions = []
 strategies.forEach((strategy) => {
   serializers.forEach((serializer) => {
     caches.forEach((cache, index) => {
       // eslint-disable-next-line no-eval
-      let memoizedFibonacci = strategy(eval(`fibonacci${index + 1}`), {cache, serializer})
+      const memoizedFibonacci = strategy(eval(`fibonacci${index + 1}`), { cache, serializer })
       memoizedFibonacci.label = strategy.label
       memoizedFunctions.push(memoizedFibonacci)
     })
   })
 })
 
-let suiteFibonnaci = new Benchmark.Suite()
+const suiteFibonnaci = new Benchmark.Suite()
 
 memoizedFunctions.forEach((memoizedFunction) => {
   suiteFibonnaci.add(memoizedFunction.label, () => memoizedFunction(20))
@@ -108,4 +115,4 @@ memoizedFunctions.forEach((memoizedFunction) => {
 suiteFibonnaci
   .on('cycle', onCycle)
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })

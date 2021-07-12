@@ -1,7 +1,7 @@
-const ora = require('ora')
-const Table = require('cli-table2')
-const Benchmark = require('benchmark')
-const fastMemoize = require('../src')
+import ora from 'ora'
+import Table from 'cli-table2'
+import Benchmark from 'benchmark'
+import { memoize as fastMemoize } from '../src/index.js'
 
 const benchmarkResults = []
 
@@ -12,11 +12,11 @@ const benchmarkResults = []
 const spinner = ora('Running benchmark')
 
 function showResults (benchmarkResults) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   benchmarkResults.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -45,13 +45,13 @@ const benchmark = new Benchmark.Suite()
 const fibNumber = 15
 
 benchmark
-  .add(`fast-memoize@current`, () => {
+  .add('fast-memoize@current', () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
   })
   .on('cycle', (event) => {
     benchmarkResults.push(event)
   })
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })
 
 spinner.start()

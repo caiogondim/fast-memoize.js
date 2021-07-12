@@ -1,6 +1,6 @@
-var LruCache = require('lru-cache')
+import LruCache from 'lru-cache'
 
-module.exports = {
+export default {
   create: () => new LruCache(),
   label: 'lru-cache'
 }

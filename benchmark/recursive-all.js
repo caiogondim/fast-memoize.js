@@ -1,14 +1,17 @@
-const ora = require('ora')
-const Table = require('cli-table2')
-const debug = require('logdown')()
+import ora from 'ora'
+import Table from 'cli-table2'
+import logdown from 'logdown'
+import Benchmark from 'benchmark'
+import { memoize as fastMemoize } from '../src/index.js'
+import iMemoized from 'iMemoized'
+import lodash from 'lodash'
+import memoizee from 'memoizee'
+import R from 'ramda'
+import underscore from 'underscore'
 
-const Benchmark = require('benchmark')
-const fastMemoize = require('../src/')
-const iMemoized = require('iMemoized')
-const lodash = require('lodash').memoize
-const memoizee = require('memoizee')
-const R = require('ramda')
-const underscore = require('underscore').memoize
+const debug = logdown()
+const lodashMemoize = lodash.memoize;
+const underscoreMemoize = underscore.memoize;
 
 const results = []
 const spinner = ora('Running benchmark')
@@ -18,11 +21,11 @@ const spinner = ora('Running benchmark')
 //
 
 function showResults (benchmarkResults) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   benchmarkResults.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -69,7 +72,7 @@ benchmark
     fibonacci(fibNumber + 30)
   })
   .add('underscore', () => {
-    const memoizedUnderscore = underscore((n) => {
+    const memoizedUnderscore = underscoreMemoize((n) => {
       return n < 2 ? n : memoizedUnderscore(n - 1) + memoizedUnderscore(n - 2)
     })
 
@@ -79,7 +82,7 @@ benchmark
     memoizedUnderscore(fibNumber + 30)
   })
   .add('lodash', () => {
-    const memoizedLodash = lodash((n) => {
+    const memoizedLodash = lodashMemoize((n) => {
       return n < 2 ? n : memoizedLodash(n - 1) + memoizedLodash(n - 2)
     })
 
@@ -118,7 +121,7 @@ benchmark
     memoizedImemoized(fibNumber + 20)
     memoizedImemoized(fibNumber + 30)
   })
-  .add(`fast-memoize@current`, () => {
+  .add('fast-memoize@current', () => {
     const memoizedFastMemoizeCurrentVersion = fastMemoize((n) => {
       return n < 2 ? n : memoizedFastMemoizeCurrentVersion(n - 1) + memoizedFastMemoizeCurrentVersion(n - 2)
     })
@@ -130,4 +133,4 @@ benchmark
   })
   .on('cycle', onCycle)
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })

@@ -1,5 +1,5 @@
-const Benchmark = require('benchmark')
-const fastMemoize = require('../../src')
+import Benchmark from 'benchmark'
+import { memoize } from '../../src/index.js'
 
 const benchmarkResults = []
 
@@ -29,17 +29,17 @@ const fibonacci = (n) => {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-const memoizedFastMemoizeCurrentVersion = fastMemoize(fibonacci)
+const memoizedFastMemoizeCurrentVersion = memoize(fibonacci)
 
 const benchmark = new Benchmark.Suite()
 const fibNumber = 15
 
 benchmark
-  .add(`fast-memoize@current`, () => {
+  .add('fast-memoize@current', () => {
     memoizedFastMemoizeCurrentVersion(fibNumber)
   })
   .on('cycle', (event) => {
     benchmarkResults.push(event)
   })
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })

@@ -1,3 +1,5 @@
+import { memoize as fastMemoize } from '../src/index.js'
+
 // To run code inside devtools:
 //    node --inspect --debug-brk file-name.js
 // To get optimizations and deoptimizations feeedback:
@@ -8,7 +10,6 @@ const fibonacci = (n) => {
 }
 
 const fibNumber = 40
-const fastMemoize = require('../src')
 const memoizedFibonacci = fastMemoize(fibonacci)
 
 memoizedFibonacci(fibNumber)

@@ -20,7 +20,7 @@ class ObjectCache {
   }
 }
 
-module.exports = {
+export default {
   create: () => new ObjectCache(),
   label: 'Object'
 }

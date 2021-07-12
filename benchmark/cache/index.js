@@ -1,7 +1,15 @@
-const ora = require('ora')
-const Table = require('cli-table2')
-const debug = require('logdown')()
-const Benchmark = require('benchmark')
+import ora from 'ora'
+import Table from 'cli-table2'
+import logdown from 'logdown'
+import Benchmark from 'benchmark'
+import mapCache from './map.js'
+import objectCache from './object.js'
+import objectWithoutProtoCache from './object-without-prototype.js'
+import lruCache from './lru-cache.js'
+import stringifySerializer from '../serializer/json-stringify.js'
+import partialApplicationStrategy from '../strategy/partial-application.js'
+
+const debug = logdown()
 
 const results = []
 const spinner = ora('Running benchmark')
@@ -11,11 +19,11 @@ const spinner = ora('Running benchmark')
 //
 
 function showResults (benchmarkResults) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   benchmarkResults.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -47,35 +55,35 @@ spinner.start()
 // Benchmark
 //
 
-let fibonacci = (n) => {
+const fibonacci = (n) => {
   return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-let caches = []
-caches.push(require('./map'))
-caches.push(require('./object'))
-caches.push(require('./object-without-prototype'))
-caches.push(require('./lru-cache'))
+const caches = []
+caches.push(mapCache)
+caches.push(objectCache)
+caches.push(objectWithoutProtoCache)
+caches.push(lruCache)
 
-let serializers = []
-serializers.push(require('../serializer/json-stringify'))
+const serializers = []
+serializers.push(stringifySerializer)
 
-let strategies = []
-strategies.push(require('../strategy/partial-application'))
+const strategies = []
+strategies.push(partialApplicationStrategy)
 
-let memoizedFunctions = []
+const memoizedFunctions = []
 strategies.forEach(function (strategy) {
   serializers.forEach(function (serializer) {
     caches.forEach(function (cache) {
-      let memoizedFibonacci = strategy(fibonacci, {cache, serializer})
+      const memoizedFibonacci = strategy(fibonacci, { cache, serializer })
       memoizedFibonacci.label = cache.label
       memoizedFunctions.push(memoizedFibonacci)
     })
   })
 })
 
-let suiteFibonnaci = new Benchmark.Suite()
-let fibNumber = 15
+const suiteFibonnaci = new Benchmark.Suite()
+const fibNumber = 15
 
 memoizedFunctions.forEach(function (memoizedFunction) {
   suiteFibonnaci.add(memoizedFunction.label, () => memoizedFunction(fibNumber))
@@ -84,4 +92,4 @@ memoizedFunctions.forEach(function (memoizedFunction) {
 suiteFibonnaci
   .on('cycle', onCycle)
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })

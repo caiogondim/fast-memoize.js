@@ -4,9 +4,9 @@ function isPrimitive (value) {
   return value == null || (typeof value !== 'function' && typeof value !== 'object')
 }
 
-function strategy (fn, options) {
+export default function strategy (fn, options) {
   function monadic (fn, cache, serializer, arg) {
-    var cacheKey
+    let cacheKey
     if (isPrimitive(arg)) {
       cacheKey = arg
     } else {
@@ -14,7 +14,7 @@ function strategy (fn, options) {
     }
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.call(this, arg)
+      const computedValue = fn.call(this, arg)
       cache.set(cacheKey, computedValue)
       return computedValue
     }
@@ -23,10 +23,10 @@ function strategy (fn, options) {
   }
 
   function variadic (fn, cache, serializer, ...args) {
-    var cacheKey = serializer(args)
+    const cacheKey = serializer(args)
 
     if (!cache.has(cacheKey)) {
-      var computedValue = fn.apply(this, args)
+      const computedValue = fn.apply(this, args)
       cache.set(cacheKey, computedValue)
       return computedValue
     }
@@ -34,7 +34,7 @@ function strategy (fn, options) {
     return cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
+  let memoized = fn.length === 1
     ? monadic
     : variadic
 
@@ -45,5 +45,3 @@ function strategy (fn, options) {
 }
 
 strategy.label = 'Partial application'
-
-module.exports = strategy

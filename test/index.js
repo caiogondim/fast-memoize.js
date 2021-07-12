@@ -1,6 +1,7 @@
 /* global test, expect, jest */
 
-const memoize = require('../src')
+import { jest } from '@jest/globals';
+import { memoize, strategies } from '../src/index.js'
 
 test('speed', () => {
   // Vanilla Fibonacci
@@ -52,9 +53,9 @@ test('memoize functions with single non-primitive argument', () => {
   const memoizedPlusPlus = memoize(plusPlus)
 
   // Assertions
-  expect(memoizedPlusPlus({number: 1})).toBe(2)
+  expect(memoizedPlusPlus({ number: 1 })).toBe(2)
   expect(numberOfCalls).toBe(1)
-  expect(memoizedPlusPlus({number: 1})).toBe(2)
+  expect(memoizedPlusPlus({ number: 1 })).toBe(2)
   expect(numberOfCalls).toBe(1)
 })
 
@@ -79,7 +80,7 @@ test('memoize functions with spread arguments', () => {
   }
 
   const memoizedMultiply = memoize(multiply, {
-    strategy: memoize.strategies.variadic
+    strategy: strategies.variadic
   })
 
   // Assertions
@@ -173,8 +174,8 @@ test('explicitly use exposed monadic strategy', () => {
     numberOfCalls += 1
     return number + 1
   }
-  const spy = jest.spyOn(memoize.strategies, 'monadic')
-  const memoizedPlusPlus = memoize(plusPlus, { strategy: memoize.strategies.monadic })
+  const spy = jest.spyOn(strategies, 'monadic')
+  const memoizedPlusPlus = memoize(plusPlus, { strategy: strategies.monadic })
 
   // Assertions
   expect(memoizedPlusPlus(1)).toBe(2)
@@ -193,8 +194,8 @@ test('explicitly use exposed variadic strategy', () => {
     numberOfCalls += 1
     return number + 1
   }
-  const spy = jest.spyOn(memoize.strategies, 'variadic')
-  const memoizedPlusPlus = memoize(plusPlus, { strategy: memoize.strategies.variadic })
+  const spy = jest.spyOn(strategies, 'variadic')
+  const memoizedPlusPlus = memoize(plusPlus, { strategy: strategies.variadic })
 
   // Assertions
   expect(memoizedPlusPlus(1)).toBe(2)

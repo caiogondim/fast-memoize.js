@@ -20,7 +20,7 @@ class ObjectWithoutPrototypeCache {
   }
 }
 
-module.exports = {
+export default {
   create: () => new ObjectWithoutPrototypeCache(),
   label: 'Object without prototype'
 }

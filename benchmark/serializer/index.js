@@ -1,7 +1,14 @@
-const ora = require('ora')
-const Table = require('cli-table2')
-const debug = require('logdown')()
-const Benchmark = require('benchmark')
+import ora from 'ora'
+import Table from 'cli-table2'
+import logdown from 'logdown'
+import Benchmark from 'benchmark'
+import objectCache from '../cache/object.js'
+import stringifySerializer from './json-stringify.js'
+import stringifyBindedSerializer from './json-stringify-binded.js'
+import utilInspectSerializer from './util-inspect.js'
+import partialApplicationStrategy from '../strategy/partial-application.js'
+
+const debug = logdown()
 
 const results = []
 const spinner = ora('Running benchmark')
@@ -11,11 +18,11 @@ const spinner = ora('Running benchmark')
 //
 
 function showResults (benchmarkResults) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   benchmarkResults.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -52,21 +59,21 @@ const fibonacci = (n) => {
 }
 
 const caches = []
-caches.push(require('../cache/object'))
+caches.push(objectCache)
 
 const serializers = []
-serializers.push(require('./json-stringify'))
-serializers.push(require('./json-stringify-binded'))
-serializers.push(require('./util-inspect'))
+serializers.push(stringifySerializer)
+serializers.push(stringifyBindedSerializer)
+serializers.push(utilInspectSerializer)
 
 const strategies = []
-strategies.push(require('../strategy/partial-application'))
+strategies.push(partialApplicationStrategy)
 
 const memoizedFunctions = []
 strategies.forEach((strategy) => {
   serializers.forEach((serializer) => {
     caches.forEach((cache) => {
-      const memoizedFibonacci = strategy(fibonacci, {cache, serializer})
+      const memoizedFibonacci = strategy(fibonacci, { cache, serializer })
       memoizedFibonacci.label = serializer.label
       memoizedFunctions.push(memoizedFibonacci)
     })
@@ -83,4 +90,4 @@ memoizedFunctions.forEach((memoizedFunction) => {
 suiteFibonnaci
   .on('cycle', onCycle)
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })
