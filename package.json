@@ -1,5 +1,6 @@
 {
   "name": "fast-memoize",
+  "type": "module",
   "version": "2.5.2",
   "description": "Fastest memoization lib that supports N arguments",
   "main": "src/index.js",
@@ -18,7 +19,7 @@
     "benchmark:compare": "./benchmark/compare-commits/index.sh",
     "lint": "standard --fix \"src/**/*.js\" \"test/**/*.js\" \"benchmark/**/*.js\"",
     "preversion": "npm run test:all",
-    "test": "jest",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
     "test:all": "npm run lint && npm run test:typescript && npm run test",
     "test:coverage": "covert test/*.js",
     "test:typescript": "cd ./typings/tests && npm install-test"
@@ -42,9 +43,9 @@
     "benchmark": "^2.0.0",
     "cli-table2": "^0.2.0",
     "codecov": "^2.0.2",
-    "covert": "^1.1.0",
+    "covert": "^1.1.1",
     "iMemoized": "0.0.10",
-    "jest": "20.0.4",
+    "jest": "^27.0.6",
     "lodash": "^4.0.0",
     "logdown": "^1.2.5",
     "lru-cache": "^4.0.0",
@@ -53,7 +54,7 @@
     "nano-memoize": "^0.1.0",
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
-    "standard": "^10.0.2",
+    "standard": "^16.0.3",
     "underscore": "^1.8.3"
   },
   "jest": {
@@ -63,6 +64,5 @@
     "testRegex": "test/.*\\.js$",
     "collectCoverage": true,
     "coverageDirectory": "./coverage/"
-  },
-  "dependencies": {}
+  }
 }

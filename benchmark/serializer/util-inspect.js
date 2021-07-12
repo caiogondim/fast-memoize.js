@@ -1,2 +1,7 @@
-module.exports = require('util').inspect
-module.exports.label = 'util-inspect'
+import { inspect } from 'util'
+
+export default function serialize () {
+  return inspect(arguments)
+}
+
+serialize.label = 'util-inspect'

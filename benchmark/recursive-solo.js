@@ -1,6 +1,9 @@
-const ora = require('ora')
-const logger = require('logdown')()
-const Table = require('cli-table2')
+import ora from 'ora'
+import logdown from 'logdown'
+import Table from 'cli-table2'
+import { memoize as fastMemoize } from '../src/index.js'
+
+const logger = logdown()
 
 const results = []
 
@@ -17,7 +20,7 @@ function fibonacci2 (n) {
 }
 
 function range (begin, end) {
-  var array = []
+  const array = []
   for (let i = begin; i <= end; i++) {
     array.push(i)
   }
@@ -31,12 +34,10 @@ const fibonacciNumbers = range(10, 30)
 // Recursive memoization
 //
 
-const fastMemoize = require('../src')
-
 // eslint-disable-next-line no-func-assign
 fibonacci1 = fastMemoize(fibonacci1)
 
-const spinner1 = ora(`optimizing fibonacci1`).start()
+const spinner1 = ora('optimizing fibonacci1').start()
 for (let i = 0; i < 1000000; i++) {
   fibonacci1(10)
 }
@@ -45,10 +46,10 @@ spinner1.stop()
 logger.log('')
 
 fibonacciNumbers.forEach((n) => {
-  let time = process.hrtime()
+  const time = process.hrtime()
   fibonacci1(n)
-  let diff = process.hrtime(time)
-  let diffInNanoSeconds = ((diff[0] * 1e9) + diff[1])
+  const diff = process.hrtime(time)
+  const diffInNanoSeconds = ((diff[0] * 1e9) + diff[1])
 
   ora(`recursive memoization x${n}`).succeed()
 
@@ -63,7 +64,7 @@ fibonacciNumbers.forEach((n) => {
 
 const memoizedFibonacci2 = fastMemoize(fibonacci2)
 
-const spinner2 = ora(`optimizing fibonacci2`).start()
+const spinner2 = ora('optimizing fibonacci2').start()
 for (let i = 0; i < 1000000; i++) {
   fibonacci2(10)
 }
@@ -72,10 +73,10 @@ spinner2.stop()
 logger.log('')
 
 fibonacciNumbers.forEach((n) => {
-  let time = process.hrtime()
+  const time = process.hrtime()
   memoizedFibonacci2(n)
-  let diff = process.hrtime(time)
-  let diffInNanoSeconds = ((diff[0] * 1e9) + diff[1])
+  const diff = process.hrtime(time)
+  const diffInNanoSeconds = ((diff[0] * 1e9) + diff[1])
 
   ora(`vanilla memoization x${n}`).succeed()
 
@@ -91,7 +92,7 @@ fibonacciNumbers.forEach((n) => {
 //
 
 function showResults (results) {
-  const table = new Table({head: ['NAME', 'FIBONACCI OF', 'TIME TO COMPLETE (IN NANOSECONDS)']})
+  const table = new Table({ head: ['NAME', 'FIBONACCI OF', 'TIME TO COMPLETE (IN NANOSECONDS)'] })
 
   results.forEach((result) => {
     table.push([

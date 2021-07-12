@@ -2,9 +2,9 @@ function isPrimitive (value) {
   return value == null || (typeof value !== 'function' && typeof value !== 'object')
 }
 
-function strategy (fn, options) {
+export default function strategy (fn, options) {
   function monadic () {
-    var cacheKey
+    let cacheKey
     if (isPrimitive(arguments[0])) {
       cacheKey = arguments[0]
     } else {
@@ -19,7 +19,7 @@ function strategy (fn, options) {
   }
 
   function variadic () {
-    var cacheKey = options.serializer(arguments)
+    const cacheKey = options.serializer(arguments)
 
     if (!memoized.cache.has(cacheKey)) {
       memoized.cache.set(cacheKey, fn.apply(this, arguments))
@@ -28,7 +28,7 @@ function strategy (fn, options) {
     return memoized.cache.get(cacheKey)
   }
 
-  var memoized = fn.length === 1
+  const memoized = fn.length === 1
     ? monadic
     : variadic
 
@@ -37,6 +37,5 @@ function strategy (fn, options) {
 
   return memoized
 }
-strategy.label = 'Infer arity'
 
-module.exports = strategy
+strategy.label = 'Infer arity'

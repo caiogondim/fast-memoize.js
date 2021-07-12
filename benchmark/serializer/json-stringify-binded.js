@@ -1,2 +1,5 @@
-module.exports = JSON.stringify.bind(null)
-module.exports.label = 'json-stringify-binded'
+export default function stringify () {
+  return JSON.stringify(arguments)
+}
+
+stringify.label = 'json-stringify-binded'

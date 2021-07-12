@@ -2,16 +2,16 @@
 // Main
 //
 
-function memoize (fn, options) {
-  var cache = options && options.cache
+export function memoize (fn, options) {
+  const cache = options && options.cache
     ? options.cache
     : cacheDefault
 
-  var serializer = options && options.serializer
+  const serializer = options && options.serializer
     ? options.serializer
     : serializerDefault
 
-  var strategy = options && options.strategy
+  const strategy = options && options.strategy
     ? options.strategy
     : strategyDefault
 
@@ -30,9 +30,9 @@ function isPrimitive (value) {
 }
 
 function monadic (fn, cache, serializer, arg) {
-  var cacheKey = isPrimitive(arg) ? arg : serializer(arg)
+  const cacheKey = isPrimitive(arg) ? arg : serializer(arg)
 
-  var computedValue = cache.get(cacheKey)
+  let computedValue = cache.get(cacheKey)
   if (typeof computedValue === 'undefined') {
     computedValue = fn.call(this, arg)
     cache.set(cacheKey, computedValue)
@@ -42,10 +42,10 @@ function monadic (fn, cache, serializer, arg) {
 }
 
 function variadic (fn, cache, serializer) {
-  var args = Array.prototype.slice.call(arguments, 3)
-  var cacheKey = serializer(args)
+  const args = Array.prototype.slice.call(arguments, 3)
+  const cacheKey = serializer(args)
 
-  var computedValue = cache.get(cacheKey)
+  let computedValue = cache.get(cacheKey)
   if (typeof computedValue === 'undefined') {
     computedValue = fn.apply(this, args)
     cache.set(cacheKey, computedValue)
@@ -64,7 +64,7 @@ function assemble (fn, context, strategy, cache, serialize) {
 }
 
 function strategyDefault (fn, options) {
-  var strategy = fn.length === 1 ? monadic : variadic
+  const strategy = fn.length === 1 ? monadic : variadic
 
   return assemble(
     fn,
@@ -76,7 +76,7 @@ function strategyDefault (fn, options) {
 }
 
 function strategyVariadic (fn, options) {
-  var strategy = variadic
+  const strategy = variadic
 
   return assemble(
     fn,
@@ -88,7 +88,7 @@ function strategyVariadic (fn, options) {
 }
 
 function strategyMonadic (fn, options) {
-  var strategy = monadic
+  const strategy = monadic
 
   return assemble(
     fn,
@@ -103,7 +103,7 @@ function strategyMonadic (fn, options) {
 // Serializer
 //
 
-function serializerDefault () {
+export function serializerDefault () {
   return JSON.stringify(arguments)
 }
 
@@ -111,25 +111,9 @@ function serializerDefault () {
 // Cache
 //
 
-function ObjectWithoutPrototypeCache () {
-  this.cache = Object.create(null)
-}
-
-ObjectWithoutPrototypeCache.prototype.has = function (key) {
-  return (key in this.cache)
-}
-
-ObjectWithoutPrototypeCache.prototype.get = function (key) {
-  return this.cache[key]
-}
-
-ObjectWithoutPrototypeCache.prototype.set = function (key, value) {
-  this.cache[key] = value
-}
-
-var cacheDefault = {
+export const cacheDefault = {
   create: function create () {
-    return new ObjectWithoutPrototypeCache()
+    return new Map()
   }
 }
 
@@ -137,8 +121,7 @@ var cacheDefault = {
 // API
 //
 
-module.exports = memoize
-module.exports.strategies = {
+export const strategies = {
   variadic: strategyVariadic,
   monadic: strategyMonadic
 }

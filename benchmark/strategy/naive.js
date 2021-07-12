@@ -1,8 +1,6 @@
-function strategy (fn, options) {
+export default function strategy (fn, options) {
   function memoized () {
-    var cacheKey
-
-    cacheKey = options.serializer(arguments)
+    const cacheKey = options.serializer(arguments)
 
     if (!memoized.cache.has(cacheKey)) {
       memoized.cache.set(cacheKey, fn.apply(this, arguments))
@@ -18,5 +16,3 @@ function strategy (fn, options) {
 }
 
 strategy.label = 'Naive'
-
-module.exports = strategy

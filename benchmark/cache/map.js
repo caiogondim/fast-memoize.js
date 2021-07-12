@@ -1,8 +1,8 @@
 function hasSupport () {
-  var hasSupport = true
+  let hasSupport = true
 
   try {
-    var map = new Map()
+    const map = new Map()
     map.set(null)
   } catch (error) {
     hasSupport = false
@@ -12,11 +12,11 @@ function hasSupport () {
 }
 
 function create () {
-  var cache = new Map()
+  const cache = new Map()
   return cache
 }
 
-module.exports = {
+export default {
   create: create,
   hasSupport: hasSupport,
   label: 'Map'

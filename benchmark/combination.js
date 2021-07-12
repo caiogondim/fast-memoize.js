@@ -1,7 +1,20 @@
-const ora = require('ora')
-const debug = require('logdown')()
-const Table = require('cli-table2')
-const Benchmark = require('benchmark')
+import ora from 'ora'
+import logdown from 'logdown'
+import Table from 'cli-table2'
+import Benchmark from 'benchmark'
+import mapCache from './map.js'
+import objectCache from './object.js'
+import objectWithoutProtoCache from './object-without-prototype.js'
+import lruCache from './lru-cache.js'
+import stringifySerializer from '../serializer/json-stringify.js'
+import partialApplicationStrategy from '../strategy/partial-application.js'
+import stringifyBindedSerializer from '../serializer/json-stringify-binded.js'
+import utilInspectSerializer from '../serializer/util-inspect.js'
+import naiveStrategy from '../strategy/naive.js'
+import singleArgumentStrategy from './strategy/optimize-for-single-argument.js'
+import inferArityStrategy from './strategy/infer-arity.js'
+
+const debug = logdown()
 
 const results = []
 
@@ -10,11 +23,11 @@ const results = []
 //
 
 function showResults (results) {
-  const table = new Table({head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE']})
+  const table = new Table({ head: ['NAME', 'OPS/SEC', 'RELATIVE MARGIN OF ERROR', 'SAMPLE SIZE'] })
   results.forEach((result) => {
     table.push([
       result.target.name,
-      result.target.hz.toLocaleString('en-US', {maximumFractionDigits: 0}),
+      result.target.hz.toLocaleString('en-US', { maximumFractionDigits: 0 }),
       `± ${result.target.stats.rme.toFixed(2)}%`,
       result.target.stats.sample.length
     ])
@@ -53,27 +66,27 @@ const fibonacci = (n) => {
 }
 
 const caches = []
-caches.push(require('./cache/map'))
-caches.push(require('./cache/object'))
-caches.push(require('./cache/object-without-prototype'))
-caches.push(require('./cache/lru-cache'))
+caches.push(mapCache)
+caches.push(objectCache)
+caches.push(objectWithoutProtoCache)
+caches.push(lruCache)
 
 const serializers = []
-serializers.push(require('./serializer/json-stringify'))
-serializers.push(require('./serializer/json-stringify-binded'))
-serializers.push(require('./serializer/util-inspect'))
+serializers.push(stringifySerializer)
+serializers.push(stringifyBindedSerializer)
+serializers.push(utilInspectSerializer)
 
 const strategies = []
-strategies.push(require('./strategy/naive'))
-strategies.push(require('./strategy/optimize-for-single-argument'))
-strategies.push(require('./strategy/infer-arity'))
-strategies.push(require('./strategy/partial-application'))
+strategies.push(naiveStrategy)
+strategies.push(singleArgumentStrategy)
+strategies.push(inferArityStrategy)
+strategies.push(partialApplicationStrategy)
 
 const memoizedFunctions = []
 strategies.forEach(function (strategy) {
   serializers.forEach(function (serializer) {
     caches.forEach(function (cache) {
-      memoizedFunctions.push(strategy(fibonacci, {cache, serializer}))
+      memoizedFunctions.push(strategy(fibonacci, { cache, serializer }))
     })
   })
 })
@@ -93,6 +106,6 @@ suiteFibonnaci
     onCycle(event)
   })
   .on('complete', onComplete)
-  .run({'async': true})
+  .run({ async: true })
 
 spinner.start()
