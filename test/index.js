@@ -206,3 +206,19 @@ test('explicitly use exposed variadic strategy', () => {
   // Teardown
   spy.mockRestore()
 })
+
+test('memoize functions with circular ref', () => {
+  const state = {a: 'hello'}
+  state.b = state
+
+  function reducer (state) {
+    return {...state, a: state.a + ' world'}
+  }
+
+  const memoizedState = memoize(reducer)
+
+  // Assertions
+
+  expect(memoizedState(state)).toBe({...state, a: state.a + ' world'})
+})
+
