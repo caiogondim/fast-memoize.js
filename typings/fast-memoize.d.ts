@@ -1,9 +1,5 @@
 type Func = (...args: any[]) => any;
 
-export interface Cache<K, V> {
-  create: CacheCreateFunc<K, V>
-}
-
 interface CacheCreateFunc<K, V> {
   (): {
     get(key: K): V;
@@ -12,25 +8,29 @@ interface CacheCreateFunc<K, V> {
    }
 }
 
-export type Serializer = (args: any[]) => string;
+declare namespace memoize {
+  interface Cache<K, V> {
+    create: CacheCreateFunc<K, V>
+  }
 
-export interface Options<F extends Func> {
-  cache?: Cache<string, ReturnType<F>>;
-  serializer?: Serializer;
-  strategy?: MemoizeFunc;
-}
+  type Serializer = (args: any[]) => string;
 
-export interface MemoizeFunc {
-  <F extends Func>(fn: F, options?: Options<F>): F;
-}
+  interface Options<F extends Func> {
+    cache?: Cache<string, ReturnType<F>>;
+    serializer?: Serializer;
+    strategy?: MemoizeFunc;
+  }
 
-interface Memoize extends MemoizeFunc {
-  strategies: {
+  interface MemoizeFunc {
+    <F extends Func>(fn: F, options?: Options<F>): F;
+  }
+
+  const strategies: {
     variadic: MemoizeFunc;
     monadic: MemoizeFunc;
-  };
+  }
 }
 
-declare const memoize: Memoize;
+declare function memoize<F extends Func>(fn: F, options?: memoize.Options<F>): F;
 
-export default memoize;
+export = memoize;

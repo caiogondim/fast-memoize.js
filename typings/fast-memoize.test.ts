@@ -1,10 +1,10 @@
-import memoize, { Options, Cache, Serializer } from "fast-memoize";
+import memoize = require("fast-memoize");
 
 function add(a: number, b: number): number {
   return a + b;
 }
 
-const cache: Cache<string, number> = {
+const cache: memoize.Cache<string, number> = {
   create: () => {
     const storage = new Map<string, number>();
       return {
@@ -29,9 +29,9 @@ const cache: Cache<string, number> = {
  
 };
 
-const serializer: Serializer = (args: any[]) => args.join("-");
+const serializer: memoize.Serializer = (args: any[]) => args.join("-");
 
-const options: Options<typeof add> = {
+const options: memoize.Options<typeof add> = {
   cache,
   serializer,
   strategy: memoize.strategies.variadic
