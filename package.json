@@ -21,7 +21,7 @@
     "test": "jest",
     "test:all": "npm run lint && npm run test:typescript && npm run test",
     "test:coverage": "covert test/*.js",
-    "test:typescript": "cd ./typings/tests && npm install-test"
+    "test:typescript": "tsc -P typings"
   },
   "files": [
     "README.md",
@@ -54,6 +54,7 @@
     "ora": "^0.3.0",
     "ramda": "^0.22.1",
     "standard": "^10.0.2",
+    "typescript": "^4.9.5",
     "underscore": "^1.8.3"
   },
   "jest": {
